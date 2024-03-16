@@ -4,7 +4,7 @@ Post and share your favrite photos.
 
 ![](GIF)
 
-**Link to project:** [Pokémon Catalog](URL)
+**Link to project:** [Ottergram](URL)
 
 ## How It's Made
 
