@@ -1,6 +1,8 @@
+
 const express = require('express');
 const router = express.Router();
+const NoAuthController = require('../controllers/no-auth-controller.js');
 
-router.get('/', (req, res) => {
-    res.render("feed_no_auth.ejs");
-})
+router.get('/', NoAuthController.getFeed);
+
+module.exports = router;

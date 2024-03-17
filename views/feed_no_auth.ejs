@@ -17,55 +17,44 @@
         <h1>All posts</h1>
 
         <section class="feed-posts">
-            <div class="feed-post-container">
-                <div class="upper-feed-post">
-                    <a href="#"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
-                    <a href="#"><span>User</span></a>
-                </div>
-                <div class="post-pic">
-                    <a href="#"><img src="https://i.imgur.com/4U1etsu.jpeg" alt="cute otter picture"></a>
-                </div>
-                <div class="lower-feed-post">
-                    <div class="likes-comments">
-                        <div>
-                            <a href="#"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
-                            <span>55</span>
-                        </div>
-                        <div>
-                            <a href="#"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
-                            <span>12</span>
-                        </div>
+            <% for (let index = 0; index < allPosts.length; index ++){%>
+                <div class="feed-post-container">
+                    <div class="upper-feed-post">
+                        <a href="#"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
+                        <a href="#"><span>User</span></a>
                     </div>
-                    <div class="post-date">
-                        <span>Posted 1 hour ago</span>
+                    <div class="post-pic">
+                        <a href="#"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
                     </div>
-                </div>
-            </div>
-
-            <div class="feed-post-container">
-                <div class="upper-feed-post">
-                    <a href="#"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
-                    <a href="#"><span>User</span></a>
-                </div>
-                <div class="post-pic">
-                    <a href="#"><img src="https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/t/n/tnc_63942618_4000x2200.jpg?crop=0%2C0%2C4000%2C2200&wid=4000&hei=2200&scl=1.0" alt="cute otter picture"></a>
-                </div>
-                <div class="lower-feed-post">
-                    <div class="likes-comments">
-                        <div>
-                            <a href="#"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
-                            <span>55</span>
+                    <div class="lower-feed-post">
+                        <div class="likes-comments">
+                            <div>
+                                <a href="#"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
+                                <% if (allPosts[index].numComments == null){ %>
+                                    <span>0</span>
+                                <% } else { %>
+                                    <span><%= allPosts[index].likes %></span>
+                                <% } %>
+                            </div>
+                            <div>
+                                <a href="#"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
+                                <% if (allPosts[index].numComments == null){ %>
+                                    <span>0</span>
+                                <% } else { %>
+                                    <span><%= allPosts[index].numComments %></span>
+                                <% } %>
+                            </div>
                         </div>
-                        <div>
-                            <a href="#"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
-                            <span>12</span>
+                        <div class="post-date">
+                            <% if (allPosts[index].datePosted == null){ %>
+                                <span>Posted along time ago, in a galaxy far, far away...</span>
+                            <% } else { %>
+                                <span><%= allPosts[index].datePosted %></span>
+                            <% } %>
                         </div>
                     </div>
-                    <div class="post-date">
-                        <span>Posted 1 hour ago</span>
-                    </div>
                 </div>
-            </div>
+            <% } %>
         </section>
     </main>
 </body>

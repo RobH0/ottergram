@@ -6,12 +6,13 @@ class Mongo{
         this.dbConnectionURI = process.env.MONGODB_AUTH_URI;
         this.dbName = process.env.DB_NAME;
         this.client;
-        this.db;        
+        this.db;
+        this.collection;        
     }
 
     async init(){
         try{
-            this.client = await new MongoClient(this.dbConnectionURI);
+            this.client = new MongoClient(this.dbConnectionURI);
             await this.client.connect();
             console.log("DB connection established.");
             this.db = this.client.db(this.dbName);
@@ -22,7 +23,7 @@ class Mongo{
     }
 
     async setCollection(collectionName){
-        return this.db.collection(collectionName);
+        return await this.db.collection(collectionName);
     }
 }
 

@@ -1,6 +1,6 @@
 # Ottergram
 
-Post and share your favrite photos.
+Post and share your favorite photos.
 
 ![](GIF)
 

@@ -27,11 +27,7 @@ class NodeMain{
         this.app.use(this.express.json());
         this.app.use(this.express.urlencoded({ extended: false }));
 
-        //this.app.use('/', this.noAuthRoutes);
-
-        this.app.get('/', (req, res) =>{
-            res.render("feed_no_auth.ejs")
-        });
+        this.app.use('/', this.noAuthRoutes);
 
         this.app.listen(this.port, (() => console.log(`Server listening on port ${this.port}`)));
     }
