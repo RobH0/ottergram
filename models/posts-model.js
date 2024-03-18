@@ -15,7 +15,6 @@ class PostsModel{
         }
     }
 
-    // FIX THIS. Find() doesn't return anything.
     async getAllPosts(){
         try{
             if (this.collection == null){

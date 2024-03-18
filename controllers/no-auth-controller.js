@@ -1,4 +1,5 @@
 const PostsModel = require('../models/posts-model.js')
+const UsersModel = require('../models/users-model.js')
 
 
 class NoAuthController{
@@ -36,14 +37,19 @@ class NoAuthController{
     async getFeed(req, res){
         try{
             let posts = await PostsModel.getAllPosts();
-            //console.log(`posts: ${JSON.stringify(posts)}`);
             let currentDate = new Date();
-            posts.forEach((element) => {
-                if (element.datePosted != null){
-                    let dateString = this.calcTimeDiff(element.datePosted, currentDate);
-                    element.datePosted = dateString;
-                }                
-            });
+
+            for (let index = 0; index < posts.length; index++){
+                
+                if (posts[index].datePosted != null){
+                    let dateString = this.calcTimeDiff(posts[index].datePosted, currentDate);
+                    posts[index].datePosted = dateString;
+                }
+                
+                let userInfo = await UsersModel.getUsernameAndPic(posts[index].createdBy);
+                posts[index].postByUsername = userInfo.username;
+                posts[index].profilePic = userInfo.profilePic;
+            }
             res.render("feed_no_auth.ejs", { allPosts : posts});
         }catch (err){
             console.error(err);

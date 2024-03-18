@@ -20,24 +20,29 @@
             <% for (let index = 0; index < allPosts.length; index ++){%>
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
-                        <a href="#"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
-                        <a href="#"><span>User</span></a>
+                        <a href="/login"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
+                        
+                        <% if (allPosts[index].postByUsername == ""){ %>
+                            <a href="/login"><span>Unknown</span></a>
+                        <% } else { %>
+                            <a href="/login"><span><%= allPosts[index].postByUsername %></span></a>
+                        <% } %>
                     </div>
                     <div class="post-pic">
-                        <a href="#"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
+                        <a href="/login"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
                     </div>
                     <div class="lower-feed-post">
                         <div class="likes-comments">
                             <div>
-                                <a href="#"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
-                                <% if (allPosts[index].numComments == null){ %>
+                                <a href="/login"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
+                                <% if (allPosts[index].likes == null){ %>
                                     <span>0</span>
                                 <% } else { %>
                                     <span><%= allPosts[index].likes %></span>
                                 <% } %>
                             </div>
                             <div>
-                                <a href="#"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
+                                <a href="/login"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
                                 <% if (allPosts[index].numComments == null){ %>
                                     <span>0</span>
                                 <% } else { %>
