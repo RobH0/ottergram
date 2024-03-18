@@ -54,7 +54,23 @@ class NoAuthController{
         }catch (err){
             console.error(err);
         }
-    }    
+    }
+    
+    getLogin(req, res){
+        try{
+            res.render("login.ejs");
+        }catch (err){
+            console.error(err);
+        }
+    }
+
+    getRegister(req, res){
+        try{
+            res.render("register.ejs");
+        }catch (err){
+            console.error(err);
+        }
+    }
 }
 
 module.exports = new NoAuthController;
