@@ -15,17 +15,22 @@ class UsersModel{
         }
     }
 
-    async getUsername(userID){
+    async getUsernameAndPic(userID){
         try{
             if (this.collection == null){
                 await this.initCollection();
             }
             let queryResult = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0}});
             //console.log(`getUsername username: ${username.username}`);
+            
             try{
-                return queryResult.username;
+                let check = queryResult.username;
+                return queryResult;
             } catch(err){
-                return null;
+                return {
+                    username: "",
+                    profilePic: "/imgs/icons/otter-logo.svg"
+                };
             }
             
         }catch (err){

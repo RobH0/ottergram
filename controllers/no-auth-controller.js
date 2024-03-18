@@ -40,14 +40,16 @@ class NoAuthController{
             let currentDate = new Date();
 
             for (let index = 0; index < posts.length; index++){
+                
                 if (posts[index].datePosted != null){
                     let dateString = this.calcTimeDiff(posts[index].datePosted, currentDate);
                     posts[index].datePosted = dateString;
                 }
-                let username = await UsersModel.getUsername(posts[index].createdBy);
-                posts[index].postByUsername = username;
+                
+                let userInfo = await UsersModel.getUsernameAndPic(posts[index].createdBy);
+                posts[index].postByUsername = userInfo.username;
+                posts[index].profilePic = userInfo.profilePic;
             }
-            console.log(`allPosts ${JSON.stringify(posts)}`);
             res.render("feed_no_auth.ejs", { allPosts : posts});
         }catch (err){
             console.error(err);

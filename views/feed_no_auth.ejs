@@ -20,9 +20,9 @@
             <% for (let index = 0; index < allPosts.length; index ++){%>
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
-                        <a href="/login"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
+                        <a href="/login"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                         
-                        <% if (allPosts[index].postByUsername == null){ %>
+                        <% if (allPosts[index].postByUsername == ""){ %>
                             <a href="/login"><span>Unknown</span></a>
                         <% } else { %>
                             <a href="/login"><span><%= allPosts[index].postByUsername %></span></a>
