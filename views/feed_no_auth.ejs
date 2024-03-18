@@ -21,7 +21,12 @@
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
                         <a href="/login"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
-                        <a href="/login"><span>User</span></a>
+                        
+                        <% if (allPosts[index].postByUsername == null){ %>
+                            <a href="/login"><span>Unknown</span></a>
+                        <% } else { %>
+                            <a href="/login"><span><%= allPosts[index].postByUsername %></span></a>
+                        <% } %>
                     </div>
                     <div class="post-pic">
                         <a href="/login"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
@@ -30,7 +35,7 @@
                         <div class="likes-comments">
                             <div>
                                 <a href="/login"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
-                                <% if (allPosts[index].numComments == null){ %>
+                                <% if (allPosts[index].likes == null){ %>
                                     <span>0</span>
                                 <% } else { %>
                                     <span><%= allPosts[index].likes %></span>

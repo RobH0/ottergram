@@ -1,8 +1,8 @@
 const mongo = require('../config/database-config');
 
-class PostsModel{
+class UsersModel{
     constructor(){
-        this.collectionNameStr = 'posts';
+        this.collectionNameStr = 'users';
         this.collection;
     }
 
@@ -15,17 +15,23 @@ class PostsModel{
         }
     }
 
-    async getAllPosts(){
+    async getUsername(userID){
         try{
             if (this.collection == null){
                 await this.initCollection();
             }
-            let posts = await this.collection.find().sort({ datePosted: -1}).toArray();
-            return posts;
+            let queryResult = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0}});
+            //console.log(`getUsername username: ${username.username}`);
+            try{
+                return queryResult.username;
+            } catch(err){
+                return null;
+            }
+            
         }catch (err){
             console.error(err);
         }
     }
 }
 
-module.exports = new PostsModel;
+module.exports = new UsersModel;
