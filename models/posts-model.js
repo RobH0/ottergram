@@ -26,6 +26,20 @@ class PostsModel{
             console.error(err);
         }
     }
+
+    async getUserPosts(userID){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            let posts = await this.collection.find({createdBy: userID}).sort({ datePosted: -1}).toArray();
+            console.log(JSON.stringify(posts));
+            return posts;
+        }catch (err){
+            console.error(err);
+        }
+    }
+    
 }
 
 module.exports = new PostsModel;

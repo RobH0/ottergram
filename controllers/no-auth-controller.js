@@ -1,5 +1,5 @@
-const PostsModel = require('../models/posts-model.js')
-const UsersModel = require('../models/users-model.js')
+const PostsModel = require('../models/posts-model.js');
+const UsersModel = require('../models/users-model.js');
 
 
 class NoAuthController{
@@ -27,6 +27,8 @@ class NoAuthController{
             return 'Posted ' + weeks + ' weeks ago';
         } else if (days >= 1){
             return 'Posted ' + days + ' days ago';
+        } else if (hours >= 1){
+            return 'Posted ' + hours + ' hours ago';    
         } else if (minutes >= 1){
             return 'Posted ' + minutes + ' minutes ago';
         }else if (seconds >= 1){
@@ -43,6 +45,7 @@ class NoAuthController{
                 
                 if (posts[index].datePosted != null){
                     let dateString = this.calcTimeDiff(posts[index].datePosted, currentDate);
+                    console.log(dateString);
                     posts[index].datePosted = dateString;
                 }
                 

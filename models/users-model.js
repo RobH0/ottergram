@@ -21,7 +21,7 @@ class UsersModel{
             if (this.collection == null){
                 await this.initCollection();
             }
-            let queryResult = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0}});
+            let queryResult = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0, bio: 0}});
             
             try{
                 let check = queryResult.username;
@@ -80,6 +80,15 @@ class UsersModel{
         }
         let result = await this.collection.findOne({_id: new ObjectID(userID)});
         return result;
+    }
+
+    async getProfileInfo(userID){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+        let result = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0}});
+        console.log(`getProfileInfo: ${JSON.stringify(result)}`);
+        return result
     }
 }
 
