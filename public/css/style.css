@@ -83,15 +83,26 @@ main {
     width: 90%;
 }
 
-.upper-feed-post .user-profile-pic{
-    height: 60px;
-    width: 60px;
+
+/* profil pic styling */
+
+.upper-feed-post .user-profile-pic, .large-profile-pic{   
     border: 2px solid black;
     padding: 1%;
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
     margin-right: 1rem;
+}
+
+.user-profile-pic{
+    height: 60px;
+    width: 60px;
+}
+
+.large-profile-pic{
+    height: 150px;
+    width: 150px;
 }
 
 .post-pic{
@@ -204,17 +215,17 @@ main {
     border-radius: 5px;
 }*/
 
-.sign-in-btn{
+.sign-in-btn, .sign-out-btn{
     margin: 1rem;
     padding: 0;
     border: 0;
-    height: 55px;
+    height: 55px; 
     background-color: rgb(46, 46, 46);
     color: white;
     border-radius: 5px;
 }
 
-.sign-in-btn:hover{
+.sign-in-btn:hover, .sign-out-btn:hover{
     background-color: black;
 }
 
@@ -222,7 +233,66 @@ main {
     align-items: left;
 }
 
+/* profile page styling */
 
+.sign-out-btn{
+    width: 100px;
+    height: 35px;
+    font-size: 1.1rem;
+    margin: 0 0 0 10px;
+}
+
+.profile-info{
+    margin: 5vh 0;
+    padding: 25px;
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.profile-info-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-upper{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.cog-icon{
+    height: 40px;
+    width: auto;
+}
+
+.profile-lower{
+    display: flex;
+    justify-content: space-between;
+
+}
+.gallery{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    /*grid-template-rows: 25% 25% 25% 25%;*/
+    gap: 10px;
+    margin: 0 5%;
+}
+
+.post-preview img{
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.post-preview-bot{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0 5%;
+}
 
 
 

@@ -8,7 +8,7 @@ class NodeMain{
         require('dotenv').config();
         this.session = require('express-session');
         this.noAuthRoutes = require('./routes/no_auth_routes.js');
-        //this.catalogRoutes = require('./routes/catalogRoutes');
+        this.profileRoutes = require('./routes/profile_routes.js');
         this.mongo  = require('./config/database-config');
         this.MongoStore = require('connect-mongo');
         this.flash = require('express-flash');
@@ -47,6 +47,7 @@ class NodeMain{
         this.app.use(this.flash());
 
         this.app.use('/', this.noAuthRoutes);
+        this.app.use('/', this.profileRoutes);
 
         this.app.listen(this.port, (() => console.log(`Server listening on port ${this.port}`)));
     }
