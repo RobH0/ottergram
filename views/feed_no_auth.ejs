@@ -23,9 +23,9 @@
                         <a href="/login"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                         
                         <% if (allPosts[index].postByUsername == ""){ %>
-                            <a href="/login"><span>Unknown</span></a>
+                            <a href="/login"><h3>Unknown</h3></a>
                         <% } else { %>
-                            <a href="/login"><span><%= allPosts[index].postByUsername %></span></a>
+                            <a href="/login"><h3><%= allPosts[index].postByUsername %></h3></a>
                         <% } %>
                     </div>
                     <div class="post-pic">
@@ -34,7 +34,7 @@
                     <div class="lower-feed-post">
                         <div class="likes-comments">
                             <div>
-                                <a href="/login"><img src="/imgs/icons/like-svgrepo-com.svg" alt="heart icon"></a>
+                                <a href="/login"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon"></a>
                                 <% if (allPosts[index].likes == null){ %>
                                     <span>0</span>
                                 <% } else { %>
@@ -42,7 +42,7 @@
                                 <% } %>
                             </div>
                             <div>
-                                <a href="/login"><img src="/imgs/icons/comment-simple-lines.svg" alt="comment icon"></a>
+                                <a href="/login"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
                                 <% if (allPosts[index].numComments == null){ %>
                                     <span>0</span>
                                 <% } else { %>

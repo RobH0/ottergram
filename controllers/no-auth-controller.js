@@ -45,7 +45,6 @@ class NoAuthController{
                 
                 if (posts[index].datePosted != null){
                     let dateString = this.calcTimeDiff(posts[index].datePosted, currentDate);
-                    console.log(dateString);
                     posts[index].datePosted = dateString;
                 }
                 
