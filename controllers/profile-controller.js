@@ -11,5 +11,11 @@ module.exports = {
         console.log(userPostInfo[0]._id);
         console.log()
         res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
+    },
+
+    getCreatePost: async (req, res) =>{
+        let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
+        console.log(JSON.stringify(currentUserInfo.profilePic));
+        res.render('create_post.ejs', {userInfo: currentUserInfo});
     }
 }

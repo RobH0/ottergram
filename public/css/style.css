@@ -87,7 +87,7 @@ main {
 
 /* profil pic styling */
 
-.upper-feed-post .user-profile-pic, .large-profile-pic{   
+.user-profile-pic, .large-profile-pic{   
     border: 4px solid black;
     padding: 0;
     border-radius: 50%;
@@ -96,10 +96,17 @@ main {
     margin-right: 1rem;
 }
 
-.user-profile-pic{
+nav .user-profile-pic{
+    height: 50px;
+    width: 50px;
+} 
+
+.upper-feed-post .user-profile-pic{
     height: 65px;
     width: 65px;
 }
+
+
 
 .large-profile-pic{
     height: 160px;
@@ -238,11 +245,40 @@ main {
 
 /* profile page styling */
 
+.right-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+}
+
+.nav-with-pic .right-nav{
+    width: 225px;
+}
+
+.right-nav .user-profile-pic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+}
+
+.post-link{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.post-link img{
+    height: 20px;
+}
+
 .sign-out-btn{
     width: 100px;
     height: 35px;
     font-size: 1.1rem;
-    margin: 0 0 0 10px;
+    margin: 0;
+    /*margin: 0 0 0 10px;*/
 }
 
 .profile-info{

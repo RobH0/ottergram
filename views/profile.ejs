@@ -12,7 +12,11 @@
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav">
                 <a href="/">Feed</a>
-                <button class="sign-out-btn">Sign out</button>
+                <a class="post-link" href="/post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
             </div>
         </nav>
     </header>
@@ -32,9 +36,9 @@
                     <p><%= userInfo.bio %></p>
                 </div>
                 <div class="profile-lower">
-                    <span>6 posts</span>
-                    <span>6 followers</span>
-                    <span>6 following</span>
+                    <span><%= posts.length %> posts</span>
+                    <a href="/followers"><span>6 followers</span></a>
+                    <a href="/following"><span>6 following</span></a>
                 </div>
             </div>
         </section>

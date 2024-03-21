@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head_links.ejs') %>
+    <title>Ottergram: new post</title>
+</head>
+<body>
+    <header>
+        <nav class="nav-with-pic">
+            <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+            <div class="right-nav">
+                <a href="/">Feed</a>
+                <a href="/profile"><img class="user-profile-pic" src="<%= userInfo.profilePic %>" alt="user's post"></a>
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
+            </div>
+        </nav>
+    </header>
+    <h1>New post</h1>
+</body>
+</html>
