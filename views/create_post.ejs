@@ -20,6 +20,49 @@
             </div>
         </nav>
     </header>
-    <h1>New post</h1>
+    <main>
+        <h1>New post</h1>
+        <section class="new-post-details">
+            <h2>Post details</h2>
+            <h3>Upload image or GIF</h3>
+            <div class="upload-zone">
+                <img class="photo-upload-img" src="/imgs/icons/photo-upload.svg">
+                <p>Drag & drop or select file from your device.</p>
+                <input type="file" class="choose-file" name="choose-file" accept="image/png, image/jpeg, .gif">
+            </div>
+            <button class="post-now-btn sign-out-btn">Post now</button>
+        </section>
+        <section class="new-post-preview">
+            <h2>Preview</h2>
+            <div class="feed-post-container">
+                <div class="upper-feed-post">
+                    <img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post">                    
+                    <h3>Unknown</h3>
+                </div>
+                <div class="post-pic">
+                    <img src="" alt="cute otter picture">
+                </div>
+                <div class="lower-feed-post">
+                    <div class="likes-comments">
+                        <div>
+                            <img src="/imgs/icons/like-heart-white.svg" alt="heart icon">
+                            
+                            <span>0</span>
+                            
+                        </div>
+                        <div>
+                            <img src="/imgs/icons/comment-black-outline.svg" alt="comment icon">
+                            <span>0</span>
+                            
+                        </div>
+                    </div>
+                    <div class="post-date">
+                        <span>Posted now</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
 </body>
 </html>
