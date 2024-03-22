@@ -28,6 +28,12 @@ h1 {
     font-size: 2.5rem;
 }
 
+.standard-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Header styling */
 
 header{
@@ -225,7 +231,7 @@ nav .user-profile-pic{
     border-radius: 5px;
 }*/
 
-.sign-in-btn, .sign-out-btn{
+.sign-in-btn, .sign-out-btn, .standard-btn{
     margin: 1rem;
     padding: 0;
     border: 0;
@@ -235,7 +241,7 @@ nav .user-profile-pic{
     border-radius: 5px;
 }
 
-.sign-in-btn:hover, .sign-out-btn:hover{
+.sign-in-btn:hover, .sign-out-btn:hover, .standard-btn:hover{
     background-color: black;
 }
 
@@ -273,7 +279,7 @@ nav .user-profile-pic{
     height: 20px;
 }
 
-.sign-out-btn{
+.sign-out-btn, .standard-btn{
     width: 100px;
     height: 35px;
     font-size: 1.1rem;
@@ -385,6 +391,74 @@ nav .user-profile-pic{
 
 /* New post page styling */
 
+.main{
+    display: flex;
+    justify-content: center;
+}
+
+.new-post-ui{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5% 10%;
+}
+
+.new-post-details{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1% 2%;
+    width: 40%;
+    min-width: 600px;
+}
+
+.upload-zone{
+    
+    background-color: #f6f6f6;
+    padding: 2%;
+    border-radius: 12px;
+    
+}
+
+.upload-zone .inner-border{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 2px dashed black;
+    padding: 2% 5%;
+    border-radius: 12px;
+}
+
+
+
+.upload-zone .photo-upload-img{
+    width: 80px;
+
+}
+
+.choose-file {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+
+.submit-btn-div{
+    display: flex;
+    justify-content: right;
+}
+
+.post-now-btn{
+    margin-top: 10px;
+}
 
 
 
