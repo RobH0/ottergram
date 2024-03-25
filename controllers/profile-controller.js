@@ -1,6 +1,7 @@
 const usersModel = require('../models/users-model.js');
 const postsModel = require('../models/posts-model.js');
 const cloudinary = require('../config/cloudinary-config.js');
+const fs = require('fs').promises;
 
 
 
@@ -19,13 +20,13 @@ module.exports = {
         res.render('create_post.ejs', {userInfo: currentUserInfo});
     },
 
-    // FIX ISSUE WHERE NOT ABLE TO RETRIEVE FILE FROM HTTP POST REQUEST BODY.
-    //BODY-PARSER MAY NOT BE REQUIRED.
+    // To do: implement error handling.
     createNewPost: async (req, res) => {
         console.log(`file uploaded: ${JSON.stringify(req.body)}`);
         this.getYourProfile;
         console.log(req.file.path);
         let result = await cloudinary.uploader.upload(req.file.path);
         console.log(result);
+        await fs.unlink(req.file.path);
     }
 }
