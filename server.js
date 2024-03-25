@@ -12,7 +12,7 @@ class NodeMain{
         this.mongo  = require('./config/database-config');
         this.MongoStore = require('connect-mongo');
         this.flash = require('express-flash');
-
+        this.bodyParser = require('body-parser').urlencoded({ extended: false});
         this.port = process.env.PORT;
         
     }
@@ -26,7 +26,7 @@ class NodeMain{
         this.app.use(this.express.static('public'));
 
         this.app.use(this.express.json());
-        this.app.use(this.express.urlencoded({ extended: false }));
+        this.app.use(this.express.urlencoded({ extended: true }));
         
         const sessionStore = this.MongoStore.create({ mongoUrl: process.env.MONGODB_AUTH_URI,
         dbName: process.env.DB_NAME});
