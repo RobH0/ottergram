@@ -39,6 +39,25 @@ class PostsModel{
             console.error(err);
         }
     }
+
+    async insertNewPost(userID, imgURL){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            await this.collection.insertOne({
+                img: imgURL,
+                datePosted: new Date(),
+                createdBy: userID,
+                likes: 0,
+                numComments: 0,
+                deleted: false
+            })
+
+        } catch (err){
+            console.error(err);
+        }
+    }
     
 }
 

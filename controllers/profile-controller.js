@@ -3,7 +3,11 @@ const postsModel = require('../models/posts-model.js');
 const cloudinary = require('../config/cloudinary-config.js');
 const fs = require('fs').promises;
 
-
+async function getProfileInfo(userID){
+    let userPostInfo = await postsModel.getUserPosts(userID);
+    let currentUserInfo = await usersModel.getProfileInfo(userID);
+    return {postInfo: userPostInfo, userInfo: currentUserInfo}
+}
 
 module.exports = {
     getYourProfile: async (req,res) =>{
@@ -23,10 +27,12 @@ module.exports = {
     // To do: implement error handling.
     createNewPost: async (req, res) => {
         console.log(`file uploaded: ${JSON.stringify(req.body)}`);
-        this.getYourProfile;
         console.log(req.file.path);
         let result = await cloudinary.uploader.upload(req.file.path);
         console.log(result);
         await fs.unlink(req.file.path);
+        await postsModel.insertNewPost(req.user._id, result.secure_url);
+        let info = await getProfileInfo(req.user._id);
+        res.json({success: true});
     }
 }

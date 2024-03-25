@@ -11,7 +11,7 @@ fileUploadForm.addEventListener('submit', postPhoto);
 
 
 
-function postPhoto(event){
+async function postPhoto(event){
     event.preventDefault();
     
     let url = '/new-post'
@@ -21,10 +21,16 @@ function postPhoto(event){
     formData.append('filename', mostRecentFile.name);
 
     try{
-        fetch(url, {
+        let result = await fetch(url, {
             method: 'POST',
             body: formData
         });
+        result = await result.json();
+        if (result.success){
+            console.log('in success');
+            window.location.href = "/profile";
+        }
+        
     }catch (err){
         console.error(err);
     }
