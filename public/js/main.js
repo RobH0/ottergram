@@ -14,22 +14,28 @@ fileUploadForm.addEventListener('submit', postPhoto);
 async function postPhoto(event){
     event.preventDefault();
     
-    let url = '/new-post'
-    let formData = new FormData();
-    console.log(`uploading ${mostRecentFile.name}`);
-    formData.append('file', mostRecentFile);
-    formData.append('filename', mostRecentFile.name);
-
     try{
-        let result = await fetch(url, {
-            method: 'POST',
-            body: formData
-        });
-        result = await result.json();
-        if (result.success){
-            console.log('in success');
-            window.location.href = "/profile";
+        if (mostRecentFile != null){
+            let url = '/new-post'
+            let formData = new FormData();
+            console.log(`uploading ${mostRecentFile.name}`);
+            formData.append('file', mostRecentFile);
+            formData.append('filename', mostRecentFile.name);
+
+            
+            let result = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+            result = await result.json();
+            if (result.success){
+                console.log('in success');
+                window.location.href = "/profile";
+            }
+        }else{
+            console.log('No image/gif file to post.');
         }
+        
         
     }catch (err){
         console.error(err);
@@ -68,9 +74,14 @@ function fileDraggedOver(event){
     event.preventDefault();    
 }
 
+
+// on false return from checkFileType() don't preview file and notify user of incorrect file type.
 function previewImgNow(file){
-    fileReader.readAsDataURL(file);
+    console.log(file.type);
+    if (file.type.includes('image/')){
+        fileReader.readAsDataURL(file);
         fileReader.addEventListener("load", function (){
+            console.log(`\n\n ${this.result} \n\n`);
             previewPostContainer.style.width = "1000px";
             previewImg.src=this.result;
             let currentImgPreview = document.querySelector('.post-pic-img');
@@ -83,4 +94,19 @@ function previewImgNow(file){
             previewPostContainer.style.width = newWidthStr + "px";
             previewPostContainer.style.maxWidth = "100%";
         });
+    } else {
+        alert(`${file.type} files aren't accepted.`);
+        mostRecentFile = null;
+        previewImg.src = 'imgs/post-placeholder.webp';
+    }
+    
+}
+
+// take file.
+// get the first 8 bytes of the file.
+// compare the first 8 bytes of the file to magic bytes of file types that are allowed.
+// if they match any of the file types return true
+// else return false.
+function checkFileType(file){
+    
 }

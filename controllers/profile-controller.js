@@ -26,13 +26,19 @@ module.exports = {
 
     // To do: implement error handling.
     createNewPost: async (req, res) => {
-        console.log(`file uploaded: ${JSON.stringify(req.body)}`);
-        console.log(req.file.path);
-        let result = await cloudinary.uploader.upload(req.file.path);
-        console.log(result);
-        await fs.unlink(req.file.path);
-        await postsModel.insertNewPost(req.user._id, result.secure_url);
-        let info = await getProfileInfo(req.user._id);
-        res.json({success: true});
+        try{
+            console.log(`file uploaded: ${JSON.stringify(req.body)}`);
+            console.log(req.file.path);
+            console.log(`\n\n\n ${JSON.stringify(req.file)} \n\n\n`);
+
+            let result = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
+            console.log(result);
+            await fs.unlink(req.file.path);
+            await postsModel.insertNewPost(req.user._id, result.secure_url);
+            let info = await getProfileInfo(req.user._id);
+            res.json({success: true});
+        } catch(err) {
+            console.error(`Error: ${JSON.stringify(err)}`);
+        }
     }
 }

@@ -343,6 +343,7 @@ nav .user-profile-pic{
     width: 450px;
     position: relative;
     justify-content: center;
+    background-color: white;
 }
 
 .post-preview .post-preview-pic{
@@ -350,6 +351,7 @@ nav .user-profile-pic{
     z-index: 0;
     display: flex;
     justify-content: center;
+    background-color: white;
 }
 
 
