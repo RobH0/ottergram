@@ -82,9 +82,14 @@ module.exports = {
 
     postLogout: async (req, res) => {
         let username = req.user.username;
-        req.logout(() => {
-            console.log(`Logged out ${username}.`);
-            res.redirect('/');
-        });
+        try{
+            req.logout(() => {
+                console.log(`Logged out ${username}.`);
+                res.redirect('/');
+            });
+        }catch (err){
+            console.error(err);
+        }
+        
     }
 }

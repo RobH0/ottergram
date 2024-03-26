@@ -20,7 +20,7 @@ module.exports = multer({
     fileFilter: (req, file, cb) => {
         console.log(file.mimetype);
         if(file.mimetype.includes('image/') == false){
-            console.log('incorrect file type!!!\n\n\n\n')
+            console.log(`Incorrect file type: ${req.file.path}`);
             cb(null, false);
         } else{
             console.log('correct file type');
