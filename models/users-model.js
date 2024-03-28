@@ -90,6 +90,13 @@ class UsersModel{
         //console.log(`getProfileInfo: ${JSON.stringify(result)}`);
         return result
     }
+
+    async updateProfileInfo(userID, imgSrc, bioText){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+        let result = await this.collection.updateOne({ _id: userID}, { $set: { profilePic: imgSrc, bio: bioText}});
+    }
 }
 
 module.exports = new UsersModel;

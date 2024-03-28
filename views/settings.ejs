@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head_links.ejs') %>
+    <title>Ottergram: settings</title>
+</head>
+<body>
+    <header>
+        <nav class="nav-with-pic">
+            <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+            <div class="right-nav">
+                <a href="/">Feed</a>
+                <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Settings</h1>
+        <section class="profile-pic-sec">
+            <% if (profilePic != "") { %>
+                <img class="large-profile-pic" src="<%= profilePic %>" alt="Your profile photo">
+            <% } else { %>
+                <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+            <% } %>
+            
+            <!-- fix form enctype so that image file sent a binary and bio is sent as text-->
+            <form id="change-profile-pic-form" action="/settings" method="post" enctype="multipart/form-data">
+                <label for="change-profile-pic">Change profile pic</label>
+                <input type="file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic">
+                <label for="bio-input">Edit bio</label>
+                <input class="bio-input" name="bioInput" type="text">
+                <button type="submit">Save profile changes</button>
+            </form>
+            
+        </section>
+    </main>
+    
+</body>
+</html>

@@ -26,7 +26,7 @@ module.exports = {
                             return next(err.toString())
                         }
                         console.log(`'${loginUsername.username}' successfully logged in.`);
-                        res.redirect('/');
+                        res.redirect('/feed');
                     });
                 })(req, res, next);
             }else{

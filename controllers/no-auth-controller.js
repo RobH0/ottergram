@@ -2,6 +2,7 @@ const PostsModel = require('../models/posts-model.js');
 const UsersModel = require('../models/users-model.js');
 
 
+
 class NoAuthController{
     constructor() {
         // binding this to getFeed method to prevent this being undefined when the calcTimeDiff method is called within the getFeed method.

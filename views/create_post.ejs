@@ -12,7 +12,11 @@
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav">
                 <a href="/">Feed</a>
-                <a href="/profile"><img class="user-profile-pic" src="<%= userInfo.profilePic %>" alt="user's post"></a>
+                <% if (userInfo.profilePic != "") { %>
+                    <a href="/profile"><img class="user-profile-pic" src="<%= userInfo.profilePic %>" alt="user's post"></a>
+                <% } else { %>
+                    <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                <% } %>
                 <form action="/logout" class="logout-form" method="post">
                     <button type="submit" class="sign-out-btn">Sign out</button>
                 </form>

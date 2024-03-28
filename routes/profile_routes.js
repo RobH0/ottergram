@@ -9,7 +9,8 @@ router.get('/profile', ensureAuth, profileController.getYourProfile);
 router.post('/logout', ensureAuth, authController.postLogout);
 router.get('/new-post', ensureAuth, profileController.getCreatePost);
 router.post('/new-post', ensureAuth, multer.single('file'), profileController.createNewPost);
-// To implement below
-//router.get('/feed', ensureAuth, profileController.getFeed);
+router.get('/feed', ensureAuth, profileController.getPersonalizedFeed);
+router.get('/settings', ensureAuth, profileController.getSettings);
+router.post('/settings', ensureAuth, multer.single('changeProfilePic'),profileController.postSettings);
 
 module.exports = router;
