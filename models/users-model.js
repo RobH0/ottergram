@@ -92,10 +92,25 @@ class UsersModel{
     }
 
     async updateProfileInfo(userID, imgSrc, bioText){
+        let result;
         if (this.collection == null){
             await this.initCollection();
         }
-        let result = await this.collection.updateOne({ _id: userID}, { $set: { profilePic: imgSrc, bio: bioText}});
+        
+        if (bioText == "" && imgSrc === null){
+            result = "No update";
+            return result
+        }else if (bioText != "" && imgSrc === null){
+             result = await this.collection.updateOne({ _id: userID}, { $set: { bio: bioText}});
+             return result;
+        } else if (bioText == "" && imgSrc != null) {
+            result = await this.collection.updateOne({ _id: userID}, { $set: { profilePic: imgSrc }});
+            return result;
+        } else {
+            result = await this.collection.updateOne({ _id: userID}, { $set: { profilePic: imgSrc, bio: bioText}});
+            return result;
+        }
+        
     }
 }
 

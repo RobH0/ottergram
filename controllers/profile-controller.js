@@ -100,15 +100,22 @@ module.exports = {
         try{
             console.log(`change-profile-pic ${JSON.stringify(req.file)}`);
             console.log(`bio-input ${req.body.bioInput}`);
-            if (req.file.path != ""){
-                let uploadResult = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
-            }else{
-                console.log('no profile pic to update');
-            }
-            
+            let newBio = req.body.bioInput;
+            let userID = req.user._id;
 
-            let documentUpdateResult = await usersModel.updateProfileInfo(req.user._id, uploadResult.secure_url, req.body.bioInput);
-            res.redirect('/profile');
+            if (req.file){
+                console.log('file exists');
+                let uploadResult = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
+                console.log(`uploadResult: ${uploadResult}`);
+                let docUpdateResult = await usersModel.updateProfileInfo(userID, uploadResult.secure_url, newBio);
+                console.log(`docUpdateResult: ${docUpdateResult}`);
+                res.redirect('/profile');
+            } else {
+                console.log('no profile pic to update');
+                let docUpdateResult = await usersModel.updateProfileInfo(userID, null, newBio);
+                console.log(`docUpdateResult: ${docUpdateResult}`);
+                res.redirect('/profile');
+            }
         }catch (err){
             console.error(err);
         }
