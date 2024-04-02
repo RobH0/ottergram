@@ -4,6 +4,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ,sans-serif;
     /*background-color: #A1A1A1;*/
     color: black;
+    box-sizing: border-box;
 }
 
 a {
@@ -15,15 +16,23 @@ a:hover{
 }
 
 body {
-    background-color: #eeeeee;
+    background-color: #f6f6f6;
     width: 100%;
     /* Allows for child element backgrounds to take up the whole screen width if required. */
     margin: 0;
+    padding: 0;
 }
 
 h1 {
-    margin-top: 2.5%;
+    margin-top: 1%;
     margin-bottom: 0.5%;
+    font-size: 2.5rem;
+}
+
+.standard-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Header styling */
@@ -42,9 +51,10 @@ nav{
     padding: 0.5% 2%;
     align-items: center;
     font-size: 1.1rem;
+    width: 100%;
 }
 
-nav img{
+nav img, .standard-logo{
     height: 60px;
     width: auto;
 }
@@ -52,7 +62,7 @@ nav img{
 /* main feed styling */
 
 main {
-    width: 100%;
+    width: 99dvw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +73,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 90%;
 }
 
 .feed-post-container{
@@ -82,19 +92,38 @@ main {
     width: 90%;
 }
 
-.upper-feed-post .user-profile-pic{
-    height: 60px;
-    width: 60px;
-    border: 2px solid black;
-    padding: 1%;
+
+/* profil pic styling */
+
+.user-profile-pic, .large-profile-pic{   
+    border: 4px solid black;
+    padding: 0;
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
     margin-right: 1rem;
 }
 
+nav .user-profile-pic{
+    height: 50px;
+    width: 50px;
+} 
+
+.upper-feed-post .user-profile-pic{
+    height: 65px;
+    width: 65px;
+}
+
+
+
+.large-profile-pic{
+    height: 160px;
+    width: 160px;
+}
+
 .post-pic{
-    max-height: 70vh;    
+    max-height: 70vh;
+    width: auto;    
 }
 
 .post-pic img{
@@ -125,11 +154,337 @@ main {
     margin-left: -4px;
 }
 
+/* login and register styling */
+
+.login-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.content-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    height: 50vh;
+    min-width: 250px;
+    min-width: 300px;
+    max-width: 450px;
+    min-height: 500px;
+    padding: 0px 2%;
+}
+
+.content-login h1{
+    margin-bottom: 15%;
+}
+
+.login-main a{
+    text-decoration: underline;
+    color: rgb(139, 139, 139);
+    font-size: 0.9rem;
+}
+
+.reg-span{
+    color: rgb(139, 139, 139);
+    font-size: 0.9rem;
+}
+
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 20vw;
+    max-width: 350px;
+    min-width: 300px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    border-color: rgb(139, 139, 139);
+    border: 1px solid rgb(139, 139, 139);
+}
+
+.login-form span{
+    color: rgb(139, 139, 139);
+    font-size: 0.8rem;
+}
 
 
 
+/* Fix form input sizing and span overlap */
+/*
+.login-form, .login-form input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20vw;
+    max-width: 400px;
+    height: 40px;
+    border-radius: 5px;
+}*/
+
+.sign-in-btn, .sign-out-btn, .standard-btn{
+    margin: 1rem;
+    padding: 0;
+    border: 0;
+    height: 55px; 
+    background-color: rgb(46, 46, 46);
+    color: white;
+    border-radius: 5px;
+}
+
+.sign-in-btn:hover, .sign-out-btn:hover, .standard-btn:hover{
+    background-color: black;
+}
+
+.login-form span{
+    align-items: left;
+}
+
+/* profile page styling */
+
+.right-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+}
+
+.nav-with-pic .right-nav{
+    width: 225px;
+}
+
+.right-nav .user-profile-pic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+}
+
+.post-link{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.post-link img{
+    height: 20px;
+}
+
+.sign-out-btn, .standard-btn{
+    width: 100px;
+    height: 35px;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.profile-info{
+    margin: 5vh 0;
+    padding: 25px;
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 35dvw;
+    min-width: 500px;
+}
+
+.profile-info-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.profile-upper{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.cog-icon{
+    height: 40px;
+    width: auto;
+}
+
+.profile-lower{
+    display: flex;
+    justify-content: space-between;
+
+}
+.gallery{
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    gap: 10px;
+    margin: 0 5dvw 5dvh 5dvw;
+    max-width: 90%;
+
+}
+
+.post-preview img{
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.post-preview{
+    
+    display: flex;
+    height: 450px;
+    width: 450px;
+    position: relative;
+    justify-content: center;
+    background-color: white;
+}
+
+.post-preview .post-preview-pic{
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
 
 
 
+.post-preview-overlay{
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    visibility: hidden;
+}
 
+.post-preview-overlay a:hover{
+    text-decoration: none;
+}
+
+.post-preview-overlay span{
+    color: white;
+}
+
+
+.post-preview .post-preview-pic:hover{
+    filter:blur(0.15rem);
+}
+
+.post-preview:hover .post-preview-pic{
+    filter:blur(0.15rem);
+}
+
+.post-preview-pic:hover + .post-preview-overlay, .post-preview-overlay:hover{
+    visibility:  visible;
+}
+
+.post-preview .likes-comments span{
+    margin-right: 5px;
+}
+
+/* New post page styling */
+
+
+
+.new-post-ui{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 10%;
+}
+
+.new-post-details{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1% 2%;
+    width: 35%;
+    min-width: 600px;
+    max-height: 450px;
+
+}
+
+.new-post-preview{
+    background-color: white;
+    padding: 0 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feed-post-container{
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.upload-zone{
+    
+    background-color: #f6f6f6;
+    padding: 2%;
+    border-radius: 12px;
+    
+}
+
+.upload-zone .inner-border{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 2px dashed black;
+    padding: 2% 5%;
+    border-radius: 12px;
+}
+
+
+
+.upload-zone .photo-upload-img{
+    width: 80px;
+
+}
+
+.choose-file {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+
+.submit-btn-div{
+    display: flex;
+    justify-content: right;
+}
+
+.post-now-btn {
+    margin: 20px 0;
+}
+
+.new-post-preview {
+    margin-left: 5%;
+    width: 35%;
+    max-height: 85dvh;
+}
+
+#new-post-pic{
+    max-height: 50dvh;
+}
 

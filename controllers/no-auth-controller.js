@@ -1,11 +1,12 @@
-const PostsModel = require('../models/posts-model.js')
-const UsersModel = require('../models/users-model.js')
+const PostsModel = require('../models/posts-model.js');
+const UsersModel = require('../models/users-model.js');
+
 
 
 class NoAuthController{
     constructor() {
         // binding this to getFeed method to prevent this being undefined when the calcTimeDiff method is called within the getFeed method.
-        this.getFeed = this.getFeed.bind(this) // <- Add this
+        this.getFeed = this.getFeed.bind(this);
     }
     
     calcTimeDiff(datePosted, currentDate){
@@ -27,6 +28,8 @@ class NoAuthController{
             return 'Posted ' + weeks + ' weeks ago';
         } else if (days >= 1){
             return 'Posted ' + days + ' days ago';
+        } else if (hours >= 1){
+            return 'Posted ' + hours + ' hours ago';    
         } else if (minutes >= 1){
             return 'Posted ' + minutes + ' minutes ago';
         }else if (seconds >= 1){
@@ -54,7 +57,23 @@ class NoAuthController{
         }catch (err){
             console.error(err);
         }
-    }    
+    }
+    
+    getLogin(req, res){
+        try{
+            res.render("login.ejs");
+        }catch (err){
+            console.error(err);
+        }
+    }
+
+    getRegister(req, res){
+        try{
+            res.render("register.ejs");
+        }catch (err){
+            console.error(err);
+        }
+    }
 }
 
 module.exports = new NoAuthController;

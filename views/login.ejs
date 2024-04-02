@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head_links.ejs') %>
+    <title>Ottergram: Login</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+            <a href="/register">Register</a>
+        </nav>
+    </header>
+
+    <main class="login-main">
+        <div class="content-login">
+            <img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo">
+            <h1>Sign in</h1>
+            <form class="login-form" action="/login" method="post">
+                <label for="username">
+                    <span>Username</span>
+                    <input type="text" id="username" name="username">
+                </label>
+                <label for="password">
+                    <span>Password</span>
+                    <input type="password" id="password" name="password">
+                </label>
+                <input type="submit" value="Sign in" class="sign-in-btn">
+            </form>
+            <span class="reg-span">Don't have an account? <a class="register-link" href="/register">Create account</a></span>
+        </div>
+    </main>
+</body>
+</html>

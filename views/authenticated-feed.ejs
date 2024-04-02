@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partials/head_links.ejs') %>
-    <title>Ottergram</title>
+    <title>Ottergram: Your profile</title>
 </head>
 <body>
     <header>
         <nav>
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
-            <a href="/login">Sign in</a>
+            <div class="right-nav">
+                <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <% if (profilePic != "") { %>
+                    <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                <% } else { %>
+                    <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                <% } %>
+                
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
+            </div>
         </nav>
     </header>
     <main>
         <h1>All posts</h1>
-
         <section class="feed-posts">
             <% for (let index = 0; index < allPosts.length; index ++){%>
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
-                        <% if (allPosts[index].profilePic != ""){ %>
+                        <% if (allPosts[index].profilePic != "") { %>
                             <a href="/login"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                         <% } else { %>
-                            <a href="/login"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="user's post"></a>
+                            <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
                         <% } %>
+                        
                         
                         <% if (allPosts[index].postByUsername == ""){ %>
                             <a href="/login"><h3>Unknown</h3></a>
@@ -65,6 +77,7 @@
                 </div>
             <% } %>
         </section>
+    
     </main>
 </body>
 </html>
