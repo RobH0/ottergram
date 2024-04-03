@@ -3,11 +3,19 @@ const previewImg = document.querySelector('.post-pic-img');
 const previewPostContainer = document.querySelector('.feed-post-container');
 const postNowBtn = document.querySelector('.post-now-btn');
 const fileUploadForm = document.querySelector('.file-upload-form');
+const profilePic = document.querySelector('.settings-options-sec .large-profile-pic')
 
 const fileReader = new FileReader();
 var mostRecentFile;
 
-fileUploadForm.addEventListener('submit', postPhoto);
+try{
+    fileUploadForm.addEventListener('submit', postPhoto);
+}catch{
+    console.log("Not on /create-post");
+}
+
+
+
 
 
 
@@ -41,6 +49,20 @@ async function postPhoto(event){
         console.error(err);
     }
 
+}
+
+function previewProfilePic(event){
+    console.log(`event.target.value: ${event.target.value}`);
+    let img = event.target.files[0];
+    console.log(img.type);
+    if (img.type.includes('image/')){
+        console.log('in if');
+        fileReader.readAsDataURL(img);
+        fileReader.addEventListener("load", function (){
+            profilePic.src = this.result;
+        });
+
+    }
 }
 
 

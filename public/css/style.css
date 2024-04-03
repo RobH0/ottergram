@@ -504,6 +504,7 @@ nav .user-profile-pic{
     align-items: center;
     height: 70vh;
     width: 30vw;
+    min-width: fit-content;
 }
 
 #change-profile-pic-form{

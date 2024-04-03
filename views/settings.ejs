@@ -34,7 +34,7 @@
             <form id="change-profile-pic-form" action="/settings" method="post" enctype="multipart/form-data">
                 <div class="upper-settings-form">
                     <label class="standard-btn" for="change-profile-pic">Change profile picture</label>
-                    <input type="file" class="choose-file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic">
+                    <input type="file" class="choose-file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic" onchange="previewProfilePic(event)">
                 </div>
                 
                 <div class="lower-settings-form">
@@ -48,6 +48,6 @@
             
         </section>
     </main>
-    
+    <script src="/js/main.js"></script>
 </body>
 </html>
