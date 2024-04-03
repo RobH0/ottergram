@@ -89,7 +89,8 @@ module.exports = {
 
     getSettings: async (req, res) => {
         try{
-            res.render('settings.ejs', { profilePic : req.user.profilePic});
+            console.log(req.user.bio);
+            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio});
 
         }catch (err){
             console.error(err);

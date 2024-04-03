@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <nav class="nav-with-pic">
+        <nav class="nav-3">
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav">
                 <a href="/">Feed</a>
@@ -33,15 +33,16 @@
             <!-- fix form enctype so that image file sent a binary and bio is sent as text-->
             <form id="change-profile-pic-form" action="/settings" method="post" enctype="multipart/form-data">
                 <div class="upper-settings-form">
-                    <label for="change-profile-pic">Change profile pic</label>
+                    <label for="change-profile-pic">Change your profile picture</label>
                     <input type="file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic">
                 </div>
                 
                 <div class="lower-settings-form">
-                    <label for="bio-input">Edit bio</label>
-                    <input class="bio-input" name="bioInput" type="text">
-                    <button class="save-changes sign-out-btn" type="submit">Save changes</button>
+                    <label for="bio-input">Edit your bio:</label>
+                    <textarea class="bio-input" name="bioInput" type="text" maxlength="150"><%= bio %></textarea>
+                    
                 </div>
+                <button class="save-changes sign-out-btn" type="submit">Save changes</button>
                 
             </form>
             
