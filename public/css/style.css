@@ -35,6 +35,10 @@ h1 {
     align-items: center;
 }
 
+.standard-btn:hover, .sign-in-btn:hover, .sign-out-btn:hover{
+    cursor: pointer;
+}
+
 /* Header styling */
 
 header{
@@ -533,4 +537,12 @@ nav .user-profile-pic{
 
 .profile-center p {
     white-space: pre-wrap;
+}
+
+.settings-options-sec .standard-btn{
+    width: 200px;
+}
+
+.settings-options-sec .large-profile-pic{
+    margin: 0;
 }
