@@ -89,7 +89,8 @@ module.exports = {
 
     getSettings: async (req, res) => {
         try{
-            res.render('settings.ejs', { profilePic : req.user.profilePic});
+            console.log(req.user.bio);
+            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio});
 
         }catch (err){
             console.error(err);
@@ -100,16 +101,17 @@ module.exports = {
         try{
             let newBio = req.body.bioInput;
             let userID = req.user._id;
+            let currentBio = req.user.bio;
 
             if (req.file){
                 let uploadResult = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
-                let docUpdateResult = await usersModel.updateProfileInfo(userID, uploadResult.secure_url, newBio);
+                let docUpdateResult = await usersModel.updateProfileInfo(userID, uploadResult.secure_url, newBio, currentBio);
                 res.redirect('/profile');
-            } else if (!req.file && newBio ==""){
+            } else if (!req.file && (newBio =="" || newBio == currentBio)){
                 console.log('Nothing to update.');
                 res.redirect('/settings');
             } else {
-                let docUpdateResult = await usersModel.updateProfileInfo(userID, null, newBio);
+                let docUpdateResult = await usersModel.updateProfileInfo(userID, null, newBio, currentBio);
                 res.redirect('/profile');
             }
         }catch (err){

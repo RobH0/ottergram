@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <nav class="nav-with-pic">
+        <nav class="nav-3">
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav">
                 <a href="/">Feed</a>
@@ -23,7 +23,7 @@
     </header>
     <main>
         <h1>Settings</h1>
-        <section class="profile-pic-sec">
+        <section class="profile-pic-sec settings-options-sec">
             <% if (profilePic != "") { %>
                 <img class="large-profile-pic" src="<%= profilePic %>" alt="Your profile photo">
             <% } else { %>
@@ -32,15 +32,22 @@
             
             <!-- fix form enctype so that image file sent a binary and bio is sent as text-->
             <form id="change-profile-pic-form" action="/settings" method="post" enctype="multipart/form-data">
-                <label for="change-profile-pic">Change profile pic</label>
-                <input type="file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic">
-                <label for="bio-input">Edit bio</label>
-                <input class="bio-input" name="bioInput" type="text">
-                <button type="submit">Save profile changes</button>
+                <div class="upper-settings-form">
+                    <label class="standard-btn" for="change-profile-pic">Change profile picture</label>
+                    <input type="file" class="choose-file" id="change-profile-pic" name="changeProfilePic" accept="image/*" value="change-profile-pic" onchange="previewProfilePic(event)">
+                </div>
+                
+                <div class="lower-settings-form">
+                    <label for="bio-input">Edit your bio:</label>
+                    <textarea class="bio-input" name="bioInput" type="text" maxlength="150"><%= bio %></textarea>
+                    
+                </div>
+                <button class="save-changes sign-out-btn" type="submit">Save changes</button>
+                
             </form>
             
         </section>
     </main>
-    
+    <script src="/js/main.js"></script>
 </body>
 </html>
