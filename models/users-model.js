@@ -91,19 +91,19 @@ class UsersModel{
         return result
     }
 
-    async updateProfileInfo(userID, imgSrc, bioText){
+    async updateProfileInfo(userID, imgSrc, bioText, oldBio){
         let result;
         if (this.collection == null){
             await this.initCollection();
         }
         
-        if (bioText == "" && imgSrc === null){
+        if ((bioText == "" || bioText == oldBio) && imgSrc === null){
             result = "No update";
             return result
-        }else if (bioText != "" && imgSrc === null){
+        }else if ((bioText != "" && bioText != oldBio) && imgSrc === null){
              result = await this.collection.updateOne({ _id: userID}, { $set: { bio: bioText}});
              return result;
-        } else if (bioText == "" && imgSrc != null) {
+        } else if ((bioText == "" || bioText == oldBio) && imgSrc != null) {
             result = await this.collection.updateOne({ _id: userID}, { $set: { profilePic: imgSrc }});
             return result;
         } else {
