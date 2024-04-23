@@ -29,8 +29,17 @@
             <% } %>
             <div class="profile-info-right">
                 <div class="profile-upper">
+                    
                     <h1><%= userInfo.username %></h1>
-                    <a href="/settings"><img class="cog-icon" src="/imgs/icons/cog-svgrepo-com.svg"></a>
+                    <div class="settings-profile">
+                        <img class="cog-icon" src="/imgs/icons/cog-svgrepo-com.svg">
+                        <div class="settings-dropdown">
+                            <div class="dropdown-items">
+                                <a href="/settings"><span class="top-dropdown-item">Profile settings</span></a>
+                                <button id="manage-photos-btn" class="bot-dropdown-item">Manage photos</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="profile-center">
                     <!-- HTML escaped -->
@@ -60,5 +69,6 @@
         <% } %>            
         </section>
     </main>
+    <script src="/js/main.js"></script>
 </body>
 </html>

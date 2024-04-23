@@ -4,6 +4,7 @@ const previewPostContainer = document.querySelector('.feed-post-container');
 const postNowBtn = document.querySelector('.post-now-btn');
 const fileUploadForm = document.querySelector('.file-upload-form');
 const profilePic = document.querySelector('.settings-options-sec .large-profile-pic')
+const mngPhotosBtn = document.querySelector('#manage-photos-btn');
 
 const fileReader = new FileReader();
 var mostRecentFile;
@@ -14,10 +15,16 @@ try{
     console.log("Not on /create-post");
 }
 
+try{
+    mngPhotosBtn.addEventListener('click', displayManagePhotoUI);
 
+}catch (err){
+    console.log(err);
+}
 
-
-
+function displayManagePhotoUI(){
+    console.log('Display UI to manage photo');
+}
 
 async function postPhoto(event){
     event.preventDefault();

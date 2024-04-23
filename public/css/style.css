@@ -317,6 +317,74 @@ nav .user-profile-pic{
     justify-content: space-between;
 }
 
+.settings-profile{
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+.settings-dropdown{
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    
+    border: thin solid black;
+    transform: translate(-55px);
+    border-radius: 10px;
+}
+
+.settings-profile:hover .settings-dropdown{
+    display: flex;
+}
+
+/*.dropdown-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+    height: 100px;
+}*/
+
+.dropdown-items{
+    text-align: center;
+}
+
+.dropdown-items button{
+    all: unset;
+}
+
+.dropdown-items span, .dropdown-items button{
+    width: 148px;
+    display: block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    overflow: hidden;
+}
+
+.top-dropdown-item{
+    border-bottom: thin solid black; 
+    border-radius: 10px 10px 0 0;
+}
+
+
+
+.bot-dropdown-item:hover{
+    text-decoration: underline;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+}
+
+.dropdown-items *:hover{
+    background-color: #f6f6f6;
+}
+
+/*.bot-dropdown-item{
+    border-radius: 0 0 10px 10px;
+}*/
 
 .cog-icon{
     height: 40px;
