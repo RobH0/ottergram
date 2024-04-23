@@ -52,6 +52,7 @@
                 </div>
             </div>
         </section>
+
         <section class="gallery">
         <% for (let index = 0; index < posts.length; index++) { %>
             <div class="post-preview">
@@ -67,6 +68,11 @@
                 </a>
             </div>
         <% } %>            
+        </section>
+        <section class="cancel-delete-posts-section">
+            <span>You have selected 0 photos for deletion:</span>
+            <button class="cancel-btn standard-btn">Cancel</button>
+            <button class="delete-btn standard-btn">Delete</button>
         </section>
     </main>
     <script src="/js/main.js"></script>

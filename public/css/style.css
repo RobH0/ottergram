@@ -341,14 +341,6 @@ nav .user-profile-pic{
     display: flex;
 }
 
-/*.dropdown-items{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    
-    height: 100px;
-}*/
-
 .dropdown-items{
     text-align: center;
 }
@@ -370,8 +362,6 @@ nav .user-profile-pic{
     border-radius: 10px 10px 0 0;
 }
 
-
-
 .bot-dropdown-item:hover{
     text-decoration: underline;
     border-radius: 0 0 10px 10px;
@@ -382,13 +372,39 @@ nav .user-profile-pic{
     background-color: #f6f6f6;
 }
 
-/*.bot-dropdown-item{
-    border-radius: 0 0 10px 10px;
-}*/
-
 .cog-icon{
     height: 40px;
     width: auto;
+}
+
+.cancel-delete-posts-section{
+    
+    z-index: 2;
+    display: none;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+
+    position: sticky;
+    background-color: white;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    bottom: 25px;
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.cancel-delete-posts-section *{
+    margin: 5px;
+}
+
+.delete-btn{
+    background-color: rgb(255, 69, 69);
+}
+
+.delete-btn:hover{
+    background-color: red;
 }
 
 .profile-lower{

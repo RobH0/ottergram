@@ -5,6 +5,11 @@ const postNowBtn = document.querySelector('.post-now-btn');
 const fileUploadForm = document.querySelector('.file-upload-form');
 const profilePic = document.querySelector('.settings-options-sec .large-profile-pic')
 const mngPhotosBtn = document.querySelector('#manage-photos-btn');
+const deleteCancelPhotosSection = document.querySelector('.cancel-delete-posts-section');
+const cancelPhotosBtn =document.querySelector('.cancel-btn');
+
+
+
 
 const fileReader = new FileReader();
 var mostRecentFile;
@@ -17,13 +22,18 @@ try{
 
 try{
     mngPhotosBtn.addEventListener('click', displayManagePhotoUI);
-
+    cancelPhotosBtn.addEventListener('click', removeManagePhotoUI);
 }catch (err){
     console.log(err);
 }
 
 function displayManagePhotoUI(){
     console.log('Display UI to manage photo');
+    deleteCancelPhotosSection.style.display = 'flex';
+}
+
+function removeManagePhotoUI(){
+    deleteCancelPhotosSection.style.display = 'none';
 }
 
 async function postPhoto(event){
