@@ -6,8 +6,10 @@ const fileUploadForm = document.querySelector('.file-upload-form');
 const profilePic = document.querySelector('.settings-options-sec .large-profile-pic')
 const mngPhotosBtn = document.querySelector('#manage-photos-btn');
 const deleteCancelPhotosSection = document.querySelector('.cancel-delete-posts-section');
-const cancelPhotosBtn =document.querySelector('.cancel-btn');
-
+const cancelPhotosBtn = document.querySelector('.cancel-btn');
+const selectForDelDiv = document.querySelectorAll('.select-for-del-section');
+const postOverlayDiv = document.querySelectorAll('.post-preview-overlay');
+const postPageLinks = document.querySelectorAll('.post-preview > a')
 
 
 
@@ -30,10 +32,29 @@ try{
 function displayManagePhotoUI(){
     console.log('Display UI to manage photo');
     deleteCancelPhotosSection.style.display = 'flex';
+    selectForDelDiv.forEach((checkBox) => {
+        checkBox.style.display = 'block';
+    });
+    postOverlayDiv.forEach((overlayDiv) => {
+        overlayDiv.style.display = 'none';
+    });
+    postPageLinks.forEach((postLink) => {
+        let postDiv = postLink.parentNode;
+        let postImg = postLink.querySelector('img').cloneNode(true);
+        postImg.classList.add('cloned-post-img');
+        postDiv.insertBefore(postImg, postDiv.firstChild);
+        postLink.style.display = 'none';
+    });
 }
 
 function removeManagePhotoUI(){
     deleteCancelPhotosSection.style.display = 'none';
+    selectForDelDiv.forEach((checkBox) => {
+        checkBox.style.display = 'none';
+    });
+    let clonedImgs = document.querySelectorAll('.cloned-post-img');
+    clonedImgs.forEach((img) => {img.remove();});
+    postPageLinks.forEach((postLink) => {postLink.style.display = 'flex'});
 }
 
 async function postPhoto(event){
