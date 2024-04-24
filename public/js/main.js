@@ -12,7 +12,7 @@ const postOverlayDiv = document.querySelectorAll('.post-preview-overlay');
 const postPageLinks = document.querySelectorAll('.post-preview > a')
 
 let alreadyClicked = false;
-
+let postsToDelete = [];
 
 const fileReader = new FileReader();
 var mostRecentFile;
@@ -48,10 +48,15 @@ function displayManagePhotoUI(){
             postImg.classList.add('cloned-post-img');
             postDiv.insertBefore(postImg, postDiv.firstChild);
             postLink.style.display = 'none';
-        
+        });
+
+        let clonedImgs = document.querySelectorAll('.cloned-post-img');
+        clonedImgs.forEach((img) => {
+            img.addEventListener('click', (event) => {
+                selectImgForDeletion(event);
+            });
         });
     }
-    
 }
 
 function removeManagePhotoUI(){
@@ -66,6 +71,22 @@ function removeManagePhotoUI(){
         overlayDiv.style.display = 'absolute';
     });
     alreadyClicked = false;
+    postsToDelete = [];
+    document.querySelectorAll('.checkbox-del').forEach((checkbox) => {checkbox.src = "/imgs/icons/black-empty-tick-box.svg"});
+}
+
+function selectImgForDeletion(event){
+    console.log('seletImgForDeletion executing');
+    console.log(event.target);
+    if (!postsToDelete.includes(event.target.src)){
+        let checkbox = event.target.parentNode.querySelector('.checkbox-del');
+        checkbox.src = '/imgs/icons/black-tick-box.svg';
+        postsToDelete.push(event.target.src);
+        console.log(postsToDelete);
+    }else{
+        console.log(postsToDelete);
+    }
+    
 }
 
 async function postPhoto(event){
