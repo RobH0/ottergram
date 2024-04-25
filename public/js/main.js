@@ -4,6 +4,18 @@ const previewPostContainer = document.querySelector('.feed-post-container');
 const postNowBtn = document.querySelector('.post-now-btn');
 const fileUploadForm = document.querySelector('.file-upload-form');
 const profilePic = document.querySelector('.settings-options-sec .large-profile-pic')
+const mngPhotosBtn = document.querySelector('#manage-photos-btn');
+const deleteCancelPhotosSection = document.querySelector('.cancel-delete-posts-section');
+const cancelPhotosBtn = document.querySelector('.cancel-btn');
+const deletePhotosBtn = document.querySelector('.delete-btn');
+const selectForDelDiv = document.querySelectorAll('.select-for-del-section');
+const postOverlayDiv = document.querySelectorAll('.post-preview-overlay');
+const postPageLinks = document.querySelectorAll('.post-preview > a')
+const deletionSummarySpan = document.querySelector('.cancel-delete-posts-section span');
+let alreadyClicked = false;
+let postsToDelete = [];
+let toDeleteCount = 0;
+
 
 const fileReader = new FileReader();
 var mostRecentFile;
@@ -14,10 +26,126 @@ try{
     console.log("Not on /create-post");
 }
 
+try{
+    mngPhotosBtn.addEventListener('click', displayManagePhotoUI);
+    cancelPhotosBtn.addEventListener('click', removeManagePhotoUI);
+    deletePhotosBtn.addEventListener('click', requestDeletePhotos);
+}catch (err){
+    console.log(err);
+}
+
+async function requestDeletePhotos(){
+    if (postsToDelete.length != 0){
+        try{
+            console.log('deleting selected posts');
+            const deleteRequestOptions = {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ photoURLs: postsToDelete})
+            };
+
+            const delResponse = await fetch('/profile/delete-posts', deleteRequestOptions);
+
+            console.log(`delResponse: ${delResponse.status}`);
+            console.log(`delResponse.ok: ${delResponse.ok}`);
+            if (delResponse.ok){
+                location.reload();
+            }else{
+                alert('Invalid post deletion request.');
+            }
+
+        }catch (err){
+            console.error(err);
+        }
+        
 
 
+    }else{
+        alert('No posts selected for deletion');
+    }
+}
 
+function displayManagePhotoUI(){
+    if (alreadyClicked == false){
+        alreadyClicked = true;
+        console.log('Display UI to manage photo');
+        deleteCancelPhotosSection.style.display = 'flex';
+        selectForDelDiv.forEach((checkBox) => {
+            checkBox.style.display = 'block';
+        });
+        postOverlayDiv.forEach((overlayDiv) => {
+            overlayDiv.style.display = 'flex';
+        });
+        postPageLinks.forEach((postLink) => {
+            let postDiv = postLink.parentNode;
+            let postImg = postLink.querySelector('img').cloneNode(true);
+            postImg.style.filter = 'none';
+            postImg.classList.add('cloned-post-img');
+            postDiv.insertBefore(postImg, postDiv.firstChild);
+            postLink.style.display = 'none';
+        });
 
+        let clonedImgs = document.querySelectorAll('.cloned-post-img');
+        clonedImgs.forEach((img) => {
+            img.addEventListener('click', (event) => {
+                selectImgForDeletion(event);
+            });
+        });
+    }
+}
+
+function incrementToDelete(){
+    toDeleteCount += 1;
+    console.log(toDeleteCount);
+    console.log(toDeleteCount.toString());
+    let newString = 'You have selected ' + toDeleteCount.toString() + ' posts for deletion: ' ;
+    
+    deletionSummarySpan.innerHTML = newString;
+}
+
+function decrementToDelete(){
+    toDeleteCount -= 1;
+    let newString = 'You have selected ' + toDeleteCount.toString() + ' posts for deletion: ' ;
+    deletionSummarySpan.innerHTML = newString;
+}
+
+function removeManagePhotoUI(){
+    deleteCancelPhotosSection.style.display = 'none';
+    selectForDelDiv.forEach((checkBox) => {
+        checkBox.style.display = 'none';
+    });
+    let clonedImgs = document.querySelectorAll('.cloned-post-img');
+    clonedImgs.forEach((img) => {img.remove();});
+    postPageLinks.forEach((postLink) => {postLink.style.display = 'flex'});
+    postOverlayDiv.forEach((overlayDiv) => {
+        overlayDiv.style.display = 'absolute';
+    });
+    alreadyClicked = false;
+    postsToDelete = [];
+    document.querySelectorAll('.checkbox-del').forEach((checkbox) => {checkbox.src = "/imgs/icons/black-empty-tick-box.svg"});
+    toDeleteCount = 0;
+    deletionSummarySpan.innerHTML = 'You have selected 0 posts for deletion: ';
+}
+
+function selectImgForDeletion(event){
+    console.log('seletImgForDeletion executing');
+    console.log(event.target);
+    let checkbox = event.target.parentNode.querySelector('.checkbox-del');
+    if (!postsToDelete.includes(event.target.src)){
+        checkbox.src = '/imgs/icons/black-tick-box.svg';
+        postsToDelete.push(event.target.src);
+        console.log(postsToDelete);
+        incrementToDelete();
+    }else{
+        checkbox.src = '/imgs/icons/black-empty-tick-box.svg';
+        let index = postsToDelete.indexOf(event.target.src);
+        postsToDelete.splice(index, 1);
+        console.log(postsToDelete);
+        decrementToDelete();
+    }
+}
 
 async function postPhoto(event){
     event.preventDefault();

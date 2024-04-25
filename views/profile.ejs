@@ -29,8 +29,17 @@
             <% } %>
             <div class="profile-info-right">
                 <div class="profile-upper">
+                    
                     <h1><%= userInfo.username %></h1>
-                    <a href="/settings"><img class="cog-icon" src="/imgs/icons/cog-svgrepo-com.svg"></a>
+                    <div class="settings-profile">
+                        <img class="cog-icon" src="/imgs/icons/cog-svgrepo-com.svg">
+                        <div class="settings-dropdown">
+                            <div class="dropdown-items">
+                                <a href="/settings"><span class="top-dropdown-item">Profile settings</span></a>
+                                <button id="manage-photos-btn" class="bot-dropdown-item">Manage photos</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="profile-center">
                     <!-- HTML escaped -->
@@ -43,6 +52,7 @@
                 </div>
             </div>
         </section>
+
         <section class="gallery">
         <% for (let index = 0; index < posts.length; index++) { %>
             <div class="post-preview">
@@ -55,10 +65,19 @@
                         <span><%=posts[index].numComments %></span>
                     </div></a>
                 </div>
+                <div class="select-for-del-section">
+                    <img class="checkbox-del" src="/imgs/icons/black-empty-tick-box.svg">
+                </div>
                 </a>
             </div>
         <% } %>            
         </section>
+        <section class="cancel-delete-posts-section">
+            <span>You have selected 0 photos for deletion:</span>
+            <button class="cancel-btn standard-btn">Cancel</button>
+            <button class="delete-btn standard-btn">Delete</button>
+        </section>
     </main>
+    <script src="/js/main.js"></script>
 </body>
 </html>

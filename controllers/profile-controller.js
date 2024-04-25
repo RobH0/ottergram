@@ -56,7 +56,7 @@ module.exports = {
         try{
             let result = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
             await fs.unlink(req.file.path);
-            await postsModel.insertNewPost(req.user._id, result.secure_url);
+            await postsModel.insertNewPost(req.user._id, result.secure_url, result.public_id);
             let info = await getProfileInfo(req.user._id);
             console.log(`Image uploaded: ${req.file.path}`);
             res.json({success: true});
@@ -117,5 +117,43 @@ module.exports = {
         }catch (err){
             console.error(err);
         }
-    } 
+    },
+    
+    deletePosts: async (req, res) =>{
+        try{
+            const postUrls = req.body.photoURLs;
+            const userID = req.user._id.toString();
+            let unauthorizedDeletionAttempt = false;
+            
+            const postsInfo = await postsModel.getPostsByImg(postUrls);
+            let count = 0;
+
+            while (unauthorizedDeletionAttempt === false && count < postsInfo.length){
+                if (userID != postsInfo[count].createdBy.toString()){
+                    unauthorizedDeletionAttempt = true;
+                    console.log(`User doesn't own photo at index: ${JSON.stringify(postsInfo[count])}`);
+                    console.log(`index ${count}`);
+                }
+                count ++;
+            }
+
+            if (unauthorizedDeletionAttempt){
+                res.status(403).json({message: 'Unauthorized photo/post deletion attempt.'});
+            }else{
+                let cloudinaryResult;
+                let postIds = postsInfo.map((post) => post._id);
+                postsInfo.forEach(async (element, index)=>{ 
+                    cloudinaryResult =  await cloudinary.uploader.destroy(element.cloudPublicId);
+                });
+                console.log(`${req.user.username} deleted ${postsInfo.length} photos/posts.`);
+                const deletionResult = await postsModel.deletePosts(postIds);
+                if (deletionResult){
+                    res.status(200).json({ message: 'Posts were successfully deleted.'});                 
+                }
+            
+            }
+        }catch (err){
+            console.err(err);
+        }        
+    }
 }

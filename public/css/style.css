@@ -317,10 +317,104 @@ nav .user-profile-pic{
     justify-content: space-between;
 }
 
+.settings-profile{
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+.settings-dropdown{
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    
+    border: thin solid black;
+    transform: translate(-55px);
+    border-radius: 10px;
+}
+
+.settings-profile:hover .settings-dropdown{
+    display: flex;
+}
+
+.dropdown-items{
+    text-align: center;
+}
+
+.dropdown-items button{
+    all: unset;
+}
+
+.dropdown-items span, .dropdown-items button{
+    width: 148px;
+    display: block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    overflow: hidden;
+}
+
+.top-dropdown-item{
+    border-bottom: thin solid black; 
+    border-radius: 10px 10px 0 0;
+}
+
+.bot-dropdown-item:hover{
+    text-decoration: underline;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+}
+
+.dropdown-items *:hover{
+    background-color: #f6f6f6;
+}
 
 .cog-icon{
     height: 40px;
     width: auto;
+}
+
+.cancel-delete-posts-section{
+    
+    z-index: 4;
+    display: none;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+
+    position: sticky;
+    background-color: white;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    bottom: 25px;
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.select-for-del-section{
+    display: none;
+    z-index: 3;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 5px;
+    top: 5px;
+}
+
+.cancel-delete-posts-section *{
+    margin: 5px;
+}
+
+.delete-btn{
+    background-color: rgb(255, 69, 69);
+}
+
+.delete-btn:hover{
+    background-color: red;
 }
 
 .profile-lower{
@@ -334,6 +428,7 @@ nav .user-profile-pic{
     gap: 10px;
     margin: 0 5dvw 5dvh 5dvw;
     max-width: 90%;
+    min-width: 68%;
 
 }
 
@@ -364,7 +459,7 @@ nav .user-profile-pic{
 
 .post-preview-overlay{
     position: absolute;
-    z-index: 2;
+    z-index: 5;
     display: flex;
     align-items: center;
     align-self: center;
