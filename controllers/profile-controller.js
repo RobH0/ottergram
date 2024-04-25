@@ -124,20 +124,14 @@ module.exports = {
             const postUrls = req.body.photoURLs;
             const userID = req.user._id.toString();
             let unauthorizedDeletionAttempt = false;
-            console.log(`Attempting to delete posts: ${postUrls}`);
-            console.log(typeof(postUrls[0]));
-            //check each img is owned by the authenticated user before deleting
-
-            //select all documents from posts collections and compare all the createBy values to authed user id.
             
             const postsInfo = await postsModel.getPostsByImg(postUrls);
             let count = 0;
-            console.log(`userID: ${userID}`);
-            console.log(`postsInfo[count].createdBy: ${postsInfo[count].createdBy}`);
+
             while (unauthorizedDeletionAttempt === false && count < postsInfo.length){
                 if (userID != postsInfo[count].createdBy.toString()){
                     unauthorizedDeletionAttempt = true;
-                    console.log(`culprit post: ${JSON.stringify(postsInfo[count])}`);
+                    console.log(`User doesn't own photo at index: ${JSON.stringify(postsInfo[count])}`);
                     console.log(`index ${count}`);
                 }
                 count ++;
@@ -147,16 +141,11 @@ module.exports = {
                 res.status(403).json({message: 'Unauthorized photo/post deletion attempt.'});
             }else{
                 let cloudinaryResult;
-                console.log('postsInfo: ' + postsInfo);
                 let postIds = postsInfo.map((post) => post._id);
-                console.log(`postIds ${postIds}`);
                 postsInfo.forEach(async (element, index)=>{ 
                     cloudinaryResult =  await cloudinary.uploader.destroy(element.cloudPublicId);
-                    console.log(`cloudinaryResult ${JSON.stringify(cloudinaryResult)}`);
                 });
-
-                console.log(`post ids outside of for each: ${postIds.toString()}`);
-
+                console.log(`${req.user.username} deleted ${postsInfo.length} photos/posts.`);
                 const deletionResult = await postsModel.deletePosts(postIds);
                 if (deletionResult){
                     res.status(200).json({ message: 'Posts were successfully deleted.'});                 

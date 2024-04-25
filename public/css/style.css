@@ -428,6 +428,7 @@ nav .user-profile-pic{
     gap: 10px;
     margin: 0 5dvw 5dvh 5dvw;
     max-width: 90%;
+    min-width: 85%;
 
 }
 
