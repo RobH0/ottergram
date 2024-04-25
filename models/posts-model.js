@@ -39,13 +39,14 @@ class PostsModel{
         }
     }
 
-    async insertNewPost(userID, imgURL){
+    async insertNewPost(userID, imgURL, imgPublicId){
         try{
             if (this.collection == null){
                 await this.initCollection();
             }
             await this.collection.insertOne({
                 img: imgURL,
+                cloudPublicId: imgPublicId,
                 datePosted: new Date(),
                 createdBy: userID,
                 likes: 0,
@@ -54,6 +55,30 @@ class PostsModel{
             })
 
         } catch (err){
+            console.error(err);
+        }
+    }
+
+    async getPostsByImg(photoUrls){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            const posts = await this.collection.find({ img: { $in: photoUrls}}).toArray();
+            return posts;
+        }catch (err){
+            console.error(err);
+        }
+    }
+
+    async deletePosts(postsIds){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            const deletionResult = await this.collection.deleteMany({ _id: { $in: postsIds}});
+            return deletionResult;
+        }catch (err){
             console.error(err);
         }
     }

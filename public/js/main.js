@@ -50,6 +50,11 @@ async function requestDeletePhotos(){
 
             console.log(`delResponse: ${delResponse.status}`);
             console.log(`delResponse.ok: ${delResponse.ok}`);
+            if (delResponse.ok){
+                location.reload();
+            }else{
+                alert('Invalid post deletion request.');
+            }
 
         }catch (err){
             console.error(err);
