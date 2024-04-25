@@ -10,9 +10,11 @@ const cancelPhotosBtn = document.querySelector('.cancel-btn');
 const selectForDelDiv = document.querySelectorAll('.select-for-del-section');
 const postOverlayDiv = document.querySelectorAll('.post-preview-overlay');
 const postPageLinks = document.querySelectorAll('.post-preview > a')
-
+const deletionSummarySpan = document.querySelector('.cancel-delete-posts-section span');
 let alreadyClicked = false;
 let postsToDelete = [];
+let toDeleteCount = 0;
+
 
 const fileReader = new FileReader();
 var mostRecentFile;
@@ -59,6 +61,21 @@ function displayManagePhotoUI(){
     }
 }
 
+function incrementToDelete(){
+    toDeleteCount += 1;
+    console.log(toDeleteCount);
+    console.log(toDeleteCount.toString());
+    let newString = 'You have selected ' + toDeleteCount.toString() + ' posts for deletion: ' ;
+    
+    deletionSummarySpan.innerHTML = newString;
+}
+
+function decrementToDelete(){
+    toDeleteCount -= 1;
+    let newString = 'You have selected ' + toDeleteCount.toString() + ' posts for deletion: ' ;
+    deletionSummarySpan.innerHTML = newString;
+}
+
 function removeManagePhotoUI(){
     deleteCancelPhotosSection.style.display = 'none';
     selectForDelDiv.forEach((checkBox) => {
@@ -73,20 +90,26 @@ function removeManagePhotoUI(){
     alreadyClicked = false;
     postsToDelete = [];
     document.querySelectorAll('.checkbox-del').forEach((checkbox) => {checkbox.src = "/imgs/icons/black-empty-tick-box.svg"});
+    toDeleteCount = 0;
+    deletionSummarySpan.innerHTML = 'You have selected 0 posts for deletion: ';
 }
 
 function selectImgForDeletion(event){
     console.log('seletImgForDeletion executing');
     console.log(event.target);
+    let checkbox = event.target.parentNode.querySelector('.checkbox-del');
     if (!postsToDelete.includes(event.target.src)){
-        let checkbox = event.target.parentNode.querySelector('.checkbox-del');
         checkbox.src = '/imgs/icons/black-tick-box.svg';
         postsToDelete.push(event.target.src);
         console.log(postsToDelete);
+        incrementToDelete();
     }else{
+        checkbox.src = '/imgs/icons/black-empty-tick-box.svg';
+        let index = postsToDelete.indexOf(event.target.src);
+        postsToDelete.splice(index, 1);
         console.log(postsToDelete);
+        decrementToDelete();
     }
-    
 }
 
 async function postPhoto(event){
