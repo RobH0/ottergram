@@ -7,6 +7,7 @@ const profilePic = document.querySelector('.settings-options-sec .large-profile-
 const mngPhotosBtn = document.querySelector('#manage-photos-btn');
 const deleteCancelPhotosSection = document.querySelector('.cancel-delete-posts-section');
 const cancelPhotosBtn = document.querySelector('.cancel-btn');
+const deletePhotosBtn = document.querySelector('.delete-btn');
 const selectForDelDiv = document.querySelectorAll('.select-for-del-section');
 const postOverlayDiv = document.querySelectorAll('.post-preview-overlay');
 const postPageLinks = document.querySelectorAll('.post-preview > a')
@@ -28,8 +29,37 @@ try{
 try{
     mngPhotosBtn.addEventListener('click', displayManagePhotoUI);
     cancelPhotosBtn.addEventListener('click', removeManagePhotoUI);
+    deletePhotosBtn.addEventListener('click', requestDeletePhotos);
 }catch (err){
     console.log(err);
+}
+
+async function requestDeletePhotos(){
+    if (postsToDelete.length != 0){
+        try{
+            console.log('deleting selected posts');
+            const deleteRequestOptions = {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ photoURLs: postsToDelete})
+            };
+
+            const delResponse = await fetch('/profile/delete-posts', deleteRequestOptions);
+
+            console.log(`delResponse: ${delResponse.status}`);
+            console.log(`delResponse.ok: ${delResponse.ok}`);
+
+        }catch (err){
+            console.error(err);
+        }
+        
+
+
+    }else{
+        alert('No posts selected for deletion');
+    }
 }
 
 function displayManagePhotoUI(){

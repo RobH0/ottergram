@@ -117,5 +117,33 @@ module.exports = {
         }catch (err){
             console.error(err);
         }
-    } 
+    },
+    
+    deletePosts: async (req, res) =>{
+        try{
+            const postUrls = req.body.photoURLs;
+            console.log(`Attempting to delete posts: ${postUrls}`);
+            console.log(typeof(postUrls[0]));
+            
+            
+            postUrls.forEach((element, index)=>{ console.log('deleting ' + index)});
+            
+            
+            res.status(200).json({ message: 'Posts were successfully deleted.'});
+              
+        }catch (err){
+            console.err(err);
+        }
+        const postUrls = req.body.photoURLs;
+        console.log(`Attempting to delete posts: ${postUrls}`);
+        console.log(typeof(postUrls[0]));
+        
+        
+        
+        postUrls.forEach((element, index)=>{ console.log('deleting ' + index)});
+        
+        
+        res.status(200).json({ message: 'Posts were successfully deleted.'});
+        
+    }
 }

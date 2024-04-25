@@ -12,5 +12,6 @@ router.post('/new-post', ensureAuth, multer.single('file'), profileController.cr
 router.get('/feed', ensureAuth, profileController.getPersonalizedFeed);
 router.get('/settings', ensureAuth, profileController.getSettings);
 router.post('/settings', ensureAuth, multer.single('changeProfilePic'),profileController.postSettings);
+router.delete('/profile/delete-posts', ensureAuth, profileController.deletePosts);
 
 module.exports = router;
