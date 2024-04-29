@@ -59,9 +59,6 @@ async function requestDeletePhotos(){
         }catch (err){
             console.error(err);
         }
-        
-
-
     }else{
         alert('No posts selected for deletion');
     }
@@ -93,6 +90,13 @@ function displayManagePhotoUI(){
                 selectImgForDeletion(event);
             });
         });
+
+        let checkBoxes = document.querySelectorAll('.checkbox-del');
+        checkBoxes.forEach((checkBox) => {
+            checkBox.addEventListener('click', (event) => {
+                selectImgForDeletion(event);
+            });
+        })
     }
 }
 
@@ -130,19 +134,27 @@ function removeManagePhotoUI(){
 }
 
 function selectImgForDeletion(event){
-    console.log('seletImgForDeletion executing');
-    console.log(event.target);
-    let checkbox = event.target.parentNode.querySelector('.checkbox-del');
-    if (!postsToDelete.includes(event.target.src)){
-        checkbox.src = '/imgs/icons/black-tick-box.svg';
-        postsToDelete.push(event.target.src);
+    let imgToDelete;
+    let checkboxElem;
+    if (event.target.src.includes('box.svg')){
+        imgToDelete = event.target.parentNode.parentNode.querySelector('.post-img').src;
+        checkboxElem = event.target;
+    } else {
+        imgToDelete = event.target.src;
+        checkboxElem = event.target.parentNode.querySelector('.checkbox-del');
+    }
+
+    if (!postsToDelete.includes(imgToDelete)){
+        postsToDelete.push(imgToDelete);
         console.log(postsToDelete);
+        checkboxElem.src = '/imgs/icons/black-tick-box.svg';
         incrementToDelete();
-    }else{
-        checkbox.src = '/imgs/icons/black-empty-tick-box.svg';
-        let index = postsToDelete.indexOf(event.target.src);
+    } else {
+        console.log('in deletion else');
+        let index = postsToDelete.indexOf(imgToDelete);
         postsToDelete.splice(index, 1);
         console.log(postsToDelete);
+        checkboxElem.src = '/imgs/icons/black-empty-tick-box.svg';
         decrementToDelete();
     }
 }

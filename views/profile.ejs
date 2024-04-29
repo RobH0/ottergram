@@ -56,7 +56,7 @@
         <section class="gallery">
         <% for (let index = 0; index < posts.length; index++) { %>
             <div class="post-preview">
-                <a class="post-preview-pic" href="/post/<%=posts[index]._id %>"><img class="post-preview-pic" src="<%= posts[index].img %>" alt="user post"></a>
+                <a class="post-preview-pic" href="/post/<%=posts[index]._id %>"><img class="post-preview-pic post-img" src="<%= posts[index].img %>" alt="user post"></a>
                 <div class="post-preview-overlay">
                     <a href="/post/<%=posts[index]._id %>"><div class="likes-comments">
                         <img src="/imgs/icons/like-red-white-outline.svg" alt="like-button">
