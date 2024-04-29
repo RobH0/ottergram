@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head_links.ejs') %>
+    <title>Ottergram: Your profile</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+            <div class="right-nav">
+                <a href="/feed">Feed</a>
+                <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="profile-info">
+            <% if (userInfo.profilePic != "") { %>
+                <img class="large-profile-pic" src="<%= userInfo.profilePic %>">
+            <% } else { %>
+                <img class="large-profile-pic" src="/imgs/icons/otter-logo.svg">
+            <% } %>
+            <div class="profile-info-right">
+                <div class="profile-upper">
+                    
+                    <h1><%= userInfo.username %></h1>
+                    <button class="standard-btn .follow-following-btn">Follow</button>
+                </div>
+                <div class="profile-center">
+                    <!-- HTML escaped -->
+                    <p><%= userInfo.bio %></p>
+                </div>
+                <div class="profile-lower">
+                    <span><%= posts.length %> posts</span>
+                    <a href="/followers"><span>6 followers</span></a>
+                    <a href="/following"><span>6 following</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery">
+        <% for (let index = 0; index < posts.length; index++) { %>
+            <div class="post-preview">
+                <a class="post-preview-pic" href="/post/<%=posts[index]._id %>"><img class="post-preview-pic post-img" src="<%= posts[index].img %>" alt="user post"></a>
+                <div class="post-preview-overlay">
+                    <a href="/post/<%=posts[index]._id %>"><div class="likes-comments">
+                        <img src="/imgs/icons/like-red-white-outline.svg" alt="like-button">
+                        <span><%=posts[index].likes %></span>
+                        <img src="/imgs/icons/comment-white-outline.svg" alt="comments icon">
+                        <span><%=posts[index].numComments %></span>
+                    </div></a>
+                </div>
+                <div class="select-for-del-section">
+                    <img class="checkbox-del" src="/imgs/icons/black-empty-tick-box.svg">
+                </div>
+                </a>
+            </div>
+        <% } %>            
+        </section>
+        <section class="cancel-delete-posts-section">
+            <span>You have selected 0 photos for deletion:</span>
+            <button class="cancel-btn standard-btn">Cancel</button>
+            <button class="delete-btn standard-btn">Delete</button>
+        </section>
+    </main>
+    <script src="/js/main.js"></script>
+</body>
+</html>

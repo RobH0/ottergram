@@ -13,5 +13,6 @@ router.get('/feed', ensureAuth, profileController.getPersonalizedFeed);
 router.get('/settings', ensureAuth, profileController.getSettings);
 router.post('/settings', ensureAuth, multer.single('changeProfilePic'),profileController.postSettings);
 router.delete('/profile/delete-posts', ensureAuth, profileController.deletePosts);
+router.get('/user/:userId', ensureAuth, profileController.getUserProfile);
 
 module.exports = router;

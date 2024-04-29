@@ -21,7 +21,7 @@ class UsersModel{
             if (this.collection == null){
                 await this.initCollection();
             }
-            let queryResult = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0, bio: 0}});
+            let queryResult = await this.collection.findOne({_id : userID}, { projection: {password: 0, bio: 0}});
             
             try{
                 let check = queryResult.username;

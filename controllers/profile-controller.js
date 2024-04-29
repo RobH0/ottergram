@@ -2,6 +2,7 @@ const usersModel = require('../models/users-model.js');
 const postsModel = require('../models/posts-model.js');
 const cloudinary = require('../config/cloudinary-config.js');
 const { profile } = require('console');
+const { ObjectId } = require('mongodb');
 const fs = require('fs').promises;
 
 async function getProfileInfo(userID){
@@ -47,6 +48,17 @@ module.exports = {
         res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
     },
 
+    getUserProfile: async (req, res) => {
+        if (req.params.userId == req.user._id.toString()){
+            res.redirect('/profile');
+        } else{
+            let idObject = new ObjectId(req.params.userId);
+            let userPostInfo = await postsModel.getUserPosts(idObject);
+            let currentUserInfo = await usersModel.getProfileInfo(idObject);
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
+        }        
+    },
+
     getCreatePost: async (req, res) =>{
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
         res.render('create_post.ejs', {userInfo: currentUserInfo});
@@ -80,6 +92,7 @@ module.exports = {
                 let userInfo = await usersModel.getUsernameAndPic(posts[index].createdBy);
                 posts[index].postByUsername = userInfo.username;
                 posts[index].profilePic = userInfo.profilePic;
+                posts[index].postByUserId = userInfo._id.toString();
             }
             res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts});
         }catch (err){

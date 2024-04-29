@@ -315,6 +315,7 @@ nav .user-profile-pic{
 .profile-upper{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .settings-profile{

@@ -32,7 +32,7 @@
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
                         <% if (allPosts[index].profilePic != "") { %>
-                            <a href="/login"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
+                            <a href="/user/<%=allPosts[index].postByUserId %>"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                         <% } else { %>
                             <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
                         <% } %>
