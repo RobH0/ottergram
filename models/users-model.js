@@ -112,6 +112,27 @@ class UsersModel{
         }
         
     }
+
+    async addFollowing(userIdToFollow, authedUserId){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+
+        try{
+            userIdToFollow = new ObjectID(userIdToFollow);
+        
+            let result = await this.collection.updateOne({_id: authedUserId}, {$addToSet: { following: userIdToFollow}});
+            console.log(JSON.stringify(result));
+            return true;
+        }catch (err){
+            console.error(err);
+            return false;
+        }
+        
+
+
+        
+    }
 }
 
 module.exports = new UsersModel;

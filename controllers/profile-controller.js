@@ -168,5 +168,24 @@ module.exports = {
         }catch (err){
             console.err(err);
         }        
+    },
+
+    followUser: async (req, res) => {
+        console.log(`followingUser ${JSON.stringify(req.body)}`);
+
+        let userToFollowId = req.body.userToFollow;
+        let authedUserIdStr = req.user._id.toString();
+
+        // Making sure the authed user isn't trying to follow their own profile.
+        if (userToFollowId == authedUserIdStr){
+            console.log("You can't follow yourself");
+        } else {
+            let result = await usersModel.addFollowing(userToFollowId, req.user._id);
+            if (result){
+                res.status(200).json({ message: 'Successfully followed  user profile.'})
+            }else{
+                res.status(500).json({ message: 'Follow attempt failed.'});
+            }
+        }       
     }
 }
