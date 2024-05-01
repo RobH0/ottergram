@@ -122,6 +122,7 @@ class UsersModel{
             userIdToFollow = new ObjectID(userIdToFollow);
         
             let result = await this.collection.updateOne({_id: authedUserId}, {$addToSet: { following: userIdToFollow}});
+            let result2 = await this.collection.updateOne({_id: userIdToFollow}, {$addToSet: { followedBy: authedUserId}});
             console.log(`follow result: ${JSON.stringify(result)}`);
             return true;
         }catch (err){
@@ -138,6 +139,7 @@ class UsersModel{
         try{
             userIdToUnfollow = new ObjectID(userIdToUnfollow);
             let result = await this.collection.updateOne({_id: authedUserId}, {$pull: { following: userIdToUnfollow}});
+            let result2 = await this.collection.updateOne({_id: userIdToUnfollow}, {$pull: { followedBy: authedUserId}});
             console.log(`unfollow result: ${JSON.stringify(result)}`);
             return true;
         }catch (err){
