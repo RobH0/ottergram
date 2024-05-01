@@ -39,8 +39,8 @@
                 </div>
                 <div class="profile-lower">
                     <span><%= posts.length %> posts</span>
-                    <a href="/followers"><span>6 followers</span></a>
-                    <a href="/following"><span>6 following</span></a>
+                    <a href="/followers"><span><%= userInfo.followedBy.length %> followers</span></a>
+                    <a href="/following"><span><%= userInfo.following.length %> following</span></a>
                 </div>
             </div>
         </section>
