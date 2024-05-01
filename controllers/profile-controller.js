@@ -187,5 +187,26 @@ module.exports = {
                 res.status(500).json({ message: 'Follow attempt failed.'});
             }
         }       
+    },
+
+    unFollowerUser: async (req, res) => {
+        console.log(`unfollowingUser ${JSON.stringify(req.body)}`);
+
+        let userToUnfollowId = req.body.userToUnfollow;
+        let authUserIdStr = req.user._id.toString();
+
+        if (userToUnfollowId == authUserIdStr){
+            console.log("You can't follow yourself.");
+        }else{
+            let result = await usersModel.removeFollowing(userToUnfollowId, req.user._id);
+            if (result){
+                res.status(200).json({ message: 'Successfully unfollowed user profile.'});
+            } else{
+                res.status(500).json({ message: 'Unfollow attempted failed.'});
+            }
+        }
+
     }
+
+
 }

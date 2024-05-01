@@ -27,7 +27,7 @@ async function followBtnClicked(event){
 async function followUser(){
     console.log('following user');
     console.log(window.location.href.split('/')[4]);
-    const endpoint = '/user'
+    const endpoint = '/user/follow'
     console.log(endpoint);
 
     try{
@@ -41,9 +41,20 @@ async function followUser(){
     } catch (err){
          console.error(err);
     }
-    
 }
 
 async function unfollowUser(){
     console.log('unfollowing user');
+    let endpoint = '/user/unfollow'
+    try{
+        let patchRes = await fetch (endpoint, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userToUnfollow: window.location.href.split('/')[4]})
+        });
+    } catch (err){
+        console.error(err);
+    }
 }
