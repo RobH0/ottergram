@@ -10,16 +10,12 @@ async function followBtnClicked(event){
 
     if( btnText == 'Follow'){
         followBtn.innerHTML = 'Unfollow';
-        followBtn.style.backgroundColor = 'white';
-        followBtn.style.color = 'black';
-        followBtn.style.border = '2px solid black';
+        followBtn.id = 'following-btn'
         followUser();
 
     } else if (btnText == 'Unfollow'){
         followBtn.innerHTML = 'Follow';
-        followBtn.style.backgroundColor = 'black';
-        followBtn.style.color = 'white';
-        followBtn.style.border = 'none';
+        followBtn.id = null;
         unfollowUser();
     }
 }
