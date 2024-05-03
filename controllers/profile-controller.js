@@ -56,6 +56,7 @@ module.exports = {
             let userPostInfo = await postsModel.getUserPosts(idObject);
             let currentUserInfo = await usersModel.getProfileInfo(idObject);
             let authedUserFollows;
+            let authedProfilePic = req.user.profilePic;
 
             let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
             
@@ -64,7 +65,7 @@ module.exports = {
             } else {
                 authedUserFollows = false;
             }
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows});
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic});
         }        
     },
 

@@ -56,6 +56,8 @@ nav{
     align-items: center;
     font-size: 1.1rem;
     width: 100%;
+    /*Adding shadow to bottom border. May change later*/
+    box-shadow: 0px -1px 10px black;
 }
 
 nav img, .standard-logo{
@@ -274,6 +276,18 @@ nav .user-profile-pic{
     justify-content: center;
     align-items: center;
     margin-right: 0;
+}
+
+.right-nav.four-items{
+    width: auto;
+}
+
+.right-nav.four-items a{
+    margin: 0 5px 0 5px;
+}
+
+.right-nav.four-items form{
+    margin-left: 5px;
 }
 
 .post-link{
