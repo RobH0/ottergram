@@ -55,7 +55,16 @@ module.exports = {
             let idObject = new ObjectId(req.params.userId);
             let userPostInfo = await postsModel.getUserPosts(idObject);
             let currentUserInfo = await usersModel.getProfileInfo(idObject);
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
+            let authedUserFollows;
+
+            let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
+            
+            if (followedByStrs.includes(req.user._id.toString())){
+                authedUserFollows = true;
+            } else {
+                authedUserFollows = false;
+            }
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows});
         }        
     },
 

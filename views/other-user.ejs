@@ -31,7 +31,11 @@
                 <div class="profile-upper">
                     
                     <h1><%= userInfo.username %></h1>
-                    <button class="standard-btn follow-following-btn">Follow</button>
+                    <% if (isFollowing) { %>
+                        <button class="standard-btn follow-following-btn" id="following-btn">Unfollow</button>
+                    <% } else { %>
+                        <button class="standard-btn follow-following-btn">Follow</button>
+                    <% } %>
                 </div>
                 <div class="profile-center">
                     <!-- HTML escaped -->
