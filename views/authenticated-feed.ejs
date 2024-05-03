@@ -34,14 +34,14 @@
                         <% if (allPosts[index].profilePic != "") { %>
                             <a href="/user/<%=allPosts[index].postByUserId %>"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                         <% } else { %>
-                            <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                            <a href="/user/<%=allPosts[index].postByUserId%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
                         <% } %>
                         
                         
                         <% if (allPosts[index].postByUsername == ""){ %>
                             <a href="/login"><h3>Unknown</h3></a>
                         <% } else { %>
-                            <a href="/login"><h3><%= allPosts[index].postByUsername %></h3></a>
+                            <a href="/user/<%=allPosts[index].postByUserId%>"><h3><%= allPosts[index].postByUsername %></h3></a>
                         <% } %>
                     </div>
                     <div class="post-pic">

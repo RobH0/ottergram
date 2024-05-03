@@ -65,7 +65,7 @@ module.exports = {
             } else {
                 authedUserFollows = false;
             }
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic});
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId});
         }        
     },
 
@@ -216,6 +216,26 @@ module.exports = {
             }
         }
 
+    },
+
+    getFollowers: async (req, res) => {
+        let userId = req.params.userId;
+        console.log(userId);
+        if (userId == undefined){
+            res.render('followers-list.ejs')
+        } else{
+            res.render('followers-list.ejs')
+        }
+    },
+
+    getFollowing: async (req, res) => {
+        let userId = req.params.userId;
+        console.log(userId);
+        if (userId == undefined){
+            res.render('following-list-authed.ejs')
+        } else{
+            res.render('following-list.ejs')
+        }
     }
 
 
