@@ -160,9 +160,12 @@ class UsersModel{
 
             // Had to loop through array using for await since MongoDB does n't support queries that attempt to select/find documents whose _id matches any ObjectIDs within an array using '$in'.
             for await (let user of result.following){
-                let userInfo = await this.collection.findOne({_id: user}, { projection: {_id : 0, password: 0, followedBy: 0, likedPosts: 0, bio: 0, following: 0}});
+                let userInfo = await this.collection.findOne({_id: user}, { projection: {password: 0, followedBy: 0, likedPosts: 0, bio: 0, following: 0}});
+                userInfo._id = JSON.stringify(userInfo._id)
+                userInfo._id = userInfo._id.substring(1, userInfo._id.length -1);
                 followingUserInfo.push(userInfo);
             }
+            console.log(followingUserInfo);
             return followingUserInfo;
         } catch(err) {
             console.error(err);

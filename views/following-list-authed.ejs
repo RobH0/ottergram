@@ -32,11 +32,11 @@
                     <div class="user-followed-container">
                         <div class="left-list-item">
                             <% if (user.profilePic == "") { %>
-                                <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                                <a href="/user/<%= user._id %>" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
                             <% } else { %>
-                                <a href="#" class="user-profile-link"><img src="<%= user.profilePic %>" class="large-profile-pic" alt="user's profile picture"></a>
+                                <a href="/user/<%= user._id %>" class="user-profile-link"><img src="<%= user.profilePic %>" class="large-profile-pic" alt="user's profile picture"></a>
                             <% } %>
-                            <a href="#" class="username"><%=user.username %></a>
+                            <a href="/user/<%= user._id %>" class="username"><%=user.username %></a>
                         </div>
 
                         <button class="standard-btn" id="following-btn">Unfollow</button>
