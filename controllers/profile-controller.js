@@ -229,17 +229,14 @@ module.exports = {
         }
     },
 
-    // determine why getFollowing is being called twice when the authed user's following list page is requested.
     getFollowing: async (req, res) => {
         let userId = req.params.userId;
-        console.log(userId);
-        console.log('executing getFollowing');
         if (userId == undefined){
-            res.render('following-list-authed.ejs', { profilePic: req.user.profilePic});
-        } else{
-            res.render('following-list.ejs')
+            let followingInfo = await usersModel.getFollowingUsers(req.user._id);
+            res.render('following-list-authed.ejs', { profilePic: req.user.profilePic, followingArray: followingInfo});
+        } else {
+            let followingInfo = usersModel.getFollowingUsers(userId);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic});
         }
     }
-
-
 }

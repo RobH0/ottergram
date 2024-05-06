@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%- include('partials/head_links.ejs') %>
-        <title>Ottergram: Your Following List</title>
+        <title>Ottergram: User's Following List</title>
     </head>
     <body>
         <header>
@@ -26,23 +26,23 @@
             </nav>
         </header>
         <main>
-            <h1 class="follow-h1">You're Following</h1>
-            <% for (let user of followingArray) { %>
-                <section class="following-list">
-                    <div class="user-followed-container">
-                        <div class="left-list-item">
-                            <% if (user.profilePic == "") { %>
-                                <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
-                            <% } else { %>
-                                <a href="#" class="user-profile-link"><img src="<%= user.profilePic %>" class="large-profile-pic" alt="user's profile picture"></a>
-                            <% } %>
-                            <a href="#" class="username"><%=user.username %></a>
-                        </div>
-
-                        <button class="standard-btn" id="following-btn">Unfollow</button>
+            <h1 class="follow-h1">User is Following</h1>
+            <section class="following-list">
+                <div class="user-followed-container">
+                    <div class="left-list-item">
+                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                        <a href="#" class="username">Username</a>
                     </div>
-                </section>
-            <% } %>
+                </div>
+            </section>
+            <section class="following-list">
+                <div class="user-followed-container">
+                    <div class="left-list-item">
+                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                        <a href="#" class="username">Username</a>
+                    </div>
+                </div>
+            </section>
         </main>
     </body>
 </html>
