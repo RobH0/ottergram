@@ -23,6 +23,8 @@ body {
     padding: 0;
 }
 
+
+
 h1 {
     margin-top: 1%;
     margin-bottom: 0.5%;
@@ -662,4 +664,43 @@ nav .user-profile-pic{
 
 .settings-options-sec .large-profile-pic{
     margin: 0;
+}
+
+/* ############### following/follower list page styling ################ */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-followed-container{
+    background-color: white;
+    display: flex;
+    width: 50vw;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px;
+    box-shadow: 0px 2px 5px black;
+}
+
+.user-followed-container *{
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.follow-h1{
+    margin: 30px;
+}
+
+.user-followed-container .large-profile-pic{
+    width: 100px;
+    height: 100px;
+}
+
+.username{
+    font-size: 1.5rem;
 }

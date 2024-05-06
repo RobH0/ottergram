@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('partials/head_links.ejs') %>
-    <title>Ottergram: Your Following List</title>
-</head>
-<body>
-    <h1>Following List for Authed User</h1>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <%- include('partials/head_links.ejs') %>
+        <title>Ottergram: Your Following List</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+                <div class="right-nav four-items">
+                    <a href="/feed">Feed</a>
+                    <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                    <% if (profilePic != "") { %>
+                        <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                    <% } else { %>
+                        <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                    <% } %>
+                    <form action="/logout" class="logout-form" method="post">
+                        <button type="submit" class="sign-out-btn">Sign out</button>
+                    </form>
+
+                </div>
+            </nav>
+        </header>
+        <main>
+            <h1 class="follow-h1">You're Following</h1>
+            <section class="following-list">
+                <div class="user-followed-container">
+                    <div class="left-list-item">
+                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                        <a href="#" class="username">Username</a>
+                    </div>
+                    
+                    <button class="standard-btn" id="following-btn">Unfollow</button>
+                </div>
+            </section>
+            <section class="following-list">
+                <div class="user-followed-container">
+                    <div class="left-list-item">
+                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                        <a href="#" class="username">Username</a>
+                    </div>
+                    
+                    <button class="standard-btn" id="following-btn">Unfollow</button>
+                </div>
+            </section>
+        </main>
+    </body>
 </html>
