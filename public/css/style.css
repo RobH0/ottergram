@@ -23,6 +23,8 @@ body {
     padding: 0;
 }
 
+
+
 h1 {
     margin-top: 1%;
     margin-bottom: 0.5%;
@@ -56,6 +58,8 @@ nav{
     align-items: center;
     font-size: 1.1rem;
     width: 100%;
+    /*Adding shadow to bottom border. May change later*/
+    box-shadow: 0px -1px 10px black;
 }
 
 nav img, .standard-logo{
@@ -276,6 +280,18 @@ nav .user-profile-pic{
     margin-right: 0;
 }
 
+.right-nav.four-items{
+    width: auto;
+}
+
+.right-nav.four-items a{
+    margin: 0 5px 0 5px;
+}
+
+.right-nav.four-items form{
+    margin-left: 5px;
+}
+
 .post-link{
     display: flex;
     justify-content: center;
@@ -303,6 +319,12 @@ nav .user-profile-pic{
     border-radius: 10px;
     width: 35dvw;
     min-width: 500px;
+}
+
+#following-btn{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
 }
 
 .profile-info-right{
@@ -642,4 +664,43 @@ nav .user-profile-pic{
 
 .settings-options-sec .large-profile-pic{
     margin: 0;
+}
+
+/* ############### following/follower list page styling ################ */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-followed-container{
+    background-color: white;
+    display: flex;
+    width: 50vw;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px;
+    box-shadow: 0px 2px 5px black;
+}
+
+.user-followed-container *{
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.follow-h1{
+    margin: 30px;
+}
+
+.user-followed-container .large-profile-pic{
+    width: 100px;
+    height: 100px;
+}
+
+.username{
+    font-size: 1.5rem;
 }

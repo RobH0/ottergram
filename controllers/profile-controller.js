@@ -55,7 +55,17 @@ module.exports = {
             let idObject = new ObjectId(req.params.userId);
             let userPostInfo = await postsModel.getUserPosts(idObject);
             let currentUserInfo = await usersModel.getProfileInfo(idObject);
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
+            let authedUserFollows;
+            let authedProfilePic = req.user.profilePic;
+
+            let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
+            
+            if (followedByStrs.includes(req.user._id.toString())){
+                authedUserFollows = true;
+            } else {
+                authedUserFollows = false;
+            }
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId});
         }        
     },
 
@@ -168,5 +178,74 @@ module.exports = {
         }catch (err){
             console.err(err);
         }        
+    },
+
+    followUser: async (req, res) => {
+        console.log(`followingUser ${JSON.stringify(req.body)}`);
+
+        let userToFollowId = req.body.userToFollow;
+        let authedUserIdStr = req.user._id.toString();
+
+        // Making sure the authed user isn't trying to follow their own profile.
+        if (userToFollowId == authedUserIdStr){
+            console.log("You can't follow yourself");
+        } else {
+            let result = await usersModel.addFollowing(userToFollowId, req.user._id);
+            if (result){
+                res.status(200).json({ message: 'Successfully followed  user profile.'})
+            }else{
+                res.status(500).json({ message: 'Follow attempt failed.'});
+            }
+        }       
+    },
+
+    unFollowerUser: async (req, res) => {
+        console.log(`unfollowingUser ${JSON.stringify(req.body)}`);
+
+        let userToUnfollowId = req.body.userToUnfollow;
+        let authUserIdStr = req.user._id.toString();
+
+        if (userToUnfollowId == authUserIdStr){
+            console.log("You can't follow yourself.");
+        }else{
+            let result = await usersModel.removeFollowing(userToUnfollowId, req.user._id);
+            console.log('Called removeFollowing');
+            console.log(`else result: ${JSON.stringify(result)}`);
+            if (result){
+                res.status(200).json({ message: 'Successfully unfollowed user profile.'});
+            } else{
+                res.status(500).json({ message: 'Unfollow attempted failed.'});
+            }
+        }
+
+    },
+
+    getFollowers: async (req, res) => {
+        let userId = req.params.userId;
+        let isFollowersListVal = true;
+        
+        if (userId == undefined){
+            let otherUserInfo = await usersModel.getUsernameAndPic(req.user._id);
+            let followerInfo = await usersModel.getFollowingUsers(req.user._id, false);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
+        } else{
+            let otherUserInfo = await usersModel.getUsernameAndPic(userId);
+            let followerInfo = await usersModel.getFollowingUsers(userId, false);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
+        }
+    },
+
+    getFollowing: async (req, res) => {
+        let userId = req.params.userId;
+
+        if (userId == undefined){
+            let followingInfo = await usersModel.getFollowingUsers(req.user._id, true);
+            res.render('following-list-authed.ejs', { profilePic: req.user.profilePic, followingArray: followingInfo});
+        } else {
+            let followingInfo = await usersModel.getFollowingUsers(userId, true);
+            let otherUserInfo = await usersModel.getUsernameAndPic(userId);
+            
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo});
+        } 
     }
 }

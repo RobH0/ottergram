@@ -10,9 +10,14 @@
     <header>
         <nav>
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
-            <div class="right-nav">
+            <div class="right-nav four-items">
                 <a href="/feed">Feed</a>
                 <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <% if (profilePic != "") { %>
+                    <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                <% } else { %>
+                    <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                <% } %>
                 <form action="/logout" class="logout-form" method="post">
                     <button type="submit" class="sign-out-btn">Sign out</button>
                 </form>
@@ -31,7 +36,11 @@
                 <div class="profile-upper">
                     
                     <h1><%= userInfo.username %></h1>
-                    <button class="standard-btn .follow-following-btn">Follow</button>
+                    <% if (isFollowing) { %>
+                        <button class="standard-btn follow-following-btn" id="following-btn">Unfollow</button>
+                    <% } else { %>
+                        <button class="standard-btn follow-following-btn">Follow</button>
+                    <% } %>
                 </div>
                 <div class="profile-center">
                     <!-- HTML escaped -->
@@ -39,8 +48,8 @@
                 </div>
                 <div class="profile-lower">
                     <span><%= posts.length %> posts</span>
-                    <a href="/followers"><span>6 followers</span></a>
-                    <a href="/following"><span>6 following</span></a>
+                    <a href="/user/<%=userID%>/followers"><span><%= userInfo.followedBy.length %> followers</span></a>
+                    <a href="/user/<%=userID%>/following"><span><%= userInfo.following.length %> following</span></a>
                 </div>
             </div>
         </section>
@@ -70,6 +79,6 @@
             <button class="delete-btn standard-btn">Delete</button>
         </section>
     </main>
-    <script src="/js/main.js"></script>
+    <script src="/js/otherUser.js"></script>
 </body>
 </html>
