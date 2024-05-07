@@ -30,7 +30,12 @@
             </nav>
         </header>
         <main>
-            <h1 class="follow-h1"><%=otherUser.username%> is Following</h1>
+            <% if (isFollowersList == false) { %>
+                <h1 class="follow-h1"><%=otherUser.username%> is Following</h1>
+            <% } else { %>
+                <h1 class="follow-h1"><%=otherUser.username%>'s Followers</h1>
+            <% } %>
+
             <% for (let user of followingArray) { %>
                 <section class="following-list">
                     <div class="user-followed-container">
@@ -46,7 +51,11 @@
                 </section>
             <% } %>
             <% if (followingArray.length == 0){ %>
-                <h3>You not following anyone at this moment.</h3>
+                <% if (isFollowersList == false) { %>
+                    <h3><%=otherUser.username%> is not following anyone at this moment.</h3>
+                <% } else { %>
+                    <h3><%=otherUser.username%> currently has no followers.</h3>
+                <% } %>
             <% } %>
         </main>
     </body>
