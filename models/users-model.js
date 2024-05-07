@@ -137,8 +137,10 @@ class UsersModel{
         }
 
         try{
+            console.log(`userIdToUnFollow: ${userIdToUnfollow}`);
             userIdToUnfollow = new ObjectID(userIdToUnfollow);
             let result = await this.collection.updateOne({_id: authedUserId}, {$pull: { following: userIdToUnfollow}});
+            console.log(`result: ${JSON.stringify(result)}`);
             let result2 = await this.collection.updateOne({_id: userIdToUnfollow}, {$pull: { followedBy: authedUserId}});
             console.log(`unfollow result: ${JSON.stringify(result)}`);
             return true;

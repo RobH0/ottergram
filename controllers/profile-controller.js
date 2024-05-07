@@ -209,6 +209,8 @@ module.exports = {
             console.log("You can't follow yourself.");
         }else{
             let result = await usersModel.removeFollowing(userToUnfollowId, req.user._id);
+            console.log('Called removeFollowing');
+            console.log(`else result: ${JSON.stringify(result)}`);
             if (result){
                 res.status(200).json({ message: 'Successfully unfollowed user profile.'});
             } else{

@@ -39,10 +39,14 @@
                             <a href="/user/<%= user._id %>" class="username"><%=user.username %></a>
                         </div>
 
-                        <button class="standard-btn" id="following-btn">Unfollow</button>
+                        <button class="standard-btn follow-following-btn" id="following-btn">Unfollow</button>
                     </div>
                 </section>
             <% } %>
+            <% if (followingArray.length == 0){ %>
+                <h3>You not following anyone at this moment.</h3>
+            <% } %>
         </main>
+        <script src="/js/otherUser.js"></script>
     </body>
 </html>
