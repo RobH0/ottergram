@@ -222,23 +222,30 @@ module.exports = {
 
     getFollowers: async (req, res) => {
         let userId = req.params.userId;
-        console.log(userId);
-        console.log('executing getFollowers');
+        let isFollowersListVal = true;
+        
         if (userId == undefined){
-            res.render('followers-list.ejs')
+            let otherUserInfo = await usersModel.getUsernameAndPic(req.user._id);
+            let followerInfo = await usersModel.getFollowingUsers(req.user._id, false);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
         } else{
-            res.render('followers-list.ejs')
+            let otherUserInfo = await usersModel.getUsernameAndPic(userId);
+            let followerInfo = await usersModel.getFollowingUsers(userId, false);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
         }
     },
 
     getFollowing: async (req, res) => {
         let userId = req.params.userId;
+
         if (userId == undefined){
-            let followingInfo = await usersModel.getFollowingUsers(req.user._id);
+            let followingInfo = await usersModel.getFollowingUsers(req.user._id, true);
             res.render('following-list-authed.ejs', { profilePic: req.user.profilePic, followingArray: followingInfo});
         } else {
-            let followingInfo = usersModel.getFollowingUsers(userId);
-            res.render('following-list-other.ejs', { profilePic: req.user.profilePic});
-        }
+            let followingInfo = await usersModel.getFollowingUsers(userId, true);
+            let otherUserInfo = await usersModel.getUsernameAndPic(userId);
+            
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo});
+        } 
     }
 }

@@ -21,6 +21,10 @@ class UsersModel{
             if (this.collection == null){
                 await this.initCollection();
             }
+            if (typeof(userID) == 'string'){
+                userID = new ObjectID(userID);
+            }
+
             let queryResult = await this.collection.findOne({_id : userID}, { projection: {password: 0, bio: 0}});
             
             try{
@@ -140,9 +144,8 @@ class UsersModel{
             console.log(`userIdToUnFollow: ${userIdToUnfollow}`);
             userIdToUnfollow = new ObjectID(userIdToUnfollow);
             let result = await this.collection.updateOne({_id: authedUserId}, {$pull: { following: userIdToUnfollow}});
-            console.log(`result: ${JSON.stringify(result)}`);
+            
             let result2 = await this.collection.updateOne({_id: userIdToUnfollow}, {$pull: { followedBy: authedUserId}});
-            console.log(`unfollow result: ${JSON.stringify(result)}`);
             return true;
         }catch (err){
             console.error(err);
@@ -150,7 +153,7 @@ class UsersModel{
         }
     }
 
-    async getFollowingUsers(userId){
+    async getFollowingUsers(userId, following){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -158,16 +161,27 @@ class UsersModel{
         let followingUserInfo = [];
 
         try{
-            let result = await this.collection.findOne({_id: userId}, { projection: {_id : 0, password: 0, followedBy: 0, profilePic: 0, likedPosts: 0, bio: 0}});
+            if (typeof(userId) == 'string'){
+                userId = new ObjectID(userId);
+            }
+            let result = await this.collection.findOne({_id: userId}, { projection: {_id : 0, password: 0, profilePic: 0, likedPosts: 0, bio: 0}});
+
+
+            let userIdList;
+            
+            if (following == true){
+                userIdList = result.following;
+            } else {
+                userIdList = result.followedBy
+            }
 
             // Had to loop through array using for await since MongoDB does n't support queries that attempt to select/find documents whose _id matches any ObjectIDs within an array using '$in'.
-            for await (let user of result.following){
+            for await (let user of userIdList){
                 let userInfo = await this.collection.findOne({_id: user}, { projection: {password: 0, followedBy: 0, likedPosts: 0, bio: 0, following: 0}});
                 userInfo._id = JSON.stringify(userInfo._id)
                 userInfo._id = userInfo._id.substring(1, userInfo._id.length -1);
                 followingUserInfo.push(userInfo);
             }
-            console.log(followingUserInfo);
             return followingUserInfo;
         } catch(err) {
             console.error(err);

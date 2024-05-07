@@ -4,7 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%- include('partials/head_links.ejs') %>
-        <title>Ottergram: User's Following List</title>
+        <% if (isFollowersList == false) { %>
+            <title>Ottergram: <%=otherUser.username%>'s following list</title>
+        <% } else { %>
+            <title>Ottergram: <%=otherUser.username%>'s followers list</title>
+        <% } %>
     </head>
     <body>
         <header>
@@ -26,23 +30,24 @@
             </nav>
         </header>
         <main>
-            <h1 class="follow-h1">User is Following</h1>
-            <section class="following-list">
-                <div class="user-followed-container">
-                    <div class="left-list-item">
-                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
-                        <a href="#" class="username">Username</a>
+            <h1 class="follow-h1"><%=otherUser.username%> is Following</h1>
+            <% for (let user of followingArray) { %>
+                <section class="following-list">
+                    <div class="user-followed-container">
+                        <div class="left-list-item">
+                            <% if (user.profilePic == "") { %>
+                                <a href="/user/<%= user._id %>" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
+                            <% } else { %>
+                                <a href="/user/<%= user._id %>" class="user-profile-link"><img src="<%= user.profilePic %>" class="large-profile-pic" alt="user's profile picture"></a>
+                            <% } %>
+                            <a href="/user/<%= user._id %>" class="username"><%=user.username %></a>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section class="following-list">
-                <div class="user-followed-container">
-                    <div class="left-list-item">
-                        <a href="#" class="user-profile-link"><img src="/imgs/icons/otter-logo.svg" class="large-profile-pic" alt="user's profile picture"></a>
-                        <a href="#" class="username">Username</a>
-                    </div>
-                </div>
-            </section>
+                </section>
+            <% } %>
+            <% if (followingArray.length == 0){ %>
+                <h3>You not following anyone at this moment.</h3>
+            <% } %>
         </main>
     </body>
 </html>
