@@ -247,5 +247,19 @@ module.exports = {
             
             res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo});
         } 
+    },
+
+    likePost: async (req, res) => {
+        console.log(JSON.stringify(req));
+        const postId = req.param.postId;
+        const authedUserId = req.user._id
+        let result = postsModel.likePost(postId, authedUserId);
+    },
+
+    unlikePost: async (req, res) => {
+        console.log(JSON.stringify(req));
+        const postId = req.param.postId;
+        const authedUserId = req.user._id;
+        let result = postsModel.unlikePost(postId, authedUserId);
     }
 }

@@ -39,10 +39,10 @@
                         <div class="likes-comments">
                             <div>
                                 <a href="/login"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon"></a>
-                                <% if (allPosts[index].likes == null){ %>
+                                <% if (allPosts[index].likes.length == null){ %>
                                     <span>0</span>
                                 <% } else { %>
-                                    <span><%= allPosts[index].likes %></span>
+                                    <span><%= allPosts[index].likes.length %></span>
                                 <% } %>
                             </div>
                             <div>

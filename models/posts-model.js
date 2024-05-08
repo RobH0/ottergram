@@ -1,4 +1,5 @@
 const mongo = require('../config/database-config');
+const ObjectID = require('mongodb').ObjectId;
 
 class PostsModel{
     constructor(){
@@ -49,7 +50,7 @@ class PostsModel{
                 cloudPublicId: imgPublicId,
                 datePosted: new Date(),
                 createdBy: userID,
-                likes: 0,
+                likes: [],
                 numComments: 0,
                 deleted: false
             })
@@ -80,6 +81,38 @@ class PostsModel{
             return deletionResult;
         }catch (err){
             console.error(err);
+        }
+    }
+
+    async likePost(postId, authedUserId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            let postObjectId = new ObjectID(postId);
+
+            const updateLikeResult = await this.collection.updateOne({ _id: postObjectId}, { $addToSet: {likes: authedUserId}});
+            console.log(`updateLikeResult: ${updateLikeResult}`);
+            return true;
+        }catch (err){
+            console.error(err);
+            return false;
+        }
+    }
+
+    async unlikePost(postId, authedUserId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            let postObjectId = new ObjectID(postId);
+
+            const updateLikeResult = await this.collection.updateOne({ _id: postObjectId}, { $pull: { likes: authedUserId}});
+            console.log(`unlikeResult: ${updateLikeResult}`);
+            return true;
+        } catch (err){
+            console.error(err);
+            return false;
         }
     }
     
