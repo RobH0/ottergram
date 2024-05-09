@@ -39,6 +39,12 @@ async function calcTimeDiff(datePosted, currentDate){
     }                
 }
 
+function convertToString(array){
+    let newArray = array.map((element) => JSON.stringify(element));
+    console.log(`newArray: ${newArray}`);
+    return newArray;
+}
+
 
 
 module.exports = {
@@ -91,6 +97,7 @@ module.exports = {
         try{
             let posts = await postsModel.getAllPosts();
             let currentDate = new Date();
+            let likesArray = [];
     
             for (let index = 0; index < posts.length; index++){
                 
@@ -103,8 +110,18 @@ module.exports = {
                 posts[index].postByUsername = userInfo.username;
                 posts[index].profilePic = userInfo.profilePic;
                 posts[index].postByUserId = userInfo._id.toString();
+                console.log(`likes: ${posts[index].likes}`);
+                posts[index].likesStr = convertToString(posts[index].likes);
+                console.log(`likesArray: ${likesArray}`);
             }
-            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts});
+            console.log(likesArray);
+
+            console.log();
+            let authedUserIdStr = JSON.stringify(req.user._id)
+            console.log(`authedUserIdStr: ${authedUserIdStr}`);
+            console.log(likesArray.includes(authedUserIdStr));
+            
+            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr});
         }catch (err){
             console.error(err);
         }
@@ -250,16 +267,28 @@ module.exports = {
     },
 
     likePost: async (req, res) => {
-        console.log(JSON.stringify(req));
-        const postId = req.param.postId;
+        //console.log(req);
+        const postId = req.params.postId;
         const authedUserId = req.user._id
-        let result = postsModel.likePost(postId, authedUserId);
+        console.log(`postId: ${postId}, authedUserId: ${JSON.stringify(authedUserId)}`);
+        const result = await postsModel.likePost(postId, authedUserId);
+        if (result == true){
+            res.status(200).json({ message: 'Successfully liked post'});
+        } else {
+            res.status(500).json({ message: 'Like attempt failed.'})
+        }
     },
 
     unlikePost: async (req, res) => {
-        console.log(JSON.stringify(req));
-        const postId = req.param.postId;
+        //console.log(req);
+        const postId = req.params.postId;
         const authedUserId = req.user._id;
-        let result = postsModel.unlikePost(postId, authedUserId);
+        let result = await postsModel.unlikePost(postId, authedUserId);
+        console.log(`result: ${result}`);
+        if (result == true){
+            res.status(200).json({ message: 'Successfully liked post'});
+        } else {
+            res.status(500).json({ message: 'Like attempt failed.'})
+        }
     }
 }

@@ -92,7 +92,7 @@ class PostsModel{
             let postObjectId = new ObjectID(postId);
 
             const updateLikeResult = await this.collection.updateOne({ _id: postObjectId}, { $addToSet: {likes: authedUserId}});
-            console.log(`updateLikeResult: ${updateLikeResult}`);
+            console.log(`updateLikeResult: ${JSON.stringify(updateLikeResult)}`);
             return true;
         }catch (err){
             console.error(err);
@@ -108,7 +108,7 @@ class PostsModel{
             let postObjectId = new ObjectID(postId);
 
             const updateLikeResult = await this.collection.updateOne({ _id: postObjectId}, { $pull: { likes: authedUserId}});
-            console.log(`unlikeResult: ${updateLikeResult}`);
+            console.log(`unlikeResult: ${JSON.stringify(updateLikeResult)}`);
             return true;
         } catch (err){
             console.error(err);

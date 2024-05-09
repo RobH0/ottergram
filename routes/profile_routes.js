@@ -21,7 +21,7 @@ router.get('/user/:userId/following', ensureAuth, profileController.getFollowing
 router.get('/profile/followers', ensureAuth, profileController.getFollowers);
 router.get('/profile/following', ensureAuth, profileController.getFollowing);
 
-router.patch('/post/:userId/unlike', ensureAuth, profileController.unlikePost);
-router.patch('/post/:userId/like', ensureAuth, profileController.likePost);
+router.patch('/post/:postId/unlike', ensureAuth, profileController.unlikePost);
+router.patch('/post/:postId/like', ensureAuth, profileController.likePost);
 
 module.exports = router;

@@ -50,7 +50,12 @@
                     <div class="lower-feed-post">
                         <div class="likes-comments">
                             <div>
-                                <a href="/login"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon"></a>
+                                <% if (allPosts[index].likesStr.includes(authedUserId)) {%>
+                                    <button class="like-button"><img src="/imgs/icons/like-red-black-outline.svg" alt="heart icon" class="liked" id="<%= allPosts[index]._id.toString()%>"></button>
+                                <% } else { %>
+                                    <button class="like-button"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon" id="<%= allPosts[index]._id.toString()%>"></button>
+                                <% } %>
+
                                 <% if (allPosts[index].likes.length == null){ %>
                                     <span>0</span>
                                 <% } else { %>
@@ -77,7 +82,7 @@
                 </div>
             <% } %>
         </section>
-    
     </main>
+    <script src="/js/likeUnlike.js"></script>
 </body>
 </html>
