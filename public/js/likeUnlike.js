@@ -24,15 +24,13 @@ async function changeLikeStatus(event){
 }
 
 async function requestLikePost(likeBtn){
-    console.log(likeBtn);
-    // implement increment to like count when like request is successful
-    console.log(`classList: ${likeBtn.classList.value}`);
+
     if (likeBtn.classList.value != 'liked'){
         console.log('in if')
         const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
         console.log(likeCount);
         likeBtn.src = '/imgs/icons/like-red-black-outline.svg';
-        likeBtn.class = 'liked';
+        likeBtn.classList.value = 'liked';
         likeCount.innerHTML = Number(likeCount.innerHTML) + 1;
         const endpoint = '/post/' + likeBtn.id + '/like';
         console.log(`endpoint: ${endpoint}`);
@@ -46,7 +44,7 @@ async function requestLikePost(likeBtn){
             console.log(result.message);
         } catch (err) {
             likeBtn.src = '/imgs/icons/like-heart-white.svg';
-            likeBtn.class = null;
+            likeBtn.classList.value = null;
             console.error(err);
         }
     }
@@ -54,25 +52,28 @@ async function requestLikePost(likeBtn){
     
 }
 async function requestUnlikePost(likeBtn){
-    console.log(likeBtn);
-    likeBtn.src = '/imgs/icons/like-heart-white.svg';
-    likeBtn.class = null;
-    const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
-    likeCount.innerHTML = Number(likeCount.innerHTML) - 1;
-    const endpoint = '/post/' + likeBtn.id + '/unlike';
-    //implement fetch
-    try{
-        let result = await fetch(endpoint, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    } catch (err) {
-        console.error(err);
-    }
 
-    //implement decrement to likes count on post.
+    if (likeBtn.classList.value == 'liked'){
+        likeBtn.src = '/imgs/icons/like-heart-white.svg';
+        likeBtn.classList.value = null;
+        const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
+        likeCount.innerHTML = Number(likeCount.innerHTML) - 1;
+        const endpoint = '/post/' + likeBtn.id + '/unlike';
+        
+        try{
+            let result = await fetch(endpoint, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (err) {
+            console.error(err);
+            likeCount.innerHTML = Number(likeCount.innerHTML) + 1;
+            likeBtn.src = '/imgs/icons/like-red-black-outline.svg';
+            likeBtn.classList.value = 'liked';
+        }
+    }
 }
 
 
