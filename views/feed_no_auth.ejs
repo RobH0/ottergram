@@ -37,15 +37,15 @@
                     </div>
                     <div class="lower-feed-post">
                         <div class="likes-comments">
-                            <div>
+                            <div class="feed-likes">
                                 <a href="/login"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon"></a>
-                                <% if (allPosts[index].likes == null){ %>
+                                <% if (allPosts[index].likes.length == null){ %>
                                     <span>0</span>
                                 <% } else { %>
-                                    <span><%= allPosts[index].likes %></span>
+                                    <span><%= allPosts[index].likes.length %></span>
                                 <% } %>
                             </div>
-                            <div>
+                            <div class="feed-likes">
                                 <a href="/login"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
                                 <% if (allPosts[index].numComments == null){ %>
                                     <span>0</span>
@@ -66,5 +66,6 @@
             <% } %>
         </section>
     </main>
+    <script src="/js/likeUnlike.js"></script>
 </body>
 </html>

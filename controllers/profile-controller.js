@@ -39,12 +39,22 @@ async function calcTimeDiff(datePosted, currentDate){
     }                
 }
 
+function convertToString(array){
+    let newArray = array.map((element) => element.toString());
+    return newArray;
+}
+
 
 
 module.exports = {
     getYourProfile: async (req,res) =>{
         let userPostInfo = await postsModel.getUserPosts(req.user._id);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
+
+        for (let index = 0; index < userPostInfo.length; index++){
+            userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
+        }
+        
         res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
     },
 
@@ -59,13 +69,17 @@ module.exports = {
             let authedProfilePic = req.user.profilePic;
 
             let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
+
+            for (let index = 0; index < userPostInfo.length; index++){
+                userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
+            }            
             
             if (followedByStrs.includes(req.user._id.toString())){
                 authedUserFollows = true;
             } else {
                 authedUserFollows = false;
             }
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId});
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId, authedUserId: req.user._id});
         }        
     },
 
@@ -91,6 +105,7 @@ module.exports = {
         try{
             let posts = await postsModel.getAllPosts();
             let currentDate = new Date();
+            let likesArray = [];
     
             for (let index = 0; index < posts.length; index++){
                 
@@ -103,8 +118,12 @@ module.exports = {
                 posts[index].postByUsername = userInfo.username;
                 posts[index].profilePic = userInfo.profilePic;
                 posts[index].postByUserId = userInfo._id.toString();
+                posts[index].likesStr = convertToString(posts[index].likes);
             }
-            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts});
+            
+            let authedUserIdStr = req.user._id.toString();
+                        
+            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr});
         }catch (err){
             console.error(err);
         }
@@ -247,5 +266,27 @@ module.exports = {
             
             res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo});
         } 
+    },
+
+    likePost: async (req, res) => {
+        const postId = req.params.postId;
+        const authedUserId = req.user._id
+        const result = await postsModel.likePost(postId, authedUserId);
+        if (result == true){
+            res.status(200).json({ message: 'Successfully liked post'});
+        } else {
+            res.status(500).json({ message: 'Like attempt failed.'})
+        }
+    },
+
+    unlikePost: async (req, res) => {
+        const postId = req.params.postId;
+        const authedUserId = req.user._id;
+        let result = await postsModel.unlikePost(postId, authedUserId);
+        if (result == true){
+            res.status(200).json({ message: 'Successfully liked post'});
+        } else {
+            res.status(500).json({ message: 'Like attempt failed.'})
+        }
     }
 }

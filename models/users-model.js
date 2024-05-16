@@ -90,7 +90,7 @@ class UsersModel{
         if (this.collection == null){
             await this.initCollection();
         }
-        let result = await this.collection.findOne({_id : userID}, { projection: {_id : 0, password: 0}});
+        let result = await this.collection.findOne({_id : userID}, { projection: {password: 0}});
         //console.log(`getProfileInfo: ${JSON.stringify(result)}`);
         return result
     }
