@@ -62,7 +62,7 @@ async function requestUnlikePost(likeBtn){
 
     if (likeBtn.classList.value == 'liked'){
         let location = window.location.href;
-        console.log(`location: ${location}`);
+        
         if (location.includes('profile') || location.includes('user')){
             likeBtn.src = '/imgs/icons/like-white-outline.svg';
         } else{

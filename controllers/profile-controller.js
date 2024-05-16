@@ -40,8 +40,7 @@ async function calcTimeDiff(datePosted, currentDate){
 }
 
 function convertToString(array){
-    let newArray = array.map((element) => JSON.stringify(element));
-    console.log(`newArray: ${newArray}`);
+    let newArray = array.map((element) => element.toString());
     return newArray;
 }
 
@@ -51,13 +50,11 @@ module.exports = {
     getYourProfile: async (req,res) =>{
         let userPostInfo = await postsModel.getUserPosts(req.user._id);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
-        console.log(`userPostInfo: ${JSON.stringify(userPostInfo[0].likes)}`);
 
         for (let index = 0; index < userPostInfo.length; index++){
-            userPostInfo[index].likesStr = userPostInfo[index].likes.map((id) => id.toString());
+            userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
         }
-        console.log(`currentUserInfo._id: ${currentUserInfo._id}`);
-        console.log(`includes: ${userPostInfo[0].likesStr.includes(currentUserInfo._id.toString())}`);
+        
         res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
     },
 
@@ -74,11 +71,8 @@ module.exports = {
             let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
 
             for (let index = 0; index < userPostInfo.length; index++){
-                userPostInfo[index].likesStr = userPostInfo[index].likes.map((id) => id.toString());
-            }
-            console.log(`currentUserInfo._id: ${currentUserInfo._id}`);
-            console.log(`includes: ${userPostInfo[0].likesStr.includes(currentUserInfo._id.toString())}`);
-            
+                userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
+            }            
             
             if (followedByStrs.includes(req.user._id.toString())){
                 authedUserFollows = true;
@@ -124,17 +118,11 @@ module.exports = {
                 posts[index].postByUsername = userInfo.username;
                 posts[index].profilePic = userInfo.profilePic;
                 posts[index].postByUserId = userInfo._id.toString();
-                console.log(`likes: ${posts[index].likes}`);
                 posts[index].likesStr = convertToString(posts[index].likes);
-                console.log(`likesArray: ${likesArray}`);
             }
-            console.log(likesArray);
-
-            console.log();
-            let authedUserIdStr = JSON.stringify(req.user._id)
-            console.log(`authedUserIdStr: ${authedUserIdStr}`);
-            console.log(likesArray.includes(authedUserIdStr));
             
+            let authedUserIdStr = req.user._id.toString();
+                        
             res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr});
         }catch (err){
             console.error(err);
@@ -281,10 +269,8 @@ module.exports = {
     },
 
     likePost: async (req, res) => {
-        //console.log(req);
         const postId = req.params.postId;
         const authedUserId = req.user._id
-        console.log(`postId: ${postId}, authedUserId: ${JSON.stringify(authedUserId)}`);
         const result = await postsModel.likePost(postId, authedUserId);
         if (result == true){
             res.status(200).json({ message: 'Successfully liked post'});
@@ -294,11 +280,9 @@ module.exports = {
     },
 
     unlikePost: async (req, res) => {
-        //console.log(req);
         const postId = req.params.postId;
         const authedUserId = req.user._id;
         let result = await postsModel.unlikePost(postId, authedUserId);
-        console.log(`result: ${result}`);
         if (result == true){
             res.status(200).json({ message: 'Successfully liked post'});
         } else {
