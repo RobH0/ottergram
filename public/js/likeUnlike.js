@@ -31,7 +31,7 @@ async function requestLikePost(likeBtn){
         console.log(`location: ${location}`);
         const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
         console.log(likeCount);
-        if (location.includes('profile')){
+        if (location.includes('profile') || location.includes('user')){
             likeBtn.src = '/imgs/icons/like-white.svg';
         } else{
             likeBtn.src = '/imgs/icons/like-red-black-outline.svg';
@@ -63,7 +63,7 @@ async function requestUnlikePost(likeBtn){
     if (likeBtn.classList.value == 'liked'){
         let location = window.location.href;
         console.log(`location: ${location}`);
-        if (location.includes('profile')){
+        if (location.includes('profile') || location.includes('user')){
             likeBtn.src = '/imgs/icons/like-white-outline.svg';
         } else{
             likeBtn.src = '/imgs/icons/like-heart-white.svg';

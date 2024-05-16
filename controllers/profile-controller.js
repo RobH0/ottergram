@@ -72,6 +72,12 @@ module.exports = {
             let authedProfilePic = req.user.profilePic;
 
             let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
+
+            for (let index = 0; index < userPostInfo.length; index++){
+                userPostInfo[index].likesStr = userPostInfo[index].likes.map((id) => id.toString());
+            }
+            console.log(`currentUserInfo._id: ${currentUserInfo._id}`);
+            console.log(`includes: ${userPostInfo[0].likesStr.includes(currentUserInfo._id.toString())}`);
             
             
             if (followedByStrs.includes(req.user._id.toString())){
@@ -79,7 +85,7 @@ module.exports = {
             } else {
                 authedUserFollows = false;
             }
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId});
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId, authedUserId: req.user._id});
         }        
     },
 
