@@ -51,6 +51,13 @@ module.exports = {
     getYourProfile: async (req,res) =>{
         let userPostInfo = await postsModel.getUserPosts(req.user._id);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
+        console.log(`userPostInfo: ${JSON.stringify(userPostInfo[0].likes)}`);
+
+        for (let index = 0; index < userPostInfo.length; index++){
+            userPostInfo[index].likesStr = userPostInfo[index].likes.map((id) => id.toString());
+        }
+        console.log(`currentUserInfo._id: ${currentUserInfo._id}`);
+        console.log(`includes: ${userPostInfo[0].likesStr.includes(currentUserInfo._id.toString())}`);
         res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
     },
 
@@ -65,6 +72,7 @@ module.exports = {
             let authedProfilePic = req.user.profilePic;
 
             let followedByStrs = currentUserInfo.followedBy.map((id) => id.toString());
+            
             
             if (followedByStrs.includes(req.user._id.toString())){
                 authedUserFollows = true;

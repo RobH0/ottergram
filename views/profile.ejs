@@ -52,18 +52,29 @@
                 </div>
             </div>
         </section>
-
+        
         <section class="gallery">
         <% for (let index = 0; index < posts.length; index++) { %>
             <div class="post-preview">
                 <a class="post-preview-pic" href="/post/<%=posts[index]._id %>"><img class="post-preview-pic post-img" src="<%= posts[index].img %>" alt="user post"></a>
                 <div class="post-preview-overlay">
-                    <a href="/post/<%=posts[index]._id %>"><div class="likes-comments">
-                        <img src="/imgs/icons/like-heart-white.svg" alt="like-button">
-                        <span><%=posts[index].likes.length %></span>
-                        <img src="/imgs/icons/comment-white-outline.svg" alt="comments icon">
-                        <span><%=posts[index].numComments %></span>
-                    </div></a>
+                    <div class="likes-comments">
+                        <div>
+                            <% if (posts[index].likesStr.includes(userInfo._id.toString())) { %>
+                                <button class="like-button"><img src="/imgs/icons/like-white.svg" alt="like-button" class="liked" id="<%=posts[index]._id %>"></button>
+                            <% } else { %>
+                                <button class="like-button"><img src="/imgs/icons/like-white-outline.svg" alt="like-button" id="<%=posts[index]._id %>"></button>
+                            <% } %>
+                            <span><%=posts[index].likes.length %></span>
+                            <a class="comment-link" href="/post/<%=posts[index]._id %>">
+                                <div>
+                                    <img src="/imgs/icons/comment-white-outline.svg" alt="comments icon">
+                                    <span><%=posts[index].numComments %></span>
+                                </div>
+                                
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="select-for-del-section">
                     <img class="checkbox-del" src="/imgs/icons/black-empty-tick-box.svg">

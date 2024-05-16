@@ -27,10 +27,18 @@ async function requestLikePost(likeBtn){
 
     if (likeBtn.classList.value != 'liked'){
         console.log('in if')
+        let location = window.location.href;
+        console.log(`location: ${location}`);
         const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
         console.log(likeCount);
-        likeBtn.src = '/imgs/icons/like-red-black-outline.svg';
+        if (location.includes('profile')){
+            likeBtn.src = '/imgs/icons/like-white.svg';
+        } else{
+            likeBtn.src = '/imgs/icons/like-red-black-outline.svg';
+        }
+        
         likeBtn.classList.value = 'liked';
+        console.log(`likeBtn.id: ${likeBtn.id}`);
         likeCount.innerHTML = Number(likeCount.innerHTML) + 1;
         const endpoint = '/post/' + likeBtn.id + '/like';
         console.log(`endpoint: ${endpoint}`);
@@ -48,13 +56,19 @@ async function requestLikePost(likeBtn){
             console.error(err);
         }
     }
-    
-    
 }
+
 async function requestUnlikePost(likeBtn){
 
     if (likeBtn.classList.value == 'liked'){
-        likeBtn.src = '/imgs/icons/like-heart-white.svg';
+        let location = window.location.href;
+        console.log(`location: ${location}`);
+        if (location.includes('profile')){
+            likeBtn.src = '/imgs/icons/like-white-outline.svg';
+        } else{
+            likeBtn.src = '/imgs/icons/like-heart-white.svg';
+        }
+        
         likeBtn.classList.value = null;
         const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
         likeCount.innerHTML = Number(likeCount.innerHTML) - 1;

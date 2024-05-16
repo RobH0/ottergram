@@ -162,12 +162,30 @@ nav .user-profile-pic{
 .likes-comments div{
     display: flex;
     align-items: center;
+}
+
+.likes-comments .feed-likes{
     margin: 5%;
 }
 
 .likes-comments img{
     height: 4dvh;
     margin-left: -4px;
+   
+}
+
+.like-comments a{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-like div{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* login and register styling */
