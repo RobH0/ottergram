@@ -39,13 +39,13 @@
                         
                         
                         <% if (allPosts[index].postByUsername == ""){ %>
-                            <a href="/login"><h3>Unknown</h3></a>
+                            <a href="/user/<%=allPosts[index].postByUserId %>"><h3>Unknown</h3></a>
                         <% } else { %>
                             <a href="/user/<%=allPosts[index].postByUserId%>"><h3><%= allPosts[index].postByUsername %></h3></a>
                         <% } %>
                     </div>
                     <div class="post-pic">
-                        <a href="/login"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
+                        <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
                     </div>
                     <div class="lower-feed-post">
                         <div class="likes-comments">
@@ -63,7 +63,7 @@
                                 <% } %>
                             </div>
                             <div class="feed-likes">
-                                <a href="/login"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
+                                <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
                                 <% if (allPosts[index].numComments == null){ %>
                                     <span>0</span>
                                 <% } else { %>

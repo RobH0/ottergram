@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head_links.ejs') %>
+    <title>Ottergram - post page</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
+            <div class="right-nav four-items">
+                <a href="/feed">Feed</a>
+                <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <% if (profilePic != "") { %>
+                    <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                <% } else { %>
+                    <a href="/profile"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                <% } %>
+                <form action="/logout" class="logout-form" method="post">
+                    <button type="submit" class="sign-out-btn">Sign out</button>
+                </form>
+                
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="main-post-page">
+            <section class="feed-posts post-section">
+                <div class="feed-post-container">
+                    <div class="upper-feed-post">
+                        <% if (postInfo.profilePic != "") { %>
+                            <a href="/user/<%=postInfo.postByUserId %>"><img class="user-profile-pic" src="<%= postInfo.profilePic %>" alt="user's post"></a>
+                        <% } else { %>
+                            <a href="/user/<%=postInfo.postByUserId%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                        <% } %>
+                        
+                        
+                        <% if (postInfo.postByUsername == ""){ %>
+                            <a href="/login"><h3>Unknown</h3></a>
+                        <% } else { %>
+                            <a href="/user/<%=postInfo.postByUserId%>"><h3><%= postInfo.postByUsername %></h3></a>
+                        <% } %>
+                    </div>
+                    <div class="post-pic">
+                        <a href="/post/<%=postInfo._id.toString()%>"><img src="<%= postInfo.img%>" alt="cute otter picture"></a>
+                    </div>
+                    <div class="lower-feed-post">
+                        <div class="likes-comments">
+                            <div class="feed-likes">
+                                <% if (postInfo.likesStr.includes(authedUserId.toString())) {%>
+                                    <button class="like-button"><img src="/imgs/icons/like-red-black-outline.svg" alt="heart icon" class="liked" id="<%= postInfo._id.toString()%>"></button>
+                                <% } else { %>
+                                    <button class="like-button"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon" id="<%= postInfo._id.toString()%>"></button>
+                                <% } %>
+                                <% if (postInfo.likes.length == null){ %>
+                                    <span>0</span>
+                                <% } else { %>
+                                    <span><%= postInfo.likes.length %></span>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="post-date">
+                            <% if (postInfo.datePosted == null){ %>
+                                <span>Posted along time ago, in a galaxy far, far away...</span>
+                            <% } else { %>
+                                <span><%= postInfo.datePosted %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="comments-section">
+                <div class="upper-comments">
+                    <h2>Comments - 0</h2>
+                </div>
+                <div class="mid-comments">
+                    <div class="comment-container">
+                        <img class="user-profile-pic" src="https://res.cloudinary.com/dbvzxpsoe/image/upload/v1714418473/jddvvfqzcob7s9tqgwnh.webp" alt="commenter's profile pic">
+                        <div class="right-comment">
+                            <h3>username</h3>
+                            <p>Jar Jar Binks is a sith!!! f dsafasdfdddddsf fdsafdasfsd fdsfasdfdsafas fdsafasdfasdfds  fdsafdasf fdsafsdafsda fsdafsaf</p>
+                            <span class="time-posted-span">5m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bot-comments">
+                    <form class="comment-form" name="form-comment" method="post">
+                        <textarea class="bio-input" name="bioInput" type="text" maxlength="300" placeholder="Add a comment..."></textarea>
+                        <button type="submit" class="standard-btn">Post</button>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="/js/likeUnlike.js"></script>
+</body>
+</html>

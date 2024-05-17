@@ -72,6 +72,21 @@ class PostsModel{
         }
     }
 
+    async getPostById(postId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            if (typeof postId == 'string'){
+                postId = new ObjectID(postId);
+            }
+            const posts = await this.collection.findOne({ _id: postId});
+            return posts;
+        } catch (err){
+            console.error(err);
+        }
+    }
+
     async deletePosts(postsIds){
         try{
             if (this.collection == null){

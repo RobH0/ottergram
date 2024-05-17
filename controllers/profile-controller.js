@@ -288,5 +288,20 @@ module.exports = {
         } else {
             res.status(500).json({ message: 'Like attempt failed.'})
         }
+    },
+
+    getPostPage: async (req, res) => {
+        let currentDate = new Date();
+        let post = await postsModel.getPostById(req.params.postId);
+        post.likesStr = convertToString(post.likes);
+        let userInfo = await usersModel.getUsernameAndPic(post.createdBy);
+        post.postByUsername = userInfo.username;
+        post.profilePic = userInfo.profilePic;
+        post.postByUserId = userInfo._id.toString()
+        if (post.datePosted != null){
+            let dateString = await calcTimeDiff(post.datePosted, currentDate);
+            post.datePosted = dateString;
+        }
+        res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id});
     }
 }
