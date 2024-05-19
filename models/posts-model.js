@@ -51,7 +51,7 @@ class PostsModel{
                 datePosted: new Date(),
                 createdBy: userID,
                 likes: [],
-                numComments: 0,
+                comments: [],
                 deleted: false
             })
 
@@ -128,6 +128,19 @@ class PostsModel{
         } catch (err){
             console.error(err);
             return false;
+        }
+    }
+
+    async addComment(postId, authedUser, comment, currentDate){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            let postObjectId = new ObjectID(postId);
+
+            const result = await this.collection.updateOne({ _id: postObjectId}, { $push: { comments:  { commentedBy: authedUser, date: currentDate, message: comment}}});
+        } catch (err){
+            console.error(err);
         }
     }
     

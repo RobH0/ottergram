@@ -303,5 +303,16 @@ module.exports = {
             post.datePosted = dateString;
         }
         res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id});
+    },
+
+    postComment: async (req, res) => {
+        const currentDate = new Date();
+        const authedUser = req.user._id;
+        const comment = req.body.commentMsg;
+        const postId = req.params.postId;
+        
+        let result = await postsModel.addComment(postId, authedUser, comment, currentDate);
+
+        res.redirect(`/post/${postId}`);
     }
 }

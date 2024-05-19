@@ -73,21 +73,23 @@
             </section>
             <section class="comments-section">
                 <div class="upper-comments">
-                    <h2>Comments - 0</h2>
+                    <h2>Comments - <%= postInfo.comments.length %></h2>
                 </div>
                 <div class="mid-comments">
-                    <div class="comment-container">
-                        <img class="user-profile-pic" src="https://res.cloudinary.com/dbvzxpsoe/image/upload/v1714418473/jddvvfqzcob7s9tqgwnh.webp" alt="commenter's profile pic">
-                        <div class="right-comment">
-                            <h3>username</h3>
-                            <p>Jar Jar Binks is a sith!!! f dsafasdfdddddsf fdsafdasfsd fdsfasdfdsafas fdsafasdfasdfds  fdsafdasf fdsafsdafsda fsdafsaf</p>
-                            <span class="time-posted-span">5m</span>
+                    <% for (let index = 0; index < postInfo.comments.length; index++){ %>
+                        <div class="comment-container">
+                            <img class="user-profile-pic" src="https://res.cloudinary.com/dbvzxpsoe/image/upload/v1714418473/jddvvfqzcob7s9tqgwnh.webp" alt="commenter's profile pic">
+                            <div class="right-comment">
+                                <h3>username</h3>
+                                <p><%=postInfo.comments[index].message%></p>
+                                <span class="time-posted-span"><%=postInfo.comments[index].date%></span>
+                            </div>
                         </div>
-                    </div>
+                    <% } %>
                 </div>
                 <div class="bot-comments">
-                    <form class="comment-form" name="form-comment" method="post">
-                        <textarea class="bio-input" name="bioInput" type="text" maxlength="300" placeholder="Add a comment..."></textarea>
+                    <form action="/post/<%=postInfo._id.toString()%>/post-comment" class="comment-form" name="form-comment" method="post">
+                        <textarea class="bio-input" name="commentMsg" type="text" maxlength="300" placeholder="Add a comment..."></textarea>
                         <button type="submit" class="standard-btn">Post</button>
                     </form>
 
@@ -96,5 +98,6 @@
         </div>
     </main>
     <script src="/js/likeUnlike.js"></script>
+    <script src="/js/alterHeight.js"></script>
 </body>
 </html>
