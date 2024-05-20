@@ -11,7 +11,7 @@ async function getProfileInfo(userID){
     return {postInfo: userPostInfo, userInfo: currentUserInfo}
 }
 
-async function calcTimeDiff(datePosted, currentDate){
+function calcTimeDiff(datePosted, currentDate, abbreviated = false){
     let timeDifferenceMs = currentDate - datePosted 
             
     let seconds = Math.floor(timeDifferenceMs/1000);
@@ -23,19 +23,54 @@ async function calcTimeDiff(datePosted, currentDate){
     let years = Math.floor(days / 365)
 
     if (years >= 1){
+        if (abbreviated){
+            return years + 'y'
+        } else {
+
+        }
         return 'Posted ' + years + ' years ago';
     } else if (months>= 1 ){
-        return 'Posted ' + months + ' months ago';
+        if (abbreviated){
+            return months + 'm'
+        } else {
+            return 'Posted ' + months + ' months ago';
+        }
+        
     } else if (weeks >= 1){
-        return 'Posted ' + weeks + ' weeks ago';
+        if (abbreviated){
+            return weeks + 'w'
+        } else {
+            return 'Posted ' + weeks + ' weeks ago';
+        }
+        
     } else if (days >= 1){
-        return 'Posted ' + days + ' days ago';
+        if (abbreviated){
+            return days + 'd'
+        } else {
+            return 'Posted ' + days + ' days ago';
+        }
+        
     } else if (hours >= 1){
-        return 'Posted ' + hours + ' hours ago';    
+        if (abbreviated){
+            return hours + 'h'
+        } else {
+            return 'Posted ' + hours + ' hours ago';
+        }
+            
     } else if (minutes >= 1){
-        return 'Posted ' + minutes + ' minutes ago';
+        if (abbreviated){
+            return minutes + 'm'
+        } else {
+            return 'Posted ' + minutes + ' minutes ago';
+        }
+        
     }else if (seconds >= 1){
-        return 'Posted ' + seconds + ' seconds ago';
+        if (abbreviated){
+            return seconds + 's'
+        } else {
+            return 'Posted ' + seconds + ' seconds ago';
+        }
+        
     }                
 }
 
@@ -110,7 +145,7 @@ module.exports = {
             for (let index = 0; index < posts.length; index++){
                 
                 if (posts[index].datePosted != null){
-                    let dateString = await calcTimeDiff(posts[index].datePosted, currentDate);
+                    let dateString = calcTimeDiff(posts[index].datePosted, currentDate);
                     posts[index].datePosted = dateString;
                 }
                 
@@ -299,9 +334,22 @@ module.exports = {
         post.profilePic = userInfo.profilePic;
         post.postByUserId = userInfo._id.toString()
         if (post.datePosted != null){
-            let dateString = await calcTimeDiff(post.datePosted, currentDate);
+            let dateString = calcTimeDiff(post.datePosted, currentDate);
             post.datePosted = dateString;
         }
+        console.log(JSON.stringify(post.comments));
+        for (let index = 0; index < post.comments.length; index ++){
+            let commenterObjectId = new ObjectId(post.comments[index].commentedBy);
+            let commenterInfo = await usersModel.getUserById(commenterObjectId);
+
+            post.comments[index].profilePic = commenterInfo.profilePic;
+            post.comments[index].username = commenterInfo.username;
+            post.comments[index].date = calcTimeDiff(post.comments[index].date, currentDate, true);
+        }
+
+        // Reversing comments array so that most recently posted comments are displayed at the top of the comments section.
+        post.comments = post.comments.reverse();
+
         res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id});
     },
 

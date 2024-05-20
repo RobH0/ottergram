@@ -78,9 +78,10 @@
                 <div class="mid-comments">
                     <% for (let index = 0; index < postInfo.comments.length; index++){ %>
                         <div class="comment-container">
-                            <img class="user-profile-pic" src="https://res.cloudinary.com/dbvzxpsoe/image/upload/v1714418473/jddvvfqzcob7s9tqgwnh.webp" alt="commenter's profile pic">
+                            <a href="/user/<%=postInfo.comments[index].commentedBy%>"><img class="user-profile-pic" src="<%=postInfo.comments[index].profilePic%>" alt="commenter's profile pic"></a>
+                            
                             <div class="right-comment">
-                                <h3>username</h3>
+                                <h3><%=postInfo.comments[index].username%></h3>
                                 <p><%=postInfo.comments[index].message%></p>
                                 <span class="time-posted-span"><%=postInfo.comments[index].date%></span>
                             </div>
