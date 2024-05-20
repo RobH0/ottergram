@@ -744,26 +744,26 @@ main {
 
 .main-post-page{
     display: flex;
-    width: 100vw;
-    height: 90vh;
+    width: 95vw;
+    height: 87vh;
     align-items: center;
+    justify-content: center;
 }
 
-
-
-.feed-posts.post-section{
-    max-width: 50%;
-    margin: 0 20px 0 0;
+.feed-posts.post-section .feed-post-container{
+    max-width: 50vw;
+    width: auto;
+    max-height: 75vh;
+    height: 75vh;
+    margin: 0;
+    margin-right: 20px;
 }
 
 .comments-section{
-    max-width: 700px;
     width: 50vw;
-    height: 500px;
+    height: 75vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: white;
     border-radius: 5px;
     /*box-shadow: 0px 1px 3px black;*/
@@ -775,29 +775,58 @@ main {
 }
 
 .mid-comments{
-    padding: 5%;
+    padding: 0 20px 5px 20px;
     height: 95%;
-    max-height: 80%;
+    overflow-y: scroll;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: 20px; /* Background of the track (optional) */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black;/* Color of the scrollbar */
+    border-radius: 20px; /* Roundness of the scrollbar */
+}
+
+::-webkit-scrollbar-button{
+    display: none;
+}
+
 
 .comment-container{
     display: flex;
     align-items: center;
+
 }
 
 .comment-container *{
     margin: 0;
-
 }
 
 .comment-container .right-comment{
     margin: 0 0 0 2%;
 }
 
+.comment-container span{
+    color: rgb(139, 139, 139);
+    font-size: 0.8rem;
+    margin: 0; 
+}
+
 .bot-comments *{
     display: flex;
     align-items: center;
+    margin: 5px 5px 5px 5px;
+
 }
+
+
 
 .bot-comments textarea{
     width: 95%;
