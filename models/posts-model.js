@@ -136,9 +136,10 @@ class PostsModel{
             if (this.collection == null){
                 await this.initCollection();
             }
-            let postObjectId = new ObjectID(postId);
+            const postObjectId = new ObjectID(postId);
+            const commentId = new ObjectID();
 
-            const result = await this.collection.updateOne({ _id: postObjectId}, { $push: { comments:  { commentedBy: authedUser, date: currentDate, message: comment}}});
+            const result = await this.collection.updateOne({ _id: postObjectId}, { $push: { comments:  { commentId: commentId, commentedBy: authedUser, date: currentDate, message: comment}}});
         } catch (err){
             console.error(err);
         }

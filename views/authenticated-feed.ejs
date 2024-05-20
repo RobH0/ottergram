@@ -64,11 +64,7 @@
                             </div>
                             <div class="feed-likes">
                                 <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
-                                <% if (allPosts[index].numComments == null){ %>
-                                    <span>0</span>
-                                <% } else { %>
-                                    <span><%= allPosts[index].numComments %></span>
-                                <% } %>
+                                <span><%= allPosts[index].comments.length %></span>
                             </div>
                         </div>
                         <div class="post-date">

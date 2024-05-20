@@ -780,29 +780,79 @@ main {
     overflow-y: scroll;
 }
 
+.right-comment p{
+    overflow-wrap: anywhere;
+}
+
+.right-comment {
+    width: 100%;
+    margin: 10px;
+}
+
+.delete-comment-btn{
+    all: unset;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.delete-comment-btn img{
+    width: 30px;
+    height: 30px;
+}
+
+.delete-comment-div{
+    display: none;
+    background-color: red;
+    height: 100%;
+    width: auto;
+    text-align: center;
+    border-radius: 25%;
+    margin: 50px;
+}
+
+.delete-comment-btn:hover{
+    cursor: pointer;
+}
+
+.comment-container:hover .delete-comment-div{
+    display: block;
+}
+
+/* Chrome and Safari scrollbar styling */
+
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 0.6em;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #ccc;
-    border-radius: 20px; /* Background of the track (optional) */
+    background-color: #e8e8e8;
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: black;/* Color of the scrollbar */
-    border-radius: 20px; /* Roundness of the scrollbar */
+    background-color: black;
+    border-radius: 20px;
+    border: 0.15em solid #e8e8e8;
 }
 
 ::-webkit-scrollbar-button{
     display: none;
 }
 
+/* firefox scrollbar styling */
+@-moz-document url-prefix() {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: black #ccc;
+    }
+ }
 
 .comment-container{
     display: flex;
     align-items: center;
-
+    width: 100%;
 }
 
 .comment-container *{
@@ -811,6 +861,10 @@ main {
 
 .comment-container .right-comment{
     margin: 0 0 0 2%;
+}
+
+.comment-container:hover .right-comment{
+    margin-right: 2%;
 }
 
 .comment-container span{

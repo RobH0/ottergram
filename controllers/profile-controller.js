@@ -358,9 +358,19 @@ module.exports = {
         const authedUser = req.user._id;
         const comment = req.body.commentMsg;
         const postId = req.params.postId;
+        if (comment != "" && comment != undefined){
+            let result = await postsModel.addComment(postId, authedUser, comment, currentDate);
+        }
         
-        let result = await postsModel.addComment(postId, authedUser, comment, currentDate);
 
         res.redirect(`/post/${postId}`);
+    },
+
+    deleteComment: async (req, res) => {
+        console.log('Deletining comment');
+        const postId = req.params.postId;
+
+        // can't use res.redirect to responed to HTTP DELETE request.
+        res.status(200).json({message: 'success'});
     }
 }

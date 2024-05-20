@@ -81,10 +81,16 @@
                             <a href="/user/<%=postInfo.comments[index].commentedBy%>"><img class="user-profile-pic" src="<%=postInfo.comments[index].profilePic%>" alt="commenter's profile pic"></a>
                             
                             <div class="right-comment">
-                                <h3><%=postInfo.comments[index].username%></h3>
+                                <a href="/user/<%=postInfo.comments[index].commentedBy%>"><h3><%=postInfo.comments[index].username%></h3></a>
                                 <p><%=postInfo.comments[index].message%></p>
                                 <span class="time-posted-span"><%=postInfo.comments[index].date%></span>
+                                
                             </div>
+                            <% if (postInfo.comments[index].commentedBy == authedUserId.toString()) { %>
+                                <div class="delete-comment-div">
+                                    <button type="button" class="delete-comment-btn" id="<%=postInfo.comments[index].commentId.toString()%>"><img src="/imgs/icons/trash-can-white.svg"></button>
+                                </div>
+                            <% } %>
                         </div>
                     <% } %>
                 </div>
@@ -100,5 +106,6 @@
     </main>
     <script src="/js/likeUnlike.js"></script>
     <script src="/js/alterHeight.js"></script>
+    <script src="/js/comments.js"></script>
 </body>
 </html>
