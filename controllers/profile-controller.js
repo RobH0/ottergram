@@ -362,15 +362,36 @@ module.exports = {
             let result = await postsModel.addComment(postId, authedUser, comment, currentDate);
         }
         
-
         res.redirect(`/post/${postId}`);
     },
 
     deleteComment: async (req, res) => {
         console.log('Deletining comment');
         const postId = req.params.postId;
+        const commentId = req.body.commentId;
+        const authedUserId = req.user._id;
 
-        // can't use res.redirect to responed to HTTP DELETE request.
-        res.status(200).json({message: 'success'});
+        let postInfo = await postsModel.getPostById(postId);
+        let authorizedToDelete = false;
+        for (let index = 0; index < postInfo.comments.length; index++){
+            if (postInfo.comments[index].commentId.toString() == commentId){
+                if (postInfo.comments[index].commentedBy.toString() == authedUserId.toString()){
+                    authorizedToDelete = true;
+                }
+            }
+        }
+
+        if (authorizedToDelete){
+            let result = await postsModel.removeComment(postId, commentId, authedUserId);
+            console.log('authorized to delete');
+            if (result == true){
+                // can't use res.redirect to responed to HTTP DELETE request.
+                res.status(200).json({message: 'successfully delete comment.'});
+            } else {
+                res.status(500).json({ message: 'comment deletion failed.'})
+            }
+        } else {
+            res.status(403).json( {message: `You aren't authorized to do that.`})
+        }
     }
 }

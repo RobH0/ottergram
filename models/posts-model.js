@@ -144,7 +144,26 @@ class PostsModel{
             console.error(err);
         }
     }
-    
+
+    async removeComment(postId, commentId, authedUserId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            const postObjectId = new ObjectID(postId);
+            commentId = new ObjectID(commentId);
+
+            let result = await this.collection.updateOne({ _id: postObjectId}, { $pull: { comments: { commentId: commentId}}});
+
+            console.log(JSON.stringify(result));
+
+            return true;
+
+        } catch (err){
+            console.error(err);
+            return false;
+        }
+    }    
 }
 
 module.exports = new PostsModel;
