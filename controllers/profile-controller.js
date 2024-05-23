@@ -337,7 +337,7 @@ module.exports = {
             let dateString = calcTimeDiff(post.datePosted, currentDate);
             post.datePosted = dateString;
         }
-        console.log(JSON.stringify(post.comments));
+
         for (let index = 0; index < post.comments.length; index ++){
             let commenterObjectId = new ObjectId(post.comments[index].commentedBy);
             let commenterInfo = await usersModel.getUserById(commenterObjectId);

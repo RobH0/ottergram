@@ -124,6 +124,7 @@ main {
     align-items: center;
     height: 10dvh;
     width: 90%;
+    flex-grow: 1;
 }
 
 
@@ -144,10 +145,8 @@ nav .user-profile-pic{
 } 
 
 .upper-feed-post .user-profile-pic, .comment-container .user-profile-pic{
-    height: 65px;
-    width: 65px;
-    min-width: 65px;
-    min-height: 65px;
+    height: 60px;
+    width: 60px;
 }
 
 .comment-container .user-profile-pic{
@@ -785,18 +784,32 @@ main {
 .feed-posts.post-section{
     display: inline-block;
     width: auto;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px black;
+    
+}
+
+.feed-posts.post-section .user-profile-pic{
+    height: 55px;
+    width: 55px;
+}
+
+.profile-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .comments-section{
     width: 50%;
     min-height: 200px;
-    max-height: 400px;
+    /*max-height: 400px;*/
     height: auto;
     display: flex;
     flex-direction: column;
     background-color: white;
     border-radius: 5px;
-    /*box-shadow: 0px 1px 3px black;*/
+    box-shadow: 0px 1px 3px black;
     /*border: 2px solid black;*/
     margin-left: 5px;
     max-width: 550px;

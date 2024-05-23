@@ -30,11 +30,13 @@
             <section class="feed-posts post-section">
                 <div class="feed-post-container">
                     <div class="upper-feed-post">
+                        <div class="profile-container">
                         <% if (postInfo.profilePic != "") { %>
                             <a href="/user/<%=postInfo.postByUserId %>"><img class="user-profile-pic" src="<%= postInfo.profilePic %>" alt="user's post"></a>
                         <% } else { %>
                             <a href="/user/<%=postInfo.postByUserId%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
                         <% } %>
+                        </div>
                         
                         
                         <% if (postInfo.postByUsername == ""){ %>
@@ -105,7 +107,7 @@
         </div>
     </main>
     <script src="/js/likeUnlike.js"></script>
-    <!--<script src="/js/alterHeight.js"></script>-->
+    <script src="/js/alterHeight.js"></script>
     <script src="/js/comments.js"></script>
 </body>
 </html>
