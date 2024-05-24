@@ -51,7 +51,7 @@ class PostsModel{
                 datePosted: new Date(),
                 createdBy: userID,
                 likes: [],
-                numComments: 0,
+                comments: [],
                 deleted: false
             })
 
@@ -68,6 +68,21 @@ class PostsModel{
             const posts = await this.collection.find({ img: { $in: photoUrls}}).toArray();
             return posts;
         }catch (err){
+            console.error(err);
+        }
+    }
+
+    async getPostById(postId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            if (typeof postId == 'string'){
+                postId = new ObjectID(postId);
+            }
+            const posts = await this.collection.findOne({ _id: postId});
+            return posts;
+        } catch (err){
             console.error(err);
         }
     }
@@ -115,7 +130,40 @@ class PostsModel{
             return false;
         }
     }
-    
+
+    async addComment(postId, authedUser, comment, currentDate){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            const postObjectId = new ObjectID(postId);
+            const commentId = new ObjectID();
+
+            const result = await this.collection.updateOne({ _id: postObjectId}, { $push: { comments:  { commentId: commentId, commentedBy: authedUser, date: currentDate, message: comment}}});
+        } catch (err){
+            console.error(err);
+        }
+    }
+
+    async removeComment(postId, commentId, authedUserId){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            const postObjectId = new ObjectID(postId);
+            commentId = new ObjectID(commentId);
+
+            let result = await this.collection.updateOne({ _id: postObjectId}, { $pull: { comments: { commentId: commentId}}});
+
+            console.log(JSON.stringify(result));
+
+            return true;
+
+        } catch (err){
+            console.error(err);
+            return false;
+        }
+    }    
 }
 
 module.exports = new PostsModel;
