@@ -28,14 +28,14 @@
     <main>
         <h1>Your feed</h1>
         <section class="filter-section">
-            <% if(filter == 'all') { %>
-                <a href="/feed/all" class="selected">All</a>
-                <span>|</span>
-                <a href="/feed/following" class="unselected">Following</a>
-            <% } else { %>
+            <% if(filter == 'following') { %>
                 <a href="/feed/all" class="unselected">All</a>
                 <span>|</span>
                 <a href="/feed/following" class="selected">Following</a>
+            <% } else { %>
+                <a href="/feed/all" class="selected">All</a>
+                <span>|</span>
+                <a href="/feed/following" class="unselected">Following</a>
             <% } %>
         </section>
         <section class="feed-posts">
