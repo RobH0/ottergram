@@ -39,54 +39,58 @@
             <% } %>
         </section>
         <section class="feed-posts">
-            <% for (let index = 0; index < allPosts.length; index ++){%>
-                <div class="feed-post-container">
-                    <div class="upper-feed-post">
-                        <% if (allPosts[index].profilePic != "") { %>
-                            <a href="/user/<%=allPosts[index].postByUserId %>"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
-                        <% } else { %>
-                            <a href="/user/<%=allPosts[index].postByUserId%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
-                        <% } %>
-                        
-                        
-                        <% if (allPosts[index].postByUsername == ""){ %>
-                            <a href="/user/<%=allPosts[index].postByUserId %>"><h3>Unknown</h3></a>
-                        <% } else { %>
-                            <a href="/user/<%=allPosts[index].postByUserId%>"><h3><%= allPosts[index].postByUsername %></h3></a>
-                        <% } %>
-                    </div>
-                    <div class="post-pic">
-                        <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
-                    </div>
-                    <div class="lower-feed-post">
-                        <div class="likes-comments">
-                            <div class="feed-likes">
-                                <% if (allPosts[index].likesStr.includes(authedUserId)) {%>
-                                    <button class="like-button"><img src="/imgs/icons/like-red-black-outline.svg" alt="heart icon" class="liked" id="<%= allPosts[index]._id.toString()%>"></button>
-                                <% } else { %>
-                                    <button class="like-button"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon" id="<%= allPosts[index]._id.toString()%>"></button>
-                                <% } %>
-
-                                <% if (allPosts[index].likes.length == null){ %>
-                                    <span>0</span>
-                                <% } else { %>
-                                    <span><%= allPosts[index].likes.length %></span>
-                                <% } %>
-                            </div>
-                            <div class="feed-likes">
-                                <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
-                                <span><%= allPosts[index].comments.length %></span>
-                            </div>
-                        </div>
-                        <div class="post-date">
-                            <% if (allPosts[index].datePosted == null){ %>
-                                <span>Posted along time ago, in a galaxy far, far away...</span>
+            <% if (allPosts.length == 0){ %>
+                <h3>You're not following anyone at this moment.</h3>
+            <% } else {%>
+                <% for (let index = 0; index < allPosts.length; index ++){%>
+                    <div class="feed-post-container">
+                        <div class="upper-feed-post">
+                            <% if (allPosts[index].profilePic != "") { %>
+                                <a href="/user/<%=allPosts[index].postByUserId %>"><img class="user-profile-pic" src="<%= allPosts[index].profilePic %>" alt="user's post"></a>
                             <% } else { %>
-                                <span><%= allPosts[index].datePosted %></span>
+                                <a href="/user/<%=allPosts[index].postByUserId%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                            <% } %>
+                            
+                            
+                            <% if (allPosts[index].postByUsername == ""){ %>
+                                <a href="/user/<%=allPosts[index].postByUserId %>"><h3>Unknown</h3></a>
+                            <% } else { %>
+                                <a href="/user/<%=allPosts[index].postByUserId%>"><h3><%= allPosts[index].postByUsername %></h3></a>
                             <% } %>
                         </div>
+                        <div class="post-pic">
+                            <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="<%= allPosts[index].img%>" alt="cute otter picture"></a>
+                        </div>
+                        <div class="lower-feed-post">
+                            <div class="likes-comments">
+                                <div class="feed-likes">
+                                    <% if (allPosts[index].likesStr.includes(authedUserId)) {%>
+                                        <button class="like-button"><img src="/imgs/icons/like-red-black-outline.svg" alt="heart icon" class="liked" id="<%= allPosts[index]._id.toString()%>"></button>
+                                    <% } else { %>
+                                        <button class="like-button"><img src="/imgs/icons/like-heart-white.svg" alt="heart icon" id="<%= allPosts[index]._id.toString()%>"></button>
+                                    <% } %>
+
+                                    <% if (allPosts[index].likes.length == null){ %>
+                                        <span>0</span>
+                                    <% } else { %>
+                                        <span><%= allPosts[index].likes.length %></span>
+                                    <% } %>
+                                </div>
+                                <div class="feed-likes">
+                                    <a href="/post/<%=allPosts[index]._id.toString()%>"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
+                                    <span><%= allPosts[index].comments.length %></span>
+                                </div>
+                            </div>
+                            <div class="post-date">
+                                <% if (allPosts[index].datePosted == null){ %>
+                                    <span>Posted along time ago, in a galaxy far, far away...</span>
+                                <% } else { %>
+                                    <span><%= allPosts[index].datePosted %></span>
+                                <% } %>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                <% } %>
             <% } %>
         </section>
     </main>
