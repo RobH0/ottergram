@@ -138,7 +138,16 @@ module.exports = {
 
     getPersonalizedFeed: async (req, res) => {
         try{
-            let posts = await postsModel.getAllPosts();
+
+            let filter = req.params.filter;
+            let posts; 
+            if (filter == 'following'){
+                let followedUsers = req.user.following;
+                posts = await postsModel.getFollowingPosts(followedUsers);
+            } else {
+                posts = await postsModel.getAllPosts();
+            }
+            
             let currentDate = new Date();
             let likesArray = [];
     
