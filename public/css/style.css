@@ -103,6 +103,12 @@ main {
     align-items: center;
 }
 
+.filter-section{
+    background-color: white;
+    padding: 0.5em 1em 0.5em 1em;
+    border-radius: 10px;
+}
+
 .feed-posts {
     display: flex;
     flex-direction: column;

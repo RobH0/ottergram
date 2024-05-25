@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partials/head_links.ejs') %>
-    <title>Ottergram: Your profile</title>
+    <title>Ottergram: Your feed</title>
 </head>
 <body>
     <header>
@@ -26,7 +26,12 @@
         </nav>
     </header>
     <main>
-        <h1>All posts</h1>
+        <h1>Your feed</h1>
+        <section class="filter-section">
+            <a href="/feed/all" class="">All</a>
+            <span>|</span>
+            <a href="/feed/following">Following</a>
+        </section>
         <section class="feed-posts">
             <% for (let index = 0; index < allPosts.length; index ++){%>
                 <div class="feed-post-container">
