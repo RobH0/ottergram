@@ -28,6 +28,18 @@ class PostsModel{
         }
     }
 
+    async getFollowingPosts(followingUsersArr){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+            let posts = await this.collection.find({ createdBy: { $in: followingUsersArr}}).sort({ datePosted: -1}).toArray();
+            return posts;
+        } catch (err){
+            console.log(err);
+        }
+    }
+
     async getUserPosts(userID){
         try{
             if (this.collection == null){
