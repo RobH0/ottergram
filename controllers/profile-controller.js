@@ -167,7 +167,7 @@ module.exports = {
             
             let authedUserIdStr = req.user._id.toString();
                         
-            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr});
+            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter});
         }catch (err){
             console.error(err);
         }
