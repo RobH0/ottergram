@@ -28,9 +28,9 @@
     <main>
         <h1>Your feed</h1>
         <section class="filter-section">
-            <a href="/feed/all" class="">All</a>
+            <a href="/feed/all" class="selected">All</a>
             <span>|</span>
-            <a href="/feed/following">Following</a>
+            <a href="/feed/following" class="unselected">Following</a>
         </section>
         <section class="feed-posts">
             <% for (let index = 0; index < allPosts.length; index ++){%>
@@ -85,5 +85,6 @@
         </section>
     </main>
     <script src="/js/likeUnlike.js"></script>
+    <script src="/js/feed-filter.js"></script>
 </body>
 </html>
