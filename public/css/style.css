@@ -884,7 +884,7 @@ main {
 .mid-comments{
     padding: 0 20px 5px 20px;
     height: 95%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .right-comment p{

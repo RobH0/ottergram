@@ -260,5 +260,4 @@ function previewImgNow(file){
         mostRecentFile = null;
         previewImg.src = 'imgs/post-placeholder.webp';
     }
-    
 }
