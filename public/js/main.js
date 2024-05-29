@@ -206,7 +206,6 @@ function previewProfilePic(event){
 }
 
 
-//fix issue where preview post overflows page for tall images.
 function fileChosen(){
     if (uploadFile.value != ""){
         console.log(uploadFile.value);
@@ -247,7 +246,7 @@ function previewImgNow(file){
             previewPostContainer.style.width = "1000px";
             previewImg.src=this.result;
             let currentImgPreview = document.querySelector('.post-pic-img');
-            previewImg.style.maxHeight = "100%";
+            //previewImg.style.maxHeight = "35vh";
             let newWidth = currentImgPreview.clientWidth;
             console.log(newWidth);
             let newWidthStr = newWidth.toString();
@@ -261,14 +260,5 @@ function previewImgNow(file){
         mostRecentFile = null;
         previewImg.src = 'imgs/post-placeholder.webp';
     }
-    
-}
-
-// take file.
-// get the first 8 bytes of the file.
-// compare the first 8 bytes of the file to magic bytes of file types that are allowed.
-// if they match any of the file types return true
-// else return false.
-function checkFileType(file){
     
 }

@@ -564,9 +564,8 @@ nav .user-profile-pic{
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
     gap: 5px;
-    /*margin: 0 5dvw 5dvh 5dvw;*/
+    margin: 0 0 5dvh 0;
     max-width: inherit;
-    /*min-width: 68%;*/
 }
 
 .post-preview img{
@@ -632,7 +631,7 @@ nav .user-profile-pic{
 /* New post page styling */
 
 
-.new-post-details, .new-post-preview, .profile-info, .content-login{
+.profile-info, .content-login{
     box-shadow: 0px 2px 5px gray;
 }
 
@@ -640,14 +639,18 @@ nav .user-profile-pic{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    padding: 0 10%;
+    width: auto;
+    background-color: white;
+    box-shadow: 0px 2px 5px gray;
+    border-radius: 10px;
+    height: auto;
+    
 }
 
 .new-post-details{
     display: flex;
     flex-direction: column;
-    background-color: white;
+    
     border-radius: 10px;
     padding: 1% 2%;
     width: 35%;
@@ -657,7 +660,7 @@ nav .user-profile-pic{
 }
 
 .new-post-preview{
-    background-color: white;
+    
     padding: 0 20px;
     border-radius: 5px;
     display: flex;
@@ -718,13 +721,13 @@ nav .user-profile-pic{
 }
 
 .new-post-preview {
-    margin-left: 5%;
+    margin-left: 10px;
     width: 35%;
     max-height: 85dvh;
 }
 
 #new-post-pic{
-    max-height: 50dvh;
+    max-height: 40dvh;
 }
 
 /* User settings styling */
