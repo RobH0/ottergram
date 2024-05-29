@@ -112,7 +112,7 @@ nav{
     padding: 0.5% 2%;
     align-items: center;
     font-size: 1.1rem;
-    width: 100%;
+    width: inherit;
     /*Adding shadow to bottom border. May change later*/
     box-shadow: 0px -1px 10px gray;
 }
@@ -125,7 +125,7 @@ nav img, .standard-logo{
 /* main feed styling */
 
 main {
-    width: 99dvw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -564,10 +564,9 @@ nav .user-profile-pic{
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
     gap: 10px;
-    margin: 0 5dvw 5dvh 5dvw;
-    max-width: 90%;
-    min-width: 68%;
-
+    /*margin: 0 5dvw 5dvh 5dvw;*/
+    max-width: inherit;
+    /*min-width: 68%;*/
 }
 
 .post-preview img{
