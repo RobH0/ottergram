@@ -114,7 +114,7 @@ nav{
     font-size: 1.1rem;
     width: 100%;
     /*Adding shadow to bottom border. May change later*/
-    box-shadow: 0px -1px 10px black;
+    box-shadow: 0px -1px 10px gray;
 }
 
 nav img, .standard-logo{
@@ -296,6 +296,7 @@ nav .user-profile-pic{
     max-width: 450px;
     min-height: 500px;
     padding: 0px 2%;
+    border-radius: 10px;
 }
 
 .content-login h1{
@@ -632,6 +633,9 @@ nav .user-profile-pic{
 /* New post page styling */
 
 
+.new-post-details, .new-post-preview, .profile-info, .content-login{
+    box-shadow: 0px 2px 5px gray;
+}
 
 .new-post-ui{
     display: flex;
