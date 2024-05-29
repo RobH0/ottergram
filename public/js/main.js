@@ -205,7 +205,6 @@ function previewProfilePic(event){
     }
 }
 
-
 function fileChosen(){
     if (uploadFile.value != ""){
         console.log(uploadFile.value);
@@ -234,7 +233,6 @@ function fileDropped(event){
 function fileDraggedOver(event){
     event.preventDefault();    
 }
-
 
 // on false return from checkFileType() don't preview file and notify user of incorrect file type.
 function previewImgNow(file){
