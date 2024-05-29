@@ -563,7 +563,7 @@ nav .user-profile-pic{
 .gallery{
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
-    gap: 10px;
+    gap: 5px;
     /*margin: 0 5dvw 5dvh 5dvw;*/
     max-width: inherit;
     /*min-width: 68%;*/
