@@ -805,6 +805,12 @@ nav .user-profile-pic{
     min-width: fit-content;
 }
 
+@media all and (orientation: landscape){
+    .settings-options-sec{
+        height: initial;
+    }
+}
+
 #change-profile-pic-form{
     display: flex;
     flex-direction: column;
