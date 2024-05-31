@@ -488,6 +488,10 @@ nav .user-profile-pic{
     align-items: center;
 }
 
+.profile-upper.otherUserProfile{
+    flex-direction: column;
+}
+
 .settings-profile{
     position: relative;
     display: inline-block;
