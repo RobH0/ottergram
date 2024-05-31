@@ -616,12 +616,69 @@ nav .user-profile-pic{
     background-color: white;
 }
 
+@media all and (max-width: 750px){
+    .post-preview{
+        height: initial;
+        width: initial;
+    }
+
+    .profile-info{
+        width: initial;
+        min-width: initial;
+        flex-direction: column;
+    }
+
+    .large-profile-pic{
+        margin-right: 0;
+    }
+
+    .profile-info-right{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .profile-center p{
+        text-align: center;
+    }
+
+    .profile-lower{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gallery{
+        grid-template-columns: 100%;
+    }
+}
+
+@media all and (max-width: 1000px) and (min-width: 751px){
+    .gallery{
+        grid-template-columns: 50% 50%;
+    }
+
+    .post-preview{
+        width: 320px;
+        height: 320px;
+    }
+}
+
 .post-preview .post-preview-pic{
     position: relative;
     z-index: 0;
     display: flex;
     justify-content: center;
     background-color: white;
+}
+
+@media all and (max-width: 1500px) and (min-width: 1001px){
+    .gallery{
+        grid-template-columns: 33.3% 33.3% 33.3%;
+    }
+
+    .post-preview{
+        width: 320px;
+        height: 320px;
+    }
 }
 
 
