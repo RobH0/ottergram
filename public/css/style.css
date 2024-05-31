@@ -174,7 +174,7 @@ main {
     display: flex;
     align-items: center;
     min-height: 70px;
-    height: 10dvh;
+    /*height: 10dvh;*/
     width: 90%;
     flex-grow: 1;
 }
@@ -961,6 +961,31 @@ main {
     height: 87vh;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 1025px){
+    main .main-post-page{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-height: 1367px) and (max-width: 1100px){
+    .main-post-page{
+        margin: 5% 0 5% 0;
+        height: initial;
+    }
+
+    .main-post-page .post-section{
+        margin-bottom: 2%;
+        
+    }
+
+    .main-post-page .comments-section{
+        width: 99%;
+        min-height: 353px;
+        margin-left: 0;
+    }
+
 }
 
 .feed-posts.post-section .feed-post-container{
