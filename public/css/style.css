@@ -19,7 +19,7 @@ body {
 }
 
 main {
-    flex-grow: 1;
+    flex: 1;
 }
 
 /* 3 height related css rules above */
@@ -112,9 +112,9 @@ nav{
     padding: 0.5% 2%;
     align-items: center;
     font-size: 1.1rem;
-    width: 100%;
+    width: inherit;
     /*Adding shadow to bottom border. May change later*/
-    box-shadow: 0px -1px 10px black;
+    box-shadow: 0px -1px 10px gray;
 }
 
 nav img, .standard-logo{
@@ -125,7 +125,7 @@ nav img, .standard-logo{
 /* main feed styling */
 
 main {
-    width: 99dvw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,14 +166,15 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: #FFFFFF;
-    max-height: 95vh;
+    /*max-height: 95vh;*/
     margin: 2vh 0;
 }
 
 .upper-feed-post, .lower-feed-post{
     display: flex;
     align-items: center;
-    height: 10dvh;
+    min-height: 70px;
+    /*height: 10dvh;*/
     width: 90%;
     flex-grow: 1;
 }
@@ -252,9 +253,14 @@ nav .user-profile-pic{
 }
 
 .likes-comments img{
+    min-height: 29px;
     height: 4dvh;
     margin-left: -4px;
    
+}
+
+.likes-comments .new-post-icon{
+    margin-left: 0;
 }
 
 .like-comments a{
@@ -286,17 +292,53 @@ nav .user-profile-pic{
     justify-content: center;
     align-items: center;
     background-color: #FFFFFF;
-    height: 50vh;
-    min-width: 250px;
-    min-width: 300px;
-    max-width: 450px;
-    min-height: 500px;
+    border-radius: 10px;
     padding: 0px 2%;
 }
 
-.content-login h1{
-    margin-bottom: 15%;
+.reg-span{
+    color: rgb(139, 139, 139);
+    font-size: 0.9rem;
+    
 }
+
+
+@media all and (min-height: 600px){
+    .content-login h1{
+        margin-bottom: 15%;
+        text-align: center;
+    }
+
+    .content-login{
+        
+        height: 50vh;
+        max-width: 95%;
+        min-height: 500px;
+    }
+
+    .reg-span{
+        margin-bottom: 0;
+    }
+
+    
+}
+
+@media all and (max-height: 450px) and (orientation: landscape){
+    .content-login h1{
+        margin-bottom: 0;
+    }
+    .content-login{
+        padding-bottom: 10px;
+    }
+    .reg-span{
+        margin-bottom: 5px;
+    }
+
+    .login-main{
+        min-height: 120vh;
+    }
+}
+
 
 .login-main a{
     text-decoration: underline;
@@ -304,10 +346,7 @@ nav .user-profile-pic{
     font-size: 0.9rem;
 }
 
-.reg-span{
-    color: rgb(139, 139, 139);
-    font-size: 0.9rem;
-}
+
 
 
 .login-form{
@@ -449,6 +488,10 @@ nav .user-profile-pic{
     align-items: center;
 }
 
+.profile-upper.otherUserProfile{
+    flex-direction: column;
+}
+
 .settings-profile{
     position: relative;
     display: inline-block;
@@ -557,11 +600,9 @@ nav .user-profile-pic{
 .gallery{
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
-    gap: 10px;
-    margin: 0 5dvw 5dvh 5dvw;
-    max-width: 90%;
-    min-width: 68%;
-
+    gap: 5px;
+    margin: 0 0 5dvh 0;
+    max-width: inherit;
 }
 
 .post-preview img{
@@ -579,12 +620,69 @@ nav .user-profile-pic{
     background-color: white;
 }
 
+@media all and (max-width: 750px){
+    .post-preview{
+        height: initial;
+        width: initial;
+    }
+
+    .profile-info{
+        width: initial;
+        min-width: initial;
+        flex-direction: column;
+    }
+
+    .large-profile-pic{
+        margin-right: 0;
+    }
+
+    .profile-info-right{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .profile-center p{
+        text-align: center;
+    }
+
+    .profile-lower{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gallery{
+        grid-template-columns: 100%;
+    }
+}
+
+@media all and (max-width: 1000px) and (min-width: 751px){
+    .gallery{
+        grid-template-columns: 50% 50%;
+    }
+
+    .post-preview{
+        width: 320px;
+        height: 320px;
+    }
+}
+
 .post-preview .post-preview-pic{
     position: relative;
     z-index: 0;
     display: flex;
     justify-content: center;
     background-color: white;
+}
+
+@media all and (max-width: 1500px) and (min-width: 1001px){
+    .gallery{
+        grid-template-columns: 33.3% 33.3% 33.3%;
+    }
+
+    .post-preview{
+        width: 320px;
+        height: 320px;
+    }
 }
 
 
@@ -627,19 +725,52 @@ nav .user-profile-pic{
 /* New post page styling */
 
 
+.profile-info, .content-login{
+    box-shadow: 0px 2px 5px gray;
+}
 
 .new-post-ui{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    padding: 0 10%;
+    width: auto;
+    background-color: white;
+    box-shadow: 0px 2px 5px gray;
+    border-radius: 10px;
+    height: auto;
+}
+
+@media all and (max-width: 1030px){
+    .new-post-ui{
+        flex-direction: column;
+        margin: 10px 5px 10px 5px;
+        width: 95vw;
+        height: auto;
+    }
+    main .new-post-details{
+        width: 100vw;
+        min-width: initial;
+        max-height: initial;
+        padding: 0 5%;
+    }
+
+    main .new-post-preview{
+        width: 100%;
+        max-height: initial;
+        margin-left: 0;
+        padding: 0 5px;
+    }
+
+    .post-pic{
+        max-height: initial;
+        max-width: 90dvw;
+    }
 }
 
 .new-post-details{
     display: flex;
     flex-direction: column;
-    background-color: white;
+    
     border-radius: 10px;
     padding: 1% 2%;
     width: 35%;
@@ -649,12 +780,13 @@ nav .user-profile-pic{
 }
 
 .new-post-preview{
-    background-color: white;
+    
     padding: 0 20px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .feed-post-container{
@@ -710,13 +842,13 @@ nav .user-profile-pic{
 }
 
 .new-post-preview {
-    margin-left: 5%;
+    margin-left: 10px;
     width: 35%;
     max-height: 85dvh;
 }
 
 #new-post-pic{
-    max-height: 50dvh;
+    max-height: 40dvh;
 }
 
 /* User settings styling */
@@ -732,6 +864,12 @@ nav .user-profile-pic{
     height: 70vh;
     width: 30vw;
     min-width: fit-content;
+}
+
+@media all and (orientation: landscape){
+    .settings-options-sec{
+        height: initial;
+    }
 }
 
 #change-profile-pic-form{
@@ -803,6 +941,7 @@ main {
 
 .follow-h1{
     margin: 30px;
+    text-align: center;
 }
 
 .user-followed-container .large-profile-pic{
@@ -822,6 +961,31 @@ main {
     height: 87vh;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 1025px){
+    main .main-post-page{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-height: 1367px) and (max-width: 1100px){
+    .main-post-page{
+        margin: 5% 0 5% 0;
+        height: initial;
+    }
+
+    .main-post-page .post-section{
+        margin-bottom: 2%;
+        
+    }
+
+    .main-post-page .comments-section{
+        width: 99%;
+        min-height: 353px;
+        margin-left: 0;
+    }
+
 }
 
 .feed-posts.post-section .feed-post-container{
@@ -873,7 +1037,7 @@ main {
 .mid-comments{
     padding: 0 20px 5px 20px;
     height: 95%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .right-comment p{
