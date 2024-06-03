@@ -21,3 +21,5 @@ Given more time, I would like to make the following improvements:
 - Implement a direct message feature that would allow users to directly text chat with one another.
 - Provide authenticated users with the ability to search for other users' profiles via a search bar.
 - Alter profile settings to include an option allowing the authenticated user to delete their account.
+- Improve design for mobiles and tablets.
+- Refactor code.
