@@ -2,7 +2,7 @@
 
 Post and share your favorite photos or GIFs.
 
-![](https://github.com/RobH0/ottergram/blob/main/ottergram-preview.gif)
+![Preview GIF](https://github.com/RobH0/ottergram/blob/main/ottergram-preview.gif)
 
 **Link to project:** [Ottergram](URL)
 
