@@ -488,9 +488,7 @@ nav .user-profile-pic{
     align-items: center;
 }
 
-.profile-upper.otherUserProfile{
-    flex-direction: column;
-}
+
 
 .settings-profile{
     position: relative;
@@ -639,6 +637,10 @@ nav .user-profile-pic{
     .profile-info-right{
         flex-direction: column;
         width: 100%;
+    }
+
+    .profile-upper.otherUserProfile{
+        flex-direction: column;
     }
 
     .profile-center p{
@@ -1076,9 +1078,19 @@ main {
     cursor: pointer;
 }
 
-.comment-container:hover .delete-comment-div{
-    display: block;
+@media (hover: hover){
+    .comment-container:hover .delete-comment-div{
+        display: block;
+    }
 }
+
+@media (hover: none){
+    .comment-container .delete-comment-div{
+        display: block;
+    }
+}
+
+
 
 .comment-container{
     display: flex;
