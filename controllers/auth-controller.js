@@ -8,7 +8,7 @@ module.exports = {
         try{
             let loginUsername = req.body.username;
             let loginPassword = req.body.password;
-            let invalidCredsMsg = ["You entered incorrect credentials. Please try logging in again.", "If you don't have an account you can register for one here: <a href='/register'>Register</a>."]
+            let invalidCredsMsg = ["Incorrect credentials entered.", "Please try again or <a href='/register'>create a new account</a>."]
             
             if(loginUsername != undefined && loginUsername != "" && loginPassword != undefined && loginPassword != ""){
                 // Utilizes the passport local strategy configured in ../config/passport-config.js to authenticate the user to allow for additional authentication stratgies to be used in future.

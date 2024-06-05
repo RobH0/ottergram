@@ -23,3 +23,4 @@ Given more time, I would like to make the following improvements:
 - Alter profile settings to include an option allowing the authenticated user to delete their account.
 - Improve design for mobiles and tablets.
 - Refactor code.
+- Design landing page.
