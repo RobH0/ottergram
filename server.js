@@ -14,7 +14,6 @@ class NodeMain{
         this.flash = require('express-flash');
         this.bodyParser = require('body-parser').urlencoded({ extended: false});
         this.port = process.env.PORT;
-        
     }
 
     async start(){

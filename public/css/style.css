@@ -302,10 +302,30 @@ nav .user-profile-pic{
     
 }
 
+.login-main a{
+    text-decoration: underline;
+    color: rgb(139, 139, 139);
+    font-size: 0.9rem;
+}
+
+/* Fix login styling */
+.error-container, .error-message, .error-message a{
+    
+    word-wrap: break-word;
+    color: rgb(255, 80, 80);
+}
+
+.error-container{
+    border: 2px solid rgb(245, 72, 72);
+    padding: 2%;
+    border-radius: 10px;
+    width: 20vw;
+    min-width: 300px;
+}
 
 @media all and (min-height: 600px){
     .content-login h1{
-        margin-bottom: 15%;
+        margin-bottom: 5%;
         text-align: center;
     }
 
@@ -313,7 +333,8 @@ nav .user-profile-pic{
         
         height: 50vh;
         max-width: 95%;
-        min-height: 500px;
+        min-height: 450px;
+        max-height: 600px;
     }
 
     .reg-span{
@@ -340,11 +361,7 @@ nav .user-profile-pic{
 }
 
 
-.login-main a{
-    text-decoration: underline;
-    color: rgb(139, 139, 139);
-    font-size: 0.9rem;
-}
+
 
 
 
