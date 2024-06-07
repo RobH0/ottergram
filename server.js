@@ -48,7 +48,7 @@ class NodeMain{
         this.app.use('/', this.noAuthRoutes);
         this.app.use('/', this.profileRoutes);
 
-        this.app.listen(this.port, (() => console.log(`Server listening on port ${this.port}`)));
+        this.app.listen(this.port, '127.0.0.1' ,(() => console.log(`Server listening on port ${this.port}`)));
     }
 }
 
