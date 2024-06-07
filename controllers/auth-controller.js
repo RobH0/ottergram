@@ -45,6 +45,8 @@ module.exports = {
             let newUsername = req.body.username;
             let newPassword = req.body.password;
             let invalidCredsMsg = ["Please ensure that both the Username and Password fields are filled out."]
+            let existingUsernamesLowerCase = await UsersModel.getAllUsernames();
+            let newUsernameLowerCase = newUsername.toLowerCase();
             
             if (newUsername == "" || newPassword == ""){
                 req.flash('error', invalidCredsMsg)
@@ -57,6 +59,9 @@ module.exports = {
             // Makes sure passwords submitted during registration are less likely to exceed the 72 byte limit allocated for the password string that bcrypt hashes.
             } else if (newPassword.length > 50){
                 req.flash('error', "The password you entered exceeds the maximum length of 50 characters.");
+                res.redirect('/register');
+            } else if (existingUsernamesLowerCase.includes(newUsernameLowerCase)){
+                req.flash('error', "Username has already been taken.")
                 res.redirect('/register');
             }else{
                 const hashedPassword = await bcrypt.hash(newPassword, 10);

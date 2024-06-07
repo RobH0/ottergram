@@ -16,6 +16,22 @@ class UsersModel{
         }
     }
 
+    async getAllUsernames(){
+        try{
+            if (this.collection == null){
+                await this.initCollection();
+            }
+
+            let usernames = await this.collection.find({}, { projection: { username: 1, _id: 0}}).toArray();
+            
+            usernames = usernames.map((element) => element.username.toLowerCase());
+            return usernames;
+        } catch (err){
+            console.log(err);
+            return false
+        }
+    }
+
     async getUsernameAndPic(userID){
         try{
             if (this.collection == null){
