@@ -952,6 +952,22 @@ main {
     box-shadow: 0px 2px 5px black;
 }
 
+@media screen and (max-width: 450px){
+    .user-followed-container{
+        width: 95vw;
+    }
+
+    .user-followed-container .username{
+        font-size: 1.2em;
+        margin-left: 5px;
+    }
+
+    .user-followed-container a .large-profile-pic{
+        width: 70px;
+        height: 70px;
+    }
+}
+
 .user-followed-container *{
     display: flex;
     align-items: center;
