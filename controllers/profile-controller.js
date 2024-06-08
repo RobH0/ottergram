@@ -125,7 +125,11 @@ module.exports = {
 
     createNewPost: async (req, res) => {
         try{
-            let result = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
+            let result = await cloudinary.uploader.upload(req.file.path, {
+                allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng'], transformation: [
+                    {quality: "auto:good"}
+                ]
+            });
             await fs.unlink(req.file.path);
             await postsModel.insertNewPost(req.user._id, result.secure_url, result.public_id);
             let info = await getProfileInfo(req.user._id);
@@ -190,7 +194,9 @@ module.exports = {
             let currentBio = req.user.bio;
 
             if (req.file){
-                let uploadResult = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng']});
+                let uploadResult = await cloudinary.uploader.upload(req.file.path, {allowed_formats : ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'avif', 'apng'], transformation: [
+                    {quality: "auto:good"}
+                ]});
                 let docUpdateResult = await usersModel.updateProfileInfo(userID, uploadResult.secure_url, newBio, currentBio);
                 res.redirect('/profile');
             } else if (!req.file && (newBio =="" || newBio == currentBio)){
