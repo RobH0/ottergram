@@ -4,7 +4,7 @@ Post and share your favorite photos or GIFs.
 
 ![Preview GIF](https://github.com/RobH0/ottergram/blob/main/ottergram-preview.gif)
 
-**Link to project:** [Ottergram](URL)
+**Link to project:** [ottergram.social](https://ottergram.social/)
 
 ## How It's Made
 
