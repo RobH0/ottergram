@@ -27,8 +27,8 @@
         </header>
         <main>
             <h1 class="follow-h1">You're Following</h1>
-            <% for (let user of followingArray) { %>
-                <section class="following-list">
+            <section class="following-list">
+                <% for (let user of followingArray) { %>
                     <div class="user-followed-container">
                         <div class="left-list-item">
                             <% if (user.profilePic == "") { %>
@@ -38,11 +38,11 @@
                             <% } %>
                             <a href="/user/<%= user._id %>" class="username"><%=user.username %></a>
                         </div>
-
+                    
                         <button class="standard-btn follow-following-btn" id="following-btn">Unfollow</button>
                     </div>
-                </section>
-            <% } %>
+                <% } %>
+            </section>
             <% if (followingArray.length == 0){ %>
                 <h3>You're not following anyone at this moment.</h3>
             <% } %>

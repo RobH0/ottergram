@@ -35,9 +35,9 @@
             <% } else { %>
                 <h1 class="follow-h1"><%=otherUser.username%>'s Followers</h1>
             <% } %>
-
-            <% for (let user of followingArray) { %>
-                <section class="following-list">
+            
+            <section class="following-list">
+                <% for (let user of followingArray) { %>
                     <div class="user-followed-container">
                         <div class="left-list-item">
                             <% if (user.profilePic == "") { %>
@@ -48,8 +48,8 @@
                             <a href="/user/<%= user._id %>" class="username"><%=user.username %></a>
                         </div>
                     </div>
-                </section>
-            <% } %>
+                <% } %>
+            </section>
             <% if (followingArray.length == 0){ %>
                 <% if (isFollowersList == false) { %>
                     <h3><%=otherUser.username%> is not following anyone at this moment.</h3>
