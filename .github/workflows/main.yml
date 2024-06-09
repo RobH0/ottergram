@@ -24,6 +24,7 @@ jobs:
         SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
         SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
       run: |
+        touch ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
@@ -32,7 +33,7 @@ jobs:
         echo "$SSH_PRIVATE_KEY" | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh_askpass ssh-add - >/dev/null
     - name: connect
       run: ssh -i ~/.ssh/id_rsa ${{secrets.SSH_USERNAME}}@{{secrets.SSH_HOST}}
-    - name: whoamiE
+    - name: whoami
       run: whoami
     - name: cleanup
       run: |
