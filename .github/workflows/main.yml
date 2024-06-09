@@ -22,7 +22,7 @@ jobs:
     - name: setup ssh keys
       env:
         SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
-        SSH_PRIVATEKEY: ${{secrets.SSH_PRIVATE_KEY}}
+        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
