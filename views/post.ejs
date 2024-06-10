@@ -80,7 +80,12 @@
                 <div class="mid-comments">
                     <% for (let index = 0; index < postInfo.comments.length; index++){ %>
                         <div class="comment-container">
-                            <a href="/user/<%=postInfo.comments[index].commentedBy%>"><img class="user-profile-pic" src="<%=postInfo.comments[index].profilePic%>" alt="commenter's profile pic"></a>
+                            <% if (postInfo.comments[index].profilePic != "") { %>
+                                <a href="/user/<%=postInfo.comments[index].commentedBy%>"><img class="user-profile-pic" src="<%=postInfo.comments[index].profilePic%>" alt="commenter's profile pic"></a>
+
+                            <% } else { %>
+                                <a href="/user/<%=postInfo.comments[index].commentedBy%>"><img class="user-profile-pic" src="/imgs/icons/otter-logo.svg" alt="commenter's profile pic"></a>
+                            <% } %>
                             
                             <div class="right-comment">
                                 <a href="/user/<%=postInfo.comments[index].commentedBy%>"><h3><%=postInfo.comments[index].username%></h3></a>

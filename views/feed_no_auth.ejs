@@ -47,10 +47,10 @@
                             </div>
                             <div class="feed-likes">
                                 <a href="/login"><img src="/imgs/icons/comment-black-outline.svg" alt="comment icon"></a>
-                                <% if (allPosts[index].numComments == null){ %>
+                                <% if (allPosts[index].comments.length == null){ %>
                                     <span>0</span>
                                 <% } else { %>
-                                    <span><%= allPosts[index].numComments %></span>
+                                    <span><%= allPosts[index].comments.length %></span>
                                 <% } %>
                             </div>
                         </div>
