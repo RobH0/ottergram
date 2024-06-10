@@ -1,0 +1,26 @@
+<div class="mobile-right-nav">
+    <button class="open-mobile-menu-btn active"><img src=/imgs/icons/mobile-menu-icon.svg></button>
+    <div class="opened-mobile-right-nav inactive">
+        <div class="mobile-nav-container">
+            <button class="close-mobile-menu-btn"><img src="/imgs/icons/cross-icon.svg"></button>
+        
+            <% if (profilePic != "") { %>
+                <div class="profile-container">
+                    <a class="profile-link" href="/profile">Your profile <img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                </div>
+                
+            <% } else { %>
+                <a class="profile-link" href="/profile">Your profile <img class="user-profile-pic" src="/imgs/icons/otter-logo.svg"></a>
+                <div class="profile-container">
+                    <a href="/profile">Your profile <img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
+                </div>
+            <% } %>
+            <a class="feed-link" href="/">Your feed</a>
+            <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+            <form action="/logout" class="logout-form" method="post">
+                <button type="submit" class="sign-out-btn">Sign out</button>
+            </form>
+        
+        </div>
+    </div>
+</div>

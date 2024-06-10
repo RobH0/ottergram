@@ -174,6 +174,7 @@ nav img, .standard-logo{
         margin-left: 20px;
         height: 60px;
         width: auto;
+        font-size: 1.1em;
     }
 
     .mobile-nav-container img{
@@ -190,14 +191,26 @@ nav img, .standard-logo{
         align-items: center;
     }
 
+    .mobile-nav-container .post-link img{
+        margin-top: 5px;
+    }
+
+    .mobile-nav-container .feed-link{
+        display: flex;
+        align-items: center;
+    }
+
     .mobile-nav-container .profile-link{
         all: unset;
         margin-left: 0;
     }
 
     .mobile-nav-container form{
+        margin-left: 0;
         display: flex;
         align-items: center;
+        justify-content: center;
+        height: auto;
     }
 }
 

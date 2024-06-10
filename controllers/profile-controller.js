@@ -104,7 +104,7 @@ module.exports = {
             userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
         }
         
-        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo});
+        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo, profilePic: currentUserInfo.profilePic});
     },
 
     getUserProfile: async (req, res) => {
@@ -134,7 +134,7 @@ module.exports = {
 
     getCreatePost: async (req, res) =>{
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
-        res.render('create_post.ejs', {userInfo: currentUserInfo});
+        res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic});
     },
 
     createNewPost: async (req, res) => {
