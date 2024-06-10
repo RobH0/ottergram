@@ -21,18 +21,39 @@ class NoAuthController{
         let years = Math.floor(days / 365)
 
         if (years >= 1){
+            if (years == 1){
+                return 'Posted ' + years + ' year ago';
+            }
             return 'Posted ' + years + ' years ago';
         } else if (months>= 1 ){
+            if (months == 1){
+                return 'Posted ' + months + ' month ago';
+            }
             return 'Posted ' + months + ' months ago';
         } else if (weeks >= 1){
+            if (weeks == 1){
+                return 'Posted ' + weeks + ' week ago';
+            }
             return 'Posted ' + weeks + ' weeks ago';
         } else if (days >= 1){
+            if (days == 1){
+                return 'Posted ' + days + ' day ago';
+            }
             return 'Posted ' + days + ' days ago';
         } else if (hours >= 1){
+            if (hours == 1){
+                return 'Posted ' + hours + ' hour ago';
+            }
             return 'Posted ' + hours + ' hours ago';    
         } else if (minutes >= 1){
+            if (minutes == 1){
+                return 'Posted ' + minutes + ' minute ago';
+            }
             return 'Posted ' + minutes + ' minutes ago';
         }else if (seconds >= 1){
+            if (seconds == 1){
+                return 'Posted ' + seconds + ' second ago';
+            }
             return 'Posted ' + seconds + ' seconds ago';
         }                
     }

@@ -26,51 +26,65 @@ function calcTimeDiff(datePosted, currentDate, abbreviated = false){
         if (abbreviated){
             return years + 'y'
         } else {
-
+            if (years == 1){
+                return 'Posted ' + years + ' year ago';
+            }
+            return 'Posted ' + years + ' years ago';
         }
-        return 'Posted ' + years + ' years ago';
     } else if (months>= 1 ){
         if (abbreviated){
             return months + 'm'
         } else {
-            return 'Posted ' + months + ' months ago';
+            if (months == 1){
+                return 'Posted ' + months + ' month ago';
+            }
+            return 'Posted ' + months + ' months ago';            
         }
-        
     } else if (weeks >= 1){
         if (abbreviated){
             return weeks + 'w'
         } else {
+            if (weeks == 1){
+                return 'Posted ' + weeks + ' week ago';
+            }
             return 'Posted ' + weeks + ' weeks ago';
         }
-        
     } else if (days >= 1){
         if (abbreviated){
             return days + 'd'
         } else {
+            if (days == 1){
+                return 'Posted ' + days + ' day ago';
+            }
             return 'Posted ' + days + ' days ago';
         }
-        
     } else if (hours >= 1){
         if (abbreviated){
             return hours + 'h'
         } else {
+            if (hours == 1){
+                return 'Posted ' + hours + ' hour ago';
+            }
             return 'Posted ' + hours + ' hours ago';
         }
-            
     } else if (minutes >= 1){
         if (abbreviated){
             return minutes + 'm'
         } else {
+            if (minutes == 1){
+                return 'Posted ' + minutes + ' minute ago';
+            }
             return 'Posted ' + minutes + ' minutes ago';
         }
-        
     }else if (seconds >= 1){
         if (abbreviated){
             return seconds + 's'
         } else {
+            if (seconds == 1){
+                return 'Posted ' + seconds + ' second ago';
+            }
             return 'Posted ' + seconds + ' seconds ago';
         }
-        
     }                
 }
 
