@@ -179,6 +179,11 @@ main {
     flex-grow: 1;
 }
 
+/* Prevents date from overlapping with heart and comment icon */
+.feed-post-container .post-date{
+    margin-left: 20px;
+}
+
 
 /* profil pic styling */
 
