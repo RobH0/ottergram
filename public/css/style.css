@@ -122,6 +122,35 @@ nav img, .standard-logo{
     width: auto;
 }
 
+.mobile-right-nav{
+    display: none;
+}
+
+/* mobile nav styling */
+
+@media screen and (max-width: 600px){
+    .mobile-right-nav{
+        display: block;
+    }
+
+    .open-mobile-menu-btn, .close-mobile-menu-btn{
+        all: unset;
+    }
+
+    .open-mobile-menu-btn img, .close-mobile-menu-btn img{
+        width: 40px;
+        height: 50px;
+    }
+
+    .right-nav.desktop-right-nav{
+        display: none;
+    }
+
+    .mobile-right-nav .inactive{
+        display: none;
+    }
+}
+
 /* main feed styling */
 
 main {
