@@ -10,7 +10,7 @@
     <header>
         <nav class="nav-3">
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
-            <div class="right-nav">
+            <div class="right-nav desktop-right-nav">
                 <a href="/">Feed</a>
                 <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
                 <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
@@ -19,6 +19,7 @@
                 </form>
                 
             </div>
+            <%- include('partials/mobile-nav.ejs') %>
         </nav>
     </header>
     <main>
@@ -49,5 +50,6 @@
         </section>
     </main>
     <script src="/js/main.js"></script>
+    <script src="/js/manageMobileNav.js"></script>
 </body>
 </html>

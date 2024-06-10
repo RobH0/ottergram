@@ -14,7 +14,7 @@
         <header>
             <nav>
                 <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
-                <div class="right-nav four-items">
+                <div class="right-nav four-items desktop-right-nav">
                     <a href="/feed">Feed</a>
                     <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
                     <% if (profilePic != "") { %>
@@ -27,6 +27,7 @@
                     </form>
 
                 </div>
+                <%- include('partials/mobile-nav.ejs') %>
             </nav>
         </header>
         <main>
@@ -58,5 +59,6 @@
                 <% } %>
             <% } %>
         </main>
+        <script src="/js/manageMobileNav.js"></script>
     </body>
 </html>

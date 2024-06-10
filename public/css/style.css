@@ -122,6 +122,98 @@ nav img, .standard-logo{
     width: auto;
 }
 
+.mobile-right-nav{
+    display: none;
+}
+
+/* mobile nav styling */
+
+@media screen and (max-width: 600px){
+    .mobile-right-nav{
+        display: block;
+        position: relative;
+        z-index: 0;
+    }
+
+    .open-mobile-menu-btn, .close-mobile-menu-btn{
+        all: unset;
+    }
+
+    .open-mobile-menu-btn img, .close-mobile-menu-btn img{
+        width: 40px;
+        height: 50px;
+    }
+
+    .right-nav.desktop-right-nav{
+        display: none;
+    }
+
+    .mobile-right-nav .inactive{
+        display: none;
+    }
+
+    .opened-mobile-right-nav{
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        width: 80vw;
+        height: 100vh;
+        background-color: white;
+        opacity: 0.9;
+    }
+
+    .mobile-nav-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-nav-container *{
+        margin: 0;
+        margin: 5px;
+        margin-left: 20px;
+        height: 60px;
+        width: auto;
+        font-size: 1.1em;
+    }
+
+    .mobile-nav-container img{
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    .mobile-nav-container .profile-container{
+        justify-content: start;
+    }
+
+    .mobile-nav-container .post-link{
+        justify-content: start;
+        align-items: center;
+    }
+
+    .mobile-nav-container .post-link img{
+        margin-top: 5px;
+    }
+
+    .mobile-nav-container .feed-link{
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-nav-container .profile-link{
+        all: unset;
+        margin-left: 0;
+    }
+
+    .mobile-nav-container form{
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+}
+
 /* main feed styling */
 
 main {
