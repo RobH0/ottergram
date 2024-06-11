@@ -15,6 +15,7 @@ const deletionSummarySpan = document.querySelector('.cancel-delete-posts-section
 let alreadyClicked = false;
 let postsToDelete = [];
 let toDeleteCount = 0;
+let uploadingPost = false;
 
 
 const fileReader = new FileReader();
@@ -166,37 +167,34 @@ async function postPhoto(event){
         if (mostRecentFile != null){
             let url = '/new-post'
             let formData = new FormData();
-            console.log(`uploading ${mostRecentFile.name}`);
             formData.append('file', mostRecentFile);
             formData.append('filename', mostRecentFile.name);
 
-            
-            let result = await fetch(url, {
-                method: 'POST',
-                body: formData
-            });
-            result = await result.json();
-            if (result.success){
-                console.log('in success');
-                window.location.href = "/profile";
-            }
+            if (!uploadingPost){
+                uploadingPost = true;
+                let result = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                result = await result.json();
+                if (result.success){
+                    uploadingPost = false;
+                    console.log('success');
+                    window.location.href = "/profile";
+                }
+            }            
         }else{
             console.log('No image/gif file to post.');
         }
-        
-        
     }catch (err){
         console.error(err);
     }
-
 }
 
 function previewProfilePic(event){
-    console.log(`event.target.value: ${event.target.value}`);
     let img = event.target.files[0];
     console.log(img.type);
     if (img.type.includes('image/')){
-        console.log('in if');
         fileReader.readAsDataURL(img);
         fileReader.addEventListener("load", function (){
             profilePic.src = this.result;
@@ -207,7 +205,6 @@ function previewProfilePic(event){
 
 function fileChosen(){
     if (uploadFile.value != ""){
-        console.log(uploadFile.value);
         let file = uploadFile.files[0];
         mostRecentFile = file;
         previewImgNow(file);       
@@ -227,7 +224,6 @@ function fileDropped(event){
         console.log(mostRecentFile.name)
         previewImgNow(file);
     }
-
 }
 
 function fileDraggedOver(event){
