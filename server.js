@@ -31,12 +31,19 @@ class NodeMain{
         dbName: process.env.DB_NAME});
         this.app.use(this.session({
             secret: process.env.SESSION_SECRET,
+            
             resave: false,
+            //fix cookie settings
             saveUninitialized: false,
+            secure: true,
+            
             store: sessionStore,
             // Sets cookie max age to 1 day
             cookie: {
-                maxAge: 1000 * 60 * 60 * 24
+                maxAge: 1000 * 60 * 60 * 24,
+                sameSite: 'lax',
+                httpOnly: true,
+                secure: true
             }
         }));
 
