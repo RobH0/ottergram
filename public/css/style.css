@@ -143,6 +143,10 @@ nav img, .standard-logo{
         width: 40px;
         height: 50px;
     }
+    
+    .close-mobile-menu-btn{
+        margin: 5px;
+    }
 
     .right-nav.desktop-right-nav{
         display: none;
@@ -166,15 +170,18 @@ nav img, .standard-logo{
     .mobile-nav-container{
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
-    .mobile-nav-container *{
+    .mobile-nav-container *, .mobile-nav-container .notification-btn{
         margin: 0;
         margin: 5px;
-        margin-left: 20px;
+        /*margin-left: 20px;*/
         height: 60px;
         width: auto;
         font-size: 1.1em;
+        justify-self: center;
+        align-self: center;
     }
 
     .mobile-nav-container img{
@@ -222,6 +229,17 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.notification-btn{
+    all: unset;
+    width: 40px;
+    height: 40px;
+}
+
+.notification-btn img{
+    width: 40px;
+    height: 40px;
 }
 
 .filter-section{
@@ -542,15 +560,15 @@ nav .user-profile-pic{
     margin-right: 0;
 }
 
-.right-nav.four-items{
+.right-nav{
     width: auto;
 }
 
-.right-nav.four-items a{
+.right-nav a{
     margin: 0 5px 0 5px;
 }
 
-.right-nav.four-items form{
+.right-nav form{
     margin-left: 5px;
 }
 
@@ -1143,8 +1161,11 @@ main {
 
 .profile-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: auto;
+    width: auto;
 }
 
 .comments-section{

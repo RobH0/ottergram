@@ -5,6 +5,8 @@ const openedMobileNav = document.querySelector('.opened-mobile-right-nav');
 openMobileNavBtn.addEventListener('click', openMobileNav);
 closeMobileNavBtn.addEventListener('click', closeMobileNav);
 
+let clickCount = 1;
+
 function openMobileNav(){
     console.log('Opening mobile nav');
     openMobileNavBtn.classList.add('inactive');
@@ -21,4 +23,22 @@ function closeMobileNav(){
 
     openMobileNavBtn.classList.add('active');
     openMobileNavBtn.classList.remove('inactive');
+}
+
+try{
+    // Allows a user to close the mobile navigation/menu when clicking on other parts of the screen. 
+    document.addEventListener('click', function(e){
+        if (!document.querySelector('.opened-mobile-right-nav').contains(e.target) && openedMobileNav.classList.contains('active') && clickCount > 1){
+            closeMobileNav();
+            console.log('if');
+            clickCount = 1;
+        } else if (openedMobileNav.classList.contains('inactive')){
+            clickCount = 1;
+        }else{
+            clickCount+= 1;
+            console.log('else');
+        }
+    })
+} catch(err){
+    console.error(err);
 }
