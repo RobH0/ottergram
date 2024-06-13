@@ -17,6 +17,7 @@
                 <div class="right-nav four-items desktop-right-nav">
                     <a href="/feed">Feed</a>
                     <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                    <%- include('partials/notification-icon.ejs') %>
                     <% if (profilePic != "") { %>
                         <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
                     <% } else { %>

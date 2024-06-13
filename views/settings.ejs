@@ -13,6 +13,7 @@
             <div class="right-nav desktop-right-nav">
                 <a href="/">Feed</a>
                 <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                <%- include('partials/notification-icon.ejs') %>
                 <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
                 <form action="/logout" class="logout-form" method="post">
                     <button type="submit" class="sign-out-btn">Sign out</button>
