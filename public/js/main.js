@@ -22,6 +22,7 @@ const fileReader = new FileReader();
 var mostRecentFile;
 
 try{
+    uploadFile.addEventListener('change', fileChosen);
     fileUploadForm.addEventListener('submit', postPhoto);
 }catch{
     console.log("Not on /create-post");
