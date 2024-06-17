@@ -22,6 +22,9 @@ const fileReader = new FileReader();
 var mostRecentFile;
 
 try{
+    const uploadZoneInner = document.querySelector('.inner-border');
+    uploadZoneInner.addEventListener('dragover', (event) => fileDraggedOver(event));
+    uploadZoneInner.addEventListener('drop', (event) => fileDropped(event));
     uploadFile.addEventListener('change', fileChosen);
     fileUploadForm.addEventListener('submit', postPhoto);
 }catch{
