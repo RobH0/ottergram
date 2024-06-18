@@ -333,14 +333,31 @@ module.exports = {
     },
 
     likePost: async (req, res) => {
-        const postId = req.params.postId;
-        const authedUserId = req.user._id
-        const result = await postsModel.likePost(postId, authedUserId);
-        if (result == true){
-            res.status(200).json({ message: 'Successfully liked post'});
-        } else {
-            res.status(500).json({ message: 'Like attempt failed.'})
+        try{
+            const postId = req.params.postId;
+            let authedUserId = req.user._id
+            const result = await postsModel.likePost(postId, authedUserId);
+            if (result == true){
+                let currentDate = new Date();
+                let message = `${req.user.username} liked your post!`
+                let url = req.originalUrl.split('/', 3).join('/');
+                let postIdStr = url.split('/').pop();
+                console.log(`postIdStr: ${postIdStr}`);
+                console.log(`url: ${url}`);
+
+                // get createdBy userId from objectID collected from post url. Use posts model.
+                let postInfo = await postsModel.getPostById(postIdStr);
+                let userToNotify = postInfo.createdBy;
+
+                let notificationResult = await usersModel.updateNotifications(userToNotify, authedUserId, message, currentDate, url);
+                res.status(200).json({ message: 'Successfully liked post'});
+            } else {
+                res.status(500).json({ message: 'Like attempt failed.'})
+            }
+        } catch (err){
+            console.error(err);
         }
+        
     },
 
     unlikePost: async (req, res) => {

@@ -210,6 +210,7 @@ class UsersModel{
         if (this.collection == null){
             await this.initCollection();
         }
+        console.log('checkNotificationsExists');
         let userNotifications = await this.collection.findOne({_id: userId}, { projection: {notifications: 1}});
 
         return userNotifications;
@@ -219,8 +220,13 @@ class UsersModel{
         if (this.collection == null){
             await this.initCollection();
         }
+        if (typeof(impactedUserId) == 'string'){
+            console.log('in impacteduser id conversion')
+            impactedUserId = new ObjectID(impactedUserId);
+        }
+        console.log(`impactuserId: ${impactedUserId}`);
         let updateResult;
-        let notifications = await this.checkNotificationsExists(impactedUserId);
+        let notificationsExist = await this.checkNotificationsExists(impactedUserId);
         let newNotification = {
             actionBy: actionByUsername, 
             message: notificationMessage, 
@@ -228,11 +234,14 @@ class UsersModel{
             read: false,
             relatedURL: originURL 
         }
+
+        console.log('in updateNotifcations')
         
-        if (notifications != null){
+        if (notificationsExist.notifications != null){
             updateResult = await this.collection.updateOne({_id: impactedUserId}, { $push: { notifications: newNotification}});
         } else {
-            updateResult = await this.collection.updateOne({_id: impactedUserId}, {$set: {notifications: [newNotification]}});
+            newNotification = [newNotification];
+            updateResult = await this.collection.updateOne({_id: impactedUserId}, {$set: { notifications: newNotification}});
         }
         if (updateResult.modifiedCount > 0) {
             return true;
