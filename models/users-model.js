@@ -82,7 +82,8 @@ class UsersModel{
                     following: [],
                     followedBy: [],
                     profilePic: "",
-                    likedPosts: []
+                    likedPosts: [],
+                    notifications: []
                 });
                 return true;
             } else {
@@ -202,6 +203,41 @@ class UsersModel{
         } catch(err) {
             console.error(err);
             return false
+        }
+    }
+
+    async checkNotificationsExists(userId){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+        let userNotifications = await this.collection.findOne({_id: userId}, { projection: {notifications: 1}});
+
+        return userNotifications;
+    }
+
+    async updateNotifications(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+        let updateResult;
+        let notifications = await this.checkNotificationsExists(impactedUserId);
+        let newNotification = {
+            actionBy: actionByUsername, 
+            message: notificationMessage, 
+            date: dateTime,
+            read: false,
+            relatedURL: originURL 
+        }
+        
+        if (notifications != null){
+            updateResult = await this.collection.updateOne({_id: impactedUserId}, { $push: { notifications: newNotification}});
+        } else {
+            updateResult = await this.collection.updateOne({_id: impactedUserId}, {$set: {notifications: [newNotification]}});
+        }
+        if (updateResult.modifiedCount > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
