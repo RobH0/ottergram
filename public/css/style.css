@@ -771,6 +771,10 @@ nav .user-profile-pic{
         width: 100%;
     }
 
+    .profile-info-right .profile-upper{
+        justify-content: center;
+    }
+
     .profile-upper.otherUserProfile{
         flex-direction: column;
     }
