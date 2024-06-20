@@ -339,7 +339,7 @@ module.exports = {
             const result = await postsModel.likePost(postId, authedUserId);
             if (result == true){
                 let currentDate = new Date();
-                let message = `${req.user.username} liked your post!`
+                let message = `${req.user.username} liked one of your posts!`
                 let url = req.originalUrl.split('/', 3).join('/');
                 let postIdStr = url.split('/').pop();
                 console.log(`postIdStr: ${postIdStr}`);
@@ -349,7 +349,7 @@ module.exports = {
                 let postInfo = await postsModel.getPostById(postIdStr);
                 let userToNotify = postInfo.createdBy;
 
-                let notificationResult = await usersModel.updateNotifications(userToNotify, authedUserId, message, currentDate, url);
+                let notificationResult = await usersModel.addNotification(userToNotify, authedUserId, message, currentDate, url);
                 res.status(200).json({ message: 'Successfully liked post'});
             } else {
                 res.status(500).json({ message: 'Like attempt failed.'})
@@ -362,9 +362,17 @@ module.exports = {
 
     unlikePost: async (req, res) => {
         const postId = req.params.postId;
-        const authedUserId = req.user._id;
+        let authedUserId = req.user._id;
         let result = await postsModel.unlikePost(postId, authedUserId);
         if (result == true){
+            // get createdBy userId from objectID collected from post url. Use posts model.
+            const url = req.originalUrl.split('/', 3).join('/');
+            let postIdStr = url.split('/').pop();
+            let postInfo = await postsModel.getPostById(postIdStr);
+            let userToNotify = postInfo.createdBy;
+            
+            let notificationDelResult = await usersModel.deleteNotification(userToNotify, authedUserId, url);
+
             res.status(200).json({ message: 'Successfully liked post'});
         } else {
             res.status(500).json({ message: 'Like attempt failed.'})

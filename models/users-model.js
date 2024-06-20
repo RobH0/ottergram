@@ -216,7 +216,7 @@ class UsersModel{
         return userNotifications;
     }
 
-    async updateNotifications(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL){
+    async addNotification(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -248,6 +248,30 @@ class UsersModel{
         } else {
             return false;
         }
+    }
+
+    async deleteNotification(impactedUserId, actionByUsername, originalUrl){
+        if (this.collection == null){
+            await this.initCollection();
+        }
+
+        if (typeof(impactedUserId) == 'string'){
+            console.log('in impacteduser id conversion')
+            impactedUserId = new ObjectID(impactedUserId);
+        }
+
+        let notificationsExist = await this.checkNotificationsExists(impactedUserId);
+
+        if (notificationsExist.notifications != null){
+            const delNotifResult = await this.collection.updateOne({_id: impactedUserId}, {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername}}});
+
+            if (delNotifResult.modifiedCount > 0){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 }
 
