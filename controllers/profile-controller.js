@@ -409,11 +409,32 @@ module.exports = {
 
     postComment: async (req, res) => {
         const currentDate = new Date();
-        const authedUser = req.user._id;
-        const comment = req.body.commentMsg;
+        let authedUser = req.user._id;
+        let comment = req.body.commentMsg;
         const postId = req.params.postId;
         if (comment != "" && comment != undefined){
-            let result = await postsModel.addComment(postId, authedUser, comment, currentDate);
+            let commentId = await postsModel.addComment(postId, authedUser, comment, currentDate);
+            if (commentId !== false){
+                if (comment.length - 1 > 25){
+                    comment = "'" + comment.slice(0, 25) + "...'"
+                } else{
+                    comment = "'" + comment + "'";
+                }
+                console.log(comment);
+                let notifMessage = `${req.user.username} commented: ${comment} on one of your posts!`
+                console.log(notifMessage);
+                let url = req.originalUrl.split('/', 3).join('/');
+                let postIdStr = postId.toString();
+                console.log(`postIdStr: ${postIdStr}`);
+                console.log(`url: ${url}`);
+
+                // get createdBy userId from objectID collected from post url. Use posts model.
+                let postInfo = await postsModel.getPostById(postIdStr);
+                let userToNotify = postInfo.createdBy;
+                console.log(`userToNotify: ${userToNotify}`);
+
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, notifMessage, currentDate, url, commentId.toString());
+            }
         }
         
         res.redirect(`/post/${postId}`);
@@ -422,7 +443,7 @@ module.exports = {
     deleteComment: async (req, res) => {
         console.log('Deletining comment');
         const postId = req.params.postId;
-        const commentId = req.body.commentId;
+        let commentId = req.body.commentId;
         const authedUserId = req.user._id;
 
         let postInfo = await postsModel.getPostById(postId);
@@ -440,6 +461,14 @@ module.exports = {
             console.log('authorized to delete');
             if (result == true){
                 // can't use res.redirect to responed to HTTP DELETE request.
+                let url = req.originalUrl.split('/', 3).join('/');
+                let postIdStr = postId.toString();
+                console.log(`postIdStr: ${postIdStr}`);
+                console.log(`url: ${url}`);
+                let postInfo = await postsModel.getPostById(postIdStr);
+                let userToNotify = postInfo.createdBy;
+
+                usersModel.deleteNotification(userToNotify, req.user.username, url, null, commentId)
                 res.status(200).json({message: 'successfully delete comment.'});
             } else {
                 res.status(500).json({ message: 'comment deletion failed.'})

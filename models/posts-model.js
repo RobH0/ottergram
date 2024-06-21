@@ -152,6 +152,11 @@ class PostsModel{
             const commentId = new ObjectID();
 
             const result = await this.collection.updateOne({ _id: postObjectId}, { $push: { comments:  { commentId: commentId, commentedBy: authedUser, date: currentDate, message: comment}}});
+            if (result.modifiedCount > 0 ){
+                return commentId;
+            } else{
+                return false;
+            }
         } catch (err){
             console.error(err);
         }

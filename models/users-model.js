@@ -216,7 +216,7 @@ class UsersModel{
         return userNotifications;
     }
 
-    async addNotification(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL){
+    async addNotification(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL, commentId = null){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -224,9 +224,7 @@ class UsersModel{
             console.log('in impacteduser id conversion')
             impactedUserId = new ObjectID(impactedUserId);
         }
-        console.log(`impactuserId: ${impactedUserId}`);
-        let updateResult;
-        let notificationsExist = await this.checkNotificationsExists(impactedUserId);
+        
         let newNotification = {
             actionBy: actionByUsername, 
             message: notificationMessage, 
@@ -234,6 +232,19 @@ class UsersModel{
             read: false,
             relatedURL: originURL 
         }
+        
+        console.log(`commentId typeof: ${typeof(commentId)}`);
+
+        if (commentId != null){
+            newNotification["relatedComment"] = commentId;
+        }
+
+
+
+        console.log(`impactuserId: ${impactedUserId}`);
+        let updateResult;
+        let notificationsExist = await this.checkNotificationsExists(impactedUserId);
+        
 
         console.log('in updateNotifcations')
         
@@ -250,7 +261,7 @@ class UsersModel{
         }
     }
 
-    async deleteNotification(impactedUserId, actionByUsername, originalUrl){
+    async deleteNotification(impactedUserId, actionByUsername, originalUrl, notifMessage = null, commentId = null){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -260,10 +271,29 @@ class UsersModel{
             impactedUserId = new ObjectID(impactedUserId);
         }
 
+        /*if (typeof(commentId) == 'string'){
+            console.log('converting commentId from string to object.')
+            commentId = new ObjectID(commentId);
+        }*/
+
+        console.log(commentId);
+
         let notificationsExist = await this.checkNotificationsExists(impactedUserId);
 
+        let pullNotifSegment;
+
+        if (notifMessage == null && commentId == null){
+            pullNotifSegment = {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername}}}
+        } else if (notifMessage != null && commentId == null){
+            pullNotifSegment = {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername, message: notifMessage}}}
+        } else if (notifMessage == null  && commentId != null){
+            pullNotifSegment = {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername, relatedComment: commentId}}}
+        }
+
+        console.log(`pullNotifSegment ${JSON.stringify(pullNotifSegment)}`);
+
         if (notificationsExist.notifications != null){
-            const delNotifResult = await this.collection.updateOne({_id: impactedUserId}, {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername}}});
+            const delNotifResult = await this.collection.updateOne({_id: impactedUserId}, pullNotifSegment);
 
             if (delNotifResult.modifiedCount > 0){
                 return true;
