@@ -1,1 +1,26 @@
-<button class="notification-btn"><img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon"></button>
+<button class="notification-btn">
+    <% if (notifications != undefined && notifications.length > 0) { %>
+        <img src="/imgs/icons/notification-icon-alert.svg" class="notification-icon">
+    <% } else { %>
+        <img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon">
+    <% } %>
+</button>
+<div class="notifications-drop-down">
+    <h3>Notifications</h3>
+    <ul class="notifications-list">
+        <% if (notifications != undefined) { %>
+            <% for (let index = 0; index < notifications.length; index++){ %>
+                <% if (notifications[index].read == false){ %>
+                    <li>
+                        <div class="notification-container">
+                            <a href="<%=notifications[index].relatedURL%>">
+                                <p><%=notifications[index].message%></p>
+                                <span><%=notifications[index].date%></span>
+                            </a>
+                        </div>
+                    </li>
+                <% } %>
+            <% } %>
+        <% } %>
+    </ul>
+</div>

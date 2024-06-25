@@ -40,6 +40,17 @@ body {
     padding: 0;
 }
 
+li {
+    all: unset;
+}
+
+ul {
+    all: unset;
+    margin: 0;
+    padding: 5px;
+    height: auto;
+}
+
 
 
 h1 {
@@ -124,6 +135,19 @@ nav img, .standard-logo{
 
 .mobile-right-nav{
     display: none;
+}
+
+.notifications-drop-down{
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    background-color: white;
+    border: thin solid black;
+    border-radius: 10px;
+    overflow-y: scroll;
+    transform: translate(5px,  195px);
+    z-index: 4;
 }
 
 /* mobile nav styling */

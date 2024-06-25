@@ -301,7 +301,6 @@ class UsersModel{
                 return false;
             }
         }
-
     }
 }
 

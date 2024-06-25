@@ -104,7 +104,7 @@ module.exports = {
             userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
         }
         
-        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo, profilePic: currentUserInfo.profilePic});
+        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo, profilePic: currentUserInfo.profilePic, notifications: currentUserInfo.notifications});
     },
 
     getUserProfile: async (req, res) => {
@@ -185,7 +185,7 @@ module.exports = {
             
             let authedUserIdStr = req.user._id.toString();
                         
-            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter});
+            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter, notifications: req.user.notifications});
         }catch (err){
             console.error(err);
         }
@@ -194,7 +194,7 @@ module.exports = {
     getSettings: async (req, res) => {
         try{
             console.log(req.user.bio);
-            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio});
+            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio, notifications: req.user.notifications});
 
         }catch (err){
             console.error(err);
