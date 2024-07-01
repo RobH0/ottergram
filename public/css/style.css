@@ -49,6 +49,9 @@ ul {
     margin: 0;
     padding: 5px;
     height: auto;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
 }
 
 
@@ -140,14 +143,17 @@ nav img, .standard-logo{
 .notifications-drop-down{
     display: none;
     position: absolute;
-    width: 250px;
-    height: 300px;
+    width: 400px;
+    height: 450px;
     background-color: white;
     border: thin solid black;
     border-radius: 10px;
     overflow-y: scroll;
-    transform: translate(5px,  195px);
+    /*transform: translate(-77px,  270px);*/
+    top: 90px;
+    right: 10px;
     z-index: 4;
+    padding: 0 10px;
 }
 
 /* mobile nav styling */

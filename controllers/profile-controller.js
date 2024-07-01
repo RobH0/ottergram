@@ -134,7 +134,7 @@ module.exports = {
 
     getCreatePost: async (req, res) =>{
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
-        res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic});
+        res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic, notifications: req.user.notifications});
     },
 
     createNewPost: async (req, res) => {
