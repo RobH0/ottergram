@@ -149,11 +149,30 @@ nav img, .standard-logo{
     border: thin solid black;
     border-radius: 10px;
     overflow-y: scroll;
-    /*transform: translate(-77px,  270px);*/
     top: 90px;
     right: 10px;
     z-index: 4;
     padding: 0 10px;
+}
+
+.notification-container{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid black;
+}
+
+.notification-container a{
+    display: flex;
+    align-items: center;
+}
+
+.notification-info{
+    margin-left: 10px;
+}
+
+.notification-container p{
+    margin-block-start: 0;
+    margin-block-end: 0.1em;
 }
 
 /* mobile nav styling */

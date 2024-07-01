@@ -14,8 +14,15 @@
                     <li>
                         <div class="notification-container">
                             <a href="<%=notifications[index].relatedURL%>">
-                                <p><%=notifications[index].message%></p>
-                                <span><%=notifications[index].date%></span>
+                                <% if (notifications[index].message.includes('liked')){ %>
+                                    <img src="/imgs/icons/like-red-black-outline.svg">
+                                <% } else { %>
+                                    <img src="/imgs/icons/comment-black-outline.svg">
+                                <% } %>
+                                <div class="notification-info">
+                                    <p><%=notifications[index].message%></p>
+                                    <span><%=notifications[index].date%></span>
+                                </div>
                             </a>
                         </div>
                     </li>
