@@ -93,18 +93,30 @@ function convertToString(array){
     return newArray;
 }
 
+function shortenNotificationTime(notifications){
+    let currentTime = new Date();
+    notifications = notifications.reverse();
+    for (let index=0; index < notifications.length; index++){
+         let newRelativeTime = calcTimeDiff(notifications[index].date, currentTime, true);
+         notifications[index].date = newRelativeTime;
+    }
+    return notifications
+}
 
 
 module.exports = {
     getYourProfile: async (req,res) =>{
+        console.log(`${req.user.username} GET /profile`);
         let userPostInfo = await postsModel.getUserPosts(req.user._id);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
 
         for (let index = 0; index < userPostInfo.length; index++){
             userPostInfo[index].likesStr = convertToString(userPostInfo[index].likes);
         }
+
+        let notifications = shortenNotificationTime(currentUserInfo.notifications);
         
-        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo, profilePic: currentUserInfo.profilePic, notifications: currentUserInfo.notifications});
+        res.render('profile.ejs', {userInfo: currentUserInfo, posts: userPostInfo, profilePic: currentUserInfo.profilePic, notifications: notifications});
     },
 
     getUserProfile: async (req, res) => {
@@ -134,7 +146,8 @@ module.exports = {
 
     getCreatePost: async (req, res) =>{
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
-        res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic, notifications: req.user.notifications});
+        let notifications = shortenNotificationTime(currentUserInfo.notifications);
+        res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic, notifications: notifications});
     },
 
     createNewPost: async (req, res) => {
@@ -184,8 +197,8 @@ module.exports = {
             }
             
             let authedUserIdStr = req.user._id.toString();
-                        
-            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter, notifications: req.user.notifications});
+            let notifications = shortenNotificationTime(req.user.notifications);         
+            res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter, notifications: notifications});
         }catch (err){
             console.error(err);
         }
@@ -193,8 +206,8 @@ module.exports = {
 
     getSettings: async (req, res) => {
         try{
-            console.log(req.user.bio);
-            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio, notifications: req.user.notifications});
+            let notifications = shortenNotificationTime(req.user.notifications);
+            res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio, notifications: notifications});
 
         }catch (err){
             console.error(err);

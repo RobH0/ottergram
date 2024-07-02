@@ -158,7 +158,7 @@ nav img, .standard-logo{
 .notification-container{
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 3px solid black;
+    border-bottom: 2px dotted black;
 }
 
 .notification-container a{
@@ -173,6 +173,11 @@ nav img, .standard-logo{
 .notification-container p{
     margin-block-start: 0;
     margin-block-end: 0.1em;
+}
+
+.notification-container span{
+    font-size: 0.8em;
+    color: rgb(139, 139, 139);
 }
 
 /* mobile nav styling */
