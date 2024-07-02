@@ -106,7 +106,7 @@ function shortenNotificationTime(notifications){
 
 module.exports = {
     getYourProfile: async (req,res) =>{
-        console.log(`${req.user.username} GET /profile`);
+        console.log(`${new Date()} - ${req.user.username} GET /profile`);
         let userPostInfo = await postsModel.getUserPosts(req.user._id);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
 
@@ -121,6 +121,7 @@ module.exports = {
 
     getUserProfile: async (req, res) => {
         if (req.params.userId == req.user._id.toString()){
+            console.log(`${req.user.username} GET /profile`);
             res.redirect('/profile');
         } else{
             let idObject = new ObjectId(req.params.userId);
@@ -140,11 +141,14 @@ module.exports = {
             } else {
                 authedUserFollows = false;
             }
+
+            console.log(`${new Date()} - ${req.user.username} GET /user/${currentUserInfo.username}`);
             res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId, authedUserId: req.user._id});
         }        
     },
 
     getCreatePost: async (req, res) =>{
+        console.log(`${new Date()} - ${req.user.username} GET /new-post`);
         let currentUserInfo = await usersModel.getProfileInfo(req.user._id);
         let notifications = shortenNotificationTime(currentUserInfo.notifications);
         res.render('create_post.ejs', {userInfo: currentUserInfo, profilePic: currentUserInfo.profilePic, notifications: notifications});
@@ -157,10 +161,11 @@ module.exports = {
                     {quality: "auto:good"}
                 ]
             });
+            console.log(`${new Date()} - ${req.user.username} made a post: ${result.secure_url}`);
             await fs.unlink(req.file.path);
             await postsModel.insertNewPost(req.user._id, result.secure_url, result.public_id);
             let info = await getProfileInfo(req.user._id);
-            console.log(`Image uploaded: ${req.file.path}`);
+            console.log(`${new Date()} - Image uploaded: ${req.file.path}`);
             res.json({success: true});
         } catch(err) {
             console.error(`Error: ${JSON.stringify(err)}`);
@@ -197,7 +202,9 @@ module.exports = {
             }
             
             let authedUserIdStr = req.user._id.toString();
-            let notifications = shortenNotificationTime(req.user.notifications);         
+            let notifications = shortenNotificationTime(req.user.notifications);
+            
+            console.log(`${new Date()} - ${req.user.username} GET /feed`);
             res.render('authenticated-feed.ejs', {profilePic: req.user.profilePic, allPosts: posts, authedUserId: authedUserIdStr, filter: filter, notifications: notifications});
         }catch (err){
             console.error(err);
@@ -207,6 +214,7 @@ module.exports = {
     getSettings: async (req, res) => {
         try{
             let notifications = shortenNotificationTime(req.user.notifications);
+            console.log(`${new Date()} - ${req.user.username} GET /settings`);
             res.render('settings.ejs', { profilePic : req.user.profilePic, bio: req.user.bio, notifications: notifications});
 
         }catch (err){
@@ -225,12 +233,15 @@ module.exports = {
                     {quality: "auto:good"}
                 ]});
                 let docUpdateResult = await usersModel.updateProfileInfo(userID, uploadResult.secure_url, newBio, currentBio);
+                console.log(`${new Date()} - ${req.user.username} updated their profile pic and bio`);
                 res.redirect('/profile');
             } else if (!req.file && (newBio =="" || newBio == currentBio)){
+                console.log(`${new Date()} - ${req.user.username} saved their profile settings without making any changes`);
                 console.log('Nothing to update.');
                 res.redirect('/settings');
             } else {
                 let docUpdateResult = await usersModel.updateProfileInfo(userID, null, newBio, currentBio);
+                console.log(`${new Date()} - ${req.user.username} updated their bio`);
                 res.redirect('/profile');
             }
         }catch (err){
@@ -258,15 +269,17 @@ module.exports = {
 
             if (unauthorizedDeletionAttempt){
                 res.status(403).json({message: 'Unauthorized photo/post deletion attempt.'});
+                console.log(`${new Date()} - ${req.user.username} attempted to delete photos they weren't authorized to delete`);
             }else{
                 let cloudinaryResult;
                 let postIds = postsInfo.map((post) => post._id);
                 postsInfo.forEach(async (element, index)=>{ 
                     cloudinaryResult =  await cloudinary.uploader.destroy(element.cloudPublicId);
                 });
-                console.log(`${req.user.username} deleted ${postsInfo.length} photos/posts.`);
+                console.log(`${new Date()} - ${req.user.username} deleted ${postsInfo.length} photos/posts.`);
                 const deletionResult = await postsModel.deletePosts(postIds);
                 if (deletionResult){
+                    console.log(`${new Date()} - ${req.user.username} deleted ${postIds.length} of their posts`);
                     res.status(200).json({ message: 'Posts were successfully deleted.'});                 
                 }
             
@@ -285,11 +298,14 @@ module.exports = {
         // Making sure the authed user isn't trying to follow their own profile.
         if (userToFollowId == authedUserIdStr){
             console.log("You can't follow yourself");
+            console.log(`${req.user.username} attempted to follow themself and failed`);
         } else {
             let result = await usersModel.addFollowing(userToFollowId, req.user._id);
             if (result){
                 res.status(200).json({ message: 'Successfully followed  user profile.'})
+                console.log(`${new Date()} - ${req.user.username} followed: ${userToFollowId}`);
             }else{
+                console.log(`${new Date()} - ${req.user.username} failed to follow: ${userToFollowId}`);
                 res.status(500).json({ message: 'Follow attempt failed.'});
             }
         }       
@@ -302,18 +318,18 @@ module.exports = {
         let authUserIdStr = req.user._id.toString();
 
         if (userToUnfollowId == authUserIdStr){
-            console.log("You can't follow yourself.");
+            console.log("You can't unfollow yourself.");
         }else{
             let result = await usersModel.removeFollowing(userToUnfollowId, req.user._id);
-            console.log('Called removeFollowing');
-            console.log(`else result: ${JSON.stringify(result)}`);
+
             if (result){
+                console.log(`${new Date()} - ${req.user.username} unfollowed: ${userToUnfollowId}`);
                 res.status(200).json({ message: 'Successfully unfollowed user profile.'});
             } else{
+                console.log(`${new Date()} - ${req.user.username} unfollowed: ${userToUnfollowId}`);
                 res.status(500).json({ message: 'Unfollow attempted failed.'});
             }
         }
-
     },
 
     getFollowers: async (req, res) => {
@@ -323,11 +339,15 @@ module.exports = {
         if (userId == undefined){
             let otherUserInfo = await usersModel.getUsernameAndPic(req.user._id);
             let followerInfo = await usersModel.getFollowingUsers(req.user._id, false);
-            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
+            console.log(`${new Date()} - ${req.user.username} is viewing their followers.`);
+            let notifications = shortenNotificationTime(req.user.notifications);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo, notifications: notifications});
         } else{
             let otherUserInfo = await usersModel.getUsernameAndPic(userId);
             let followerInfo = await usersModel.getFollowingUsers(userId, false);
-            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo});
+            let notifications = shortenNotificationTime(req.user.notifications);
+            console.log(`${new Date()} - ${req.user.username} is viewing ${otherUserInfo.username}'s followers`);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: isFollowersListVal, otherUser: otherUserInfo, followingArray: followerInfo, notifications: notifications});
         }
     },
 
@@ -336,12 +356,15 @@ module.exports = {
 
         if (userId == undefined){
             let followingInfo = await usersModel.getFollowingUsers(req.user._id, true);
-            res.render('following-list-authed.ejs', { profilePic: req.user.profilePic, followingArray: followingInfo});
+            console.log(`${new Date()} - ${req.user.username} who they follow`);
+            let notifications = shortenNotificationTime(req.user.notifications);
+            res.render('following-list-authed.ejs', { profilePic: req.user.profilePic, followingArray: followingInfo, notifications: notifications});
         } else {
             let followingInfo = await usersModel.getFollowingUsers(userId, true);
             let otherUserInfo = await usersModel.getUsernameAndPic(userId);
-            
-            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo});
+            console.log(`${new Date()} - ${req.user.username} is viewing who ${otherUserInfo.username} follows`);
+            let notifications = shortenNotificationTime(req.user.notifications);
+            res.render('following-list-other.ejs', { profilePic: req.user.profilePic, isFollowersList: false, followingArray: followingInfo, otherUser: otherUserInfo, notifications: notifications});
         } 
     },
 
@@ -363,8 +386,10 @@ module.exports = {
                 let userToNotify = postInfo.createdBy;
 
                 let notificationResult = await usersModel.addNotification(userToNotify, authedUserId, message, currentDate, url);
+                console.log(`${new Date()} - ${req.user.username} liked /post/${postIdStr} posted by ${userToNotify}.`);
                 res.status(200).json({ message: 'Successfully liked post'});
             } else {
+                console.log(`${new Date()} - ${req.user.username} failed liking a post`);
                 res.status(500).json({ message: 'Like attempt failed.'})
             }
         } catch (err){
@@ -385,9 +410,10 @@ module.exports = {
             let userToNotify = postInfo.createdBy;
             
             let notificationDelResult = await usersModel.deleteNotification(userToNotify, authedUserId, url);
-
+            console.log(`${new Date()} - ${req.user.username} unliked /post/${postIdStr} posted by ${userToNotify}`);
             res.status(200).json({ message: 'Successfully liked post'});
         } else {
+            console.log(`${new Date()} - ${req.user.username} failed to unlike a post.`);
             res.status(500).json({ message: 'Like attempt failed.'})
         }
     },
@@ -416,8 +442,9 @@ module.exports = {
 
         // Reversing comments array so that most recently posted comments are displayed at the top of the comments section.
         post.comments = post.comments.reverse();
-
-        res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id});
+        console.log(`${new Date()} - ${req.user.username} GET /post/${post}.`);
+        let notifications = shortenNotificationTime(req.user.notifications);
+        res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id, notifications: notifications});
     },
 
     postComment: async (req, res) => {
@@ -447,6 +474,7 @@ module.exports = {
                 console.log(`userToNotify: ${userToNotify}`);
 
                 let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, notifMessage, currentDate, url, commentId.toString());
+                console.log(`${new Date()} - ${req.user.username} commented: ${comment} on /post/${postIdStr}`);
             }
         }
         
@@ -482,6 +510,7 @@ module.exports = {
                 let userToNotify = postInfo.createdBy;
 
                 usersModel.deleteNotification(userToNotify, req.user.username, url, null, commentId)
+                console.log(`${new Date()} - ${req.user.username} deleted comment: ${commentId} on /post/${postIdStr}`);
                 res.status(200).json({message: 'successfully delete comment.'});
             } else {
                 res.status(500).json({ message: 'comment deletion failed.'})
