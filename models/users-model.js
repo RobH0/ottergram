@@ -275,11 +275,6 @@ class UsersModel{
             impactedUserId = new ObjectID(impactedUserId);
         }
 
-        /*if (typeof(commentId) == 'string'){
-            console.log('converting commentId from string to object.')
-            commentId = new ObjectID(commentId);
-        }*/
-
         console.log(commentId);
 
         let notificationsExist = await this.checkNotificationsExists(impactedUserId);
@@ -299,6 +294,7 @@ class UsersModel{
         if (notificationsExist.notifications != null){
             const delNotifResult = await this.collection.updateOne({_id: impactedUserId}, pullNotifSegment);
 
+            console.log(JSON.stringify(delNotifResult));
             if (delNotifResult.modifiedCount > 0){
                 return true;
             } else {

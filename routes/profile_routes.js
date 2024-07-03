@@ -23,7 +23,7 @@ router.post('/settings', ensureAuth, multer.single('changeProfilePic'),profileCo
 
 router.get('/user/:userId', ensureAuth, profileController.getUserProfile);
 router.patch('/user/follow', ensureAuth, profileController.followUser);
-router.patch('/user/unfollow', ensureAuth, profileController.unFollowerUser);
+router.patch('/user/unfollow', ensureAuth, profileController.unfollowUser);
 router.get('/user/:userId/followers', ensureAuth, profileController.getFollowers);
 router.get('/user/:userId/following', ensureAuth, profileController.getFollowing)
 

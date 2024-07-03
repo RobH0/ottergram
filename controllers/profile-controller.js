@@ -303,6 +303,16 @@ module.exports = {
             let result = await usersModel.addFollowing(userToFollowId, req.user._id);
             if (result){
                 res.status(200).json({ message: 'Successfully followed  user profile.'})
+
+                let notifMessage = `${req.user.username} followed you!`
+                let currentDate = new Date();
+                let url = req.originalUrl.split('/', 3).join('/');
+                let userToNotify = userToFollowId;
+
+                console.log(`url ${url}`);
+
+
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id, notifMessage, currentDate, url);
                 console.log(`${new Date()} - ${req.user.username} followed: ${userToFollowId}`);
             }else{
                 console.log(`${new Date()} - ${req.user.username} failed to follow: ${userToFollowId}`);
@@ -311,7 +321,7 @@ module.exports = {
         }       
     },
 
-    unFollowerUser: async (req, res) => {
+    unfollowUser: async (req, res) => {
         console.log(`unfollowingUser ${JSON.stringify(req.body)}`);
 
         let userToUnfollowId = req.body.userToUnfollow;
@@ -323,6 +333,10 @@ module.exports = {
             let result = await usersModel.removeFollowing(userToUnfollowId, req.user._id);
 
             if (result){
+                let commentMessage = `${req.user.username} followed you!`;
+
+                //FIX: notification not being pulled from array despit match.
+                let delNotifResult = usersModel.deleteNotification(userToUnfollowId, req.user.username, "/user/follow", commentMessage);
                 console.log(`${new Date()} - ${req.user.username} unfollowed: ${userToUnfollowId}`);
                 res.status(200).json({ message: 'Successfully unfollowed user profile.'});
             } else{
@@ -408,9 +422,7 @@ module.exports = {
             let postIdStr = url.split('/').pop();
             let postInfo = await postsModel.getPostById(postIdStr);
             let userToNotify = postInfo.createdBy;
-            
-            let notificationDelResult = await usersModel.deleteNotification(userToNotify, authedUserId, url);
-            console.log(`${new Date()} - ${req.user.username} unliked /post/${postIdStr} posted by ${userToNotify}`);
+            let delNotifResult = usersModel.deleteNotification(userToNotify, req.user.username, url);
             res.status(200).json({ message: 'Successfully liked post'});
         } else {
             console.log(`${new Date()} - ${req.user.username} failed to unlike a post.`);
