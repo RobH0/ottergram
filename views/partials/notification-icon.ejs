@@ -14,10 +14,12 @@
                     <li>
                         <div class="notification-container">
                             <a href="<%=notifications[index].relatedURL%>">
-                                <% if (notifications[index].message.includes('liked')){ %>
+                                <% if (notifications[index].type == 'like'){ %>
                                     <img src="/imgs/icons/like-red-black-outline.svg">
-                                <% } else { %>
+                                <% } else if (notifications[index].type == 'comment') { %>
                                     <img src="/imgs/icons/comment-black-outline.svg">
+                                <% } else if (notifications[index].type == 'follow') { %>
+                                    <img src="/imgs/icons/people-icon.svg">
                                 <% } %>
                                 <div class="notification-info">
                                     <p><%=notifications[index].message%></p>
