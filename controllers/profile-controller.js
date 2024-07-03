@@ -142,8 +142,9 @@ module.exports = {
                 authedUserFollows = false;
             }
 
+            let notifications = shortenNotificationTime(req.user.notifications);
             console.log(`${new Date()} - ${req.user.username} GET /user/${currentUserInfo.username}`);
-            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId, authedUserId: req.user._id});
+            res.render('other-user.ejs', {userInfo: currentUserInfo, posts: userPostInfo, isFollowing: authedUserFollows, profilePic: authedProfilePic, userID: req.params.userId, authedUserId: req.user._id, notifications: notifications});
         }        
     },
 
