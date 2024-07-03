@@ -306,7 +306,7 @@ module.exports = {
 
                 let notifMessage = `${req.user.username} followed you!`
                 let currentDate = new Date();
-                let url = req.originalUrl.split('/', 3).join('/');
+                let url = `/user/${req.user._id.toString()}`;
                 let userToNotify = userToFollowId;
                 let type = 'follow';
                 console.log(`url ${url}`);
