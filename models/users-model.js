@@ -216,7 +216,7 @@ class UsersModel{
         return userNotifications;
     }
 
-    async addNotification(impactedUserId, actionByUsername, notificationMessage, dateTime, originURL, commentId = null){
+    async addNotification(impactedUserId, actionByUsername, actionById, notificationMessage, dateTime, originURL, commentId = null){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -224,41 +224,45 @@ class UsersModel{
             console.log('in impacteduser id conversion')
             impactedUserId = new ObjectID(impactedUserId);
         }
-        
-        let newNotification = {
-            actionBy: actionByUsername, 
-            message: notificationMessage, 
-            date: dateTime,
-            read: false,
-            relatedURL: originURL 
+        // Fix this where notification is being added for like or comment now if statement wasn't added.
+        console.log(`impactedUserId: ${impactedUserId.toString()}`);
+        console.log(`actionById: ${actionById.toString()}`);
+        if (impactedUserId.toString() != actionById.toString()){
+            console.log('add notification in if');
+            let newNotification = {
+                actionBy: actionByUsername, 
+                message: notificationMessage, 
+                date: dateTime,
+                read: false,
+                relatedURL: originURL 
+            }
+            
+            console.log(`commentId typeof: ${typeof(commentId)}`);
+    
+            if (commentId != null){
+                newNotification["relatedComment"] = commentId;
+            }
+    
+            console.log(`impactuserId: ${impactedUserId}`);
+            let updateResult;
+            let notificationsExist = await this.checkNotificationsExists(impactedUserId);
+    
+            console.log('in updateNotifcations')
+            
+            if (notificationsExist.notifications != null){
+                updateResult = await this.collection.updateOne({_id: impactedUserId}, { $push: { notifications: newNotification}});
+            } else {
+                newNotification = [newNotification];
+                updateResult = await this.collection.updateOne({_id: impactedUserId}, {$set: { notifications: newNotification}});
+            }
+            if (updateResult.modifiedCount > 0) {
+                console.log(`notification added to user profile: ${impactedUserId.toString()}`);
+                return true;
+            } else {
+                return false;
+            }
         }
-        
-        console.log(`commentId typeof: ${typeof(commentId)}`);
-
-        if (commentId != null){
-            newNotification["relatedComment"] = commentId;
-        }
-
-
-
-        console.log(`impactuserId: ${impactedUserId}`);
-        let updateResult;
-        let notificationsExist = await this.checkNotificationsExists(impactedUserId);
-        
-
-        console.log('in updateNotifcations')
-        
-        if (notificationsExist.notifications != null){
-            updateResult = await this.collection.updateOne({_id: impactedUserId}, { $push: { notifications: newNotification}});
-        } else {
-            newNotification = [newNotification];
-            updateResult = await this.collection.updateOne({_id: impactedUserId}, {$set: { notifications: newNotification}});
-        }
-        if (updateResult.modifiedCount > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        console.log('Action caused by authenticated user.');
     }
 
     async deleteNotification(impactedUserId, actionByUsername, originalUrl, notifMessage = null, commentId = null){

@@ -385,7 +385,7 @@ module.exports = {
                 let postInfo = await postsModel.getPostById(postIdStr);
                 let userToNotify = postInfo.createdBy;
 
-                let notificationResult = await usersModel.addNotification(userToNotify, authedUserId, message, currentDate, url);
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, authedUserId, message, currentDate, url);
                 console.log(`${new Date()} - ${req.user.username} liked /post/${postIdStr} posted by ${userToNotify}.`);
                 res.status(200).json({ message: 'Successfully liked post'});
             } else {
@@ -442,7 +442,7 @@ module.exports = {
 
         // Reversing comments array so that most recently posted comments are displayed at the top of the comments section.
         post.comments = post.comments.reverse();
-        console.log(`${new Date()} - ${req.user.username} GET /post/${post}.`);
+        console.log(`${new Date()} - ${req.user.username} GET /post/${post._id}`);
         let notifications = shortenNotificationTime(req.user.notifications);
         res.render('post.ejs', { profilePic: req.user.profilePic, postInfo: post, authedUserId: req.user._id, notifications: notifications});
     },
@@ -473,7 +473,7 @@ module.exports = {
                 let userToNotify = postInfo.createdBy;
                 console.log(`userToNotify: ${userToNotify}`);
 
-                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, notifMessage, currentDate, url, commentId.toString());
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id,notifMessage, currentDate, url, commentId.toString());
                 console.log(`${new Date()} - ${req.user.username} commented: ${comment} on /post/${postIdStr}`);
             }
         }
