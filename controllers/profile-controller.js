@@ -308,11 +308,11 @@ module.exports = {
                 let currentDate = new Date();
                 let url = req.originalUrl.split('/', 3).join('/');
                 let userToNotify = userToFollowId;
-
+                let type = 'follow';
                 console.log(`url ${url}`);
 
 
-                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id, notifMessage, currentDate, url);
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id, notifMessage, currentDate, url, type);
                 console.log(`${new Date()} - ${req.user.username} followed: ${userToFollowId}`);
             }else{
                 console.log(`${new Date()} - ${req.user.username} failed to follow: ${userToFollowId}`);
@@ -398,8 +398,8 @@ module.exports = {
                 // get createdBy userId from objectID collected from post url. Use posts model.
                 let postInfo = await postsModel.getPostById(postIdStr);
                 let userToNotify = postInfo.createdBy;
-
-                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, authedUserId, message, currentDate, url);
+                let type = 'like';
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, authedUserId, message, currentDate, url, type);
                 console.log(`${new Date()} - ${req.user.username} liked /post/${postIdStr} posted by ${userToNotify}.`);
                 res.status(200).json({ message: 'Successfully liked post'});
             } else {
@@ -483,9 +483,10 @@ module.exports = {
                 // get createdBy userId from objectID collected from post url. Use posts model.
                 let postInfo = await postsModel.getPostById(postIdStr);
                 let userToNotify = postInfo.createdBy;
+                let type = 'comment';
                 console.log(`userToNotify: ${userToNotify}`);
 
-                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id,notifMessage, currentDate, url, commentId.toString());
+                let notificationResult = await usersModel.addNotification(userToNotify, req.user.username, req.user._id,notifMessage, currentDate, url, type, commentId.toString());
                 console.log(`${new Date()} - ${req.user.username} commented: ${comment} on /post/${postIdStr}`);
             }
         }

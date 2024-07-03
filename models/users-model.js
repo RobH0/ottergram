@@ -216,7 +216,7 @@ class UsersModel{
         return userNotifications;
     }
 
-    async addNotification(impactedUserId, actionByUsername, actionById, notificationMessage, dateTime, originURL, commentId = null){
+    async addNotification(impactedUserId, actionByUsername, actionById, notificationMessage, dateTime, originURL, notificationType, commentId = null){
         if (this.collection == null){
             await this.initCollection();
         }
@@ -234,7 +234,8 @@ class UsersModel{
                 message: notificationMessage, 
                 date: dateTime,
                 read: false,
-                relatedURL: originURL 
+                relatedURL: originURL,
+                type: notificationType 
             }
             
             console.log(`commentId typeof: ${typeof(commentId)}`);
