@@ -15,7 +15,8 @@
                     <a class="profile-link" href="/profile">Your profile</a>
                 </div>
             <% } %>
-            <button class="notification-btn"><img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon"></button>
+            <!--<button class="notification-btn"><img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon"></button>-->
+            <%- include('notification-icon.ejs') %>
             <a class="feed-link" href="/">Your feed</a>
             <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
             <form action="/logout" class="logout-form" method="post">

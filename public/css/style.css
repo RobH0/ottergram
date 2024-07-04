@@ -180,6 +180,10 @@ nav img, .standard-logo{
     color: rgb(139, 139, 139);
 }
 
+@media screen and (max-width: 600px) {
+    
+}
+
 /* mobile nav styling */
 
 @media screen and (max-width: 600px){
@@ -227,7 +231,7 @@ nav img, .standard-logo{
         align-items: center;
     }
 
-    .mobile-nav-container *, .mobile-nav-container .notification-btn{
+    .mobile-nav-container > *, .mobile-nav-container .notification-btn{
         margin: 0;
         margin: 5px;
         /*margin-left: 20px;*/
@@ -272,6 +276,22 @@ nav img, .standard-logo{
         align-items: center;
         justify-content: center;
         height: auto;
+    }
+
+    .mobile-nav-container .notifications-drop-down{
+        min-height: 50vh;
+        width: 90vw;
+        height: auto;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .mobile-nav-container .notification-container{
+        height: auto;
+    }
+
+    .mobile-nav-container .notifications-drop-down p{
+        font-size: 0.8em;
     }
 }
 
