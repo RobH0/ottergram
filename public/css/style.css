@@ -148,7 +148,7 @@ nav img, .standard-logo{
     background-color: white;
     border: thin solid black;
     border-radius: 10px;
-    overflow-y: scroll;
+    overflow-y: auto;
     top: 90px;
     right: 10px;
     z-index: 4;
