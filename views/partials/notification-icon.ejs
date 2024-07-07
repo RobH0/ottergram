@@ -1,5 +1,11 @@
 <button class="notification-btn">
-    <% if (notifications != undefined && notifications.length > 0) { %>
+    <% let unread = false %>
+    <% for (let index = 0; index < notifications.length; index++){ %>
+        <% if(notifications[index].read == false) { %>
+            <% unread = true; %>
+        <% } %>
+    <% } %>
+    <% if (notifications != undefined && notifications.length > 0 && unread) { %>
         <img src="/imgs/icons/notification-icon-alert.svg" class="notification-icon">
     <% } else { %>
         <img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon">
