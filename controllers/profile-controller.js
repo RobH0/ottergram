@@ -3,6 +3,7 @@ const postsModel = require('../models/posts-model.js');
 const cloudinary = require('../config/cloudinary-config.js');
 const { profile } = require('console');
 const { ObjectId } = require('mongodb');
+const { use } = require('passport');
 const fs = require('fs').promises;
 
 async function getProfileInfo(userID){
@@ -537,6 +538,9 @@ module.exports = {
     //Implement updating of read status for notification.
     notificationRead: async (req, res) =>{
         console.log(`notification read ${req.body.idString}`);
+        let notificationId = req.body.idString;
+        let userId = req.user._id;
+        let result = await usersModel.markRead(notificationId, userId);
         res.status(200).json({message: 'Notification marked as read.'});
     }
 }

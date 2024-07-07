@@ -304,6 +304,26 @@ class UsersModel{
             }
         }
     }
+
+    async markRead(notificationId, userId){
+        if (typeof(notificationId) == 'string'){
+            console.log('in impacteduser id conversion')
+            notificationId = new ObjectID(notificationId);
+        }
+        if (typeof(userId) == 'string'){
+            console.log('in impacteduser id conversion')
+            userId = new ObjectID(userId);
+        }
+
+        let result = await this.collection.updateOne({_id: userId, "notifications.id": notificationId}, {$set: {"notifications.$.read": true}});
+
+        console.log(result);
+        if (result.modifiedCount > 0){
+            return true;
+        } else {
+            false;
+        }
+    }
 }
 
 module.exports = new UsersModel;
