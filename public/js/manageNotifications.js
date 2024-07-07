@@ -1,5 +1,6 @@
 const notificationBtns = document.querySelectorAll('.notification-btn');
 const notificationsDropDown = document.querySelectorAll('.notifications-drop-down');
+const notificationContainers = document.querySelectorAll('.notification-container');
 
 /*notificationBtns.addEventListener('click', (event) => {
     manageDropDown(event.target);
@@ -32,19 +33,47 @@ try{
                 isNotificationBtn = true;
             }
         });
+
+        notificationContainers.forEach((element) => {
+            if (element.contains(e.target)){
+                let notificationIdStr = element.classList[1];
+                markRead(notificationIdStr);
+            }
+        });
         
         console.log(`isNotifiactionDropdown ${isNotificationDropDown}`)
         console.log(`isBlock ${isBlock}`)
         if (isNotificationDropDown == false && isBlock && isNotificationBtn == false){
             console.log(`in second if`);
             manageDropDown();
-        }  
+        } 
     })
 } catch(err){
     console.error(err);
 }
 
+try{
+    
+} catch(err){
+    console.error(err);
+}
 
+
+
+async function markRead(notificationIdStr){
+    let endpoint = '/notification-read';
+    let requestOptions = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({idString: notificationIdStr})
+    }
+    let result = await fetch (endpoint, requestOptions);
+    result = result.json();
+    console.log(JSON.stringify(result.message));
+    console.log(JSON.stringify(result.status));
+}
 
 function manageDropDown(){
     console.log('in manageDropDown')

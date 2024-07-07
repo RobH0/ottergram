@@ -34,4 +34,6 @@ router.get('/post/:postId', ensureAuth, profileController.getPostPage);
 router.post('/post/:postId/post-comment', ensureAuth, profileController.postComment);
 router.delete('/post/:postId/delete-comment', ensureAuth, profileController.deleteComment);
 
+router.patch('/notification-read', ensureAuth, profileController.notificationRead);
+
 module.exports = router;

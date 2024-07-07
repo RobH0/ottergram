@@ -153,6 +153,7 @@ nav img, .standard-logo{
     right: 10px;
     z-index: 4;
     padding: 0 10px;
+    opacity: 1;
 }
 
 .notification-container{
@@ -222,7 +223,7 @@ nav img, .standard-logo{
         width: 80vw;
         height: 100vh;
         background-color: white;
-        opacity: 0.9;
+        /*opacity: 0.9;*/
     }
 
     .mobile-nav-container{
@@ -282,8 +283,9 @@ nav img, .standard-logo{
         min-height: 50vh;
         width: 90vw;
         height: auto;
-        justify-self: center;
-        align-self: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-32%, -50%);
     }
 
     .mobile-nav-container .notification-container{

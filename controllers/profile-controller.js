@@ -527,10 +527,16 @@ module.exports = {
                 console.log(`${new Date()} - ${req.user.username} deleted comment: ${commentId} on /post/${postIdStr}`);
                 res.status(200).json({message: 'successfully delete comment.'});
             } else {
-                res.status(500).json({ message: 'comment deletion failed.'})
+                res.status(500).json({ message: 'comment deletion failed.'});
             }
         } else {
-            res.status(403).json( {message: `You aren't authorized to do that.`})
+            res.status(403).json( {message: `You aren't authorized to do that.`});
         }
+    },
+
+    //Implement updating of read status for notification.
+    notificationRead: async (req, res) =>{
+        console.log(`notification read ${req.body.idString}`);
+        res.status(200).json({message: 'Notification marked as read.'});
     }
 }

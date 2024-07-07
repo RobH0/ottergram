@@ -230,6 +230,7 @@ class UsersModel{
         if (impactedUserId.toString() != actionById.toString()){
             console.log('add notification in if');
             let newNotification = {
+                id: new ObjectID(),
                 actionBy: actionByUsername, 
                 message: notificationMessage, 
                 date: dateTime,
