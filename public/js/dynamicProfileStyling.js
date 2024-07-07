@@ -1,7 +1,5 @@
 const gallery = document.querySelector('.gallery');
 
-console.log(gallery.children.length);
-
 // Dynamically change gallery's grid column template to prevent overlaping when less than 3 posts exist on a user's profile.
 function handleResize(){
     console.log('handling resize on profile page.')

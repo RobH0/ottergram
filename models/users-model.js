@@ -277,8 +277,6 @@ class UsersModel{
             impactedUserId = new ObjectID(impactedUserId);
         }
 
-        console.log(commentId);
-
         let notificationsExist = await this.checkNotificationsExists(impactedUserId);
 
         let pullNotifSegment;
@@ -291,12 +289,9 @@ class UsersModel{
             pullNotifSegment = {$pull: {notifications: {relatedURL: originalUrl, actionBy: actionByUsername, relatedComment: commentId}}}
         }
 
-        console.log(`pullNotifSegment ${JSON.stringify(pullNotifSegment)}`);
-
         if (notificationsExist.notifications != null){
             const delNotifResult = await this.collection.updateOne({_id: impactedUserId}, pullNotifSegment);
 
-            console.log(JSON.stringify(delNotifResult));
             if (delNotifResult.modifiedCount > 0){
                 return true;
             } else {
@@ -307,17 +302,12 @@ class UsersModel{
 
     async markRead(notificationId, userId){
         if (typeof(notificationId) == 'string'){
-            console.log('in impacteduser id conversion')
             notificationId = new ObjectID(notificationId);
-        }
-        if (typeof(userId) == 'string'){
-            console.log('in impacteduser id conversion')
-            userId = new ObjectID(userId);
         }
 
         let result = await this.collection.updateOne({_id: userId, "notifications.id": notificationId}, {$set: {"notifications.$.read": true}});
 
-        console.log(result);
+        
         if (result.modifiedCount > 0){
             return true;
         } else {

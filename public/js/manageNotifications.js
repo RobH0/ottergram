@@ -15,12 +15,7 @@ try{
         let isBlock = false;
         notificationsDropDown.forEach((element) => {
             if (element.contains(e.target)){
-                console.log(e.target);
-                console.log('in if element contains');
                 isNotificationDropDown = true;
-                console.log(`1 ${isNotificationDropDown}`);
-                console.log(`element.style.display ${element.style.display}`);
-                
             }
             if (element.style.display == 'block'){
                 isBlock = true;
@@ -41,24 +36,13 @@ try{
             }
         });
         
-        console.log(`isNotifiactionDropdown ${isNotificationDropDown}`)
-        console.log(`isBlock ${isBlock}`)
         if (isNotificationDropDown == false && isBlock && isNotificationBtn == false){
-            console.log(`in second if`);
             manageDropDown();
         } 
     })
 } catch(err){
     console.error(err);
 }
-
-try{
-    
-} catch(err){
-    console.error(err);
-}
-
-
 
 async function markRead(notificationIdStr){
     let endpoint = '/notification-read';
@@ -72,26 +56,14 @@ async function markRead(notificationIdStr){
     let result = await fetch (endpoint, requestOptions);
     result = result.json();
     console.log(JSON.stringify(result.message));
-    console.log(JSON.stringify(result.status));
 }
 
 function manageDropDown(){
-    console.log('in manageDropDown')
-    console.log(`notificationsDropDown ${JSON.stringify(notificationsDropDown)}`);
     notificationsDropDown.forEach((element) => {
         if (element.style.display == '' || element.style.display == 'none'){
-            console.log('in if');
             element.style.display = 'block';   
         } else if (element.style.display == 'block'){
-            console.log('else if');
             element.style.display = 'none';
         }
     })
-    /*if (notificationsDropDown.style.display == '' || notificationsDropDown.style.display == 'none'){
-        console.log('in if');
-        notificationsDropDown.style.display = 'block';   
-    } else if (notificationsDropDown.style.display == 'block'){
-        console.log('else if');
-        notificationsDropDown.style.display = 'none';
-    }*/
 }

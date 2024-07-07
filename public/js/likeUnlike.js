@@ -1,7 +1,5 @@
 let likeBtns = document.querySelectorAll(".like-button");
 
-console.log('likeUnlike.js script loaded');
-
 try{
     likeBtns.forEach((button) => {
         button.addEventListener('click', (event) => {
@@ -13,12 +11,9 @@ try{
 }
 
 async function changeLikeStatus(event){
-    console.log(`event.target.id: ${event.target.id}`);
     if (event.target.classList.value == 'liked'){
-        console.log(`if`);
         requestUnlikePost(event.target);
     } else {
-        console.log('else');
         requestLikePost(event.target);
     }
 }
@@ -26,11 +21,9 @@ async function changeLikeStatus(event){
 async function requestLikePost(likeBtn){
 
     if (likeBtn.classList.value != 'liked'){
-        console.log('in if')
         let location = window.location.href;
-        console.log(`location: ${location}`);
         const likeCount = likeBtn.parentNode.parentNode.querySelector('span');
-        console.log(likeCount);
+
         if (location.includes('profile') || location.includes('user')){
             likeBtn.src = '/imgs/icons/like-white.svg';
         } else{
@@ -38,10 +31,9 @@ async function requestLikePost(likeBtn){
         }
         
         likeBtn.classList.value = 'liked';
-        console.log(`likeBtn.id: ${likeBtn.id}`);
         likeCount.innerHTML = Number(likeCount.innerHTML) + 1;
         const endpoint = '/post/' + likeBtn.id + '/like';
-        console.log(`endpoint: ${endpoint}`);
+
         try{
             let result = await fetch(endpoint, {
                 method: 'PATCH',

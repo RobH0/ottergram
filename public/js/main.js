@@ -32,7 +32,7 @@ try{
     cancelPhotosBtn.addEventListener('click', removeManagePhotoUI);
     deletePhotosBtn.addEventListener('click', requestDeletePhotos);
 }catch (err){
-    console.log(err);
+    console.error(err);
 }
 
 async function requestDeletePhotos(){
@@ -68,7 +68,7 @@ async function requestDeletePhotos(){
 function displayManagePhotoUI(){
     if (alreadyClicked == false){
         alreadyClicked = true;
-        console.log('Display UI to manage photo');
+        console.log('Display UI to manage photos');
         deleteCancelPhotosSection.style.display = 'flex';
         selectForDelDiv.forEach((checkBox) => {
             checkBox.style.display = 'block';
@@ -103,7 +103,6 @@ function displayManagePhotoUI(){
 
 function incrementToDelete(){
     toDeleteCount += 1;
-    console.log(toDeleteCount);
     console.log(toDeleteCount.toString());
     let newString = 'You have selected ' + toDeleteCount.toString() + ' posts for deletion: ' ;
     
@@ -151,7 +150,6 @@ function selectImgForDeletion(event){
         checkboxElem.src = '/imgs/icons/black-tick-box.svg';
         incrementToDelete();
     } else {
-        console.log('in deletion else');
         let index = postsToDelete.indexOf(imgToDelete);
         postsToDelete.splice(index, 1);
         console.log(postsToDelete);
@@ -221,7 +219,6 @@ function fileDropped(event){
         let file = droppedFiles[0]
         console.log(`dropped file ${file.name}`);
         mostRecentFile = file;
-        console.log(mostRecentFile.name)
         previewImgNow(file);
     }
 }
@@ -236,16 +233,12 @@ function previewImgNow(file){
     if (file.type.includes('image/')){
         fileReader.readAsDataURL(file);
         fileReader.addEventListener("load", function (){
-            console.log(`\n\n ${this.result} \n\n`);
             previewPostContainer.style.width = "1000px";
             previewImg.src=this.result;
             let currentImgPreview = document.querySelector('.post-pic-img');
             //previewImg.style.maxHeight = "35vh";
             let newWidth = currentImgPreview.clientWidth;
-            console.log(newWidth);
             let newWidthStr = newWidth.toString();
-            console.log(newWidthStr)
-            console.log(newWidthStr + "px");
             previewPostContainer.style.width = newWidthStr + "px";
             previewPostContainer.style.maxWidth = "100%";
         });

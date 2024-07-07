@@ -30,13 +30,11 @@ try{
     document.addEventListener('click', function(e){
         if (!document.querySelector('.opened-mobile-right-nav').contains(e.target) && openedMobileNav.classList.contains('active') && clickCount > 1){
             closeMobileNav();
-            console.log('if');
             clickCount = 1;
         } else if (openedMobileNav.classList.contains('inactive')){
             clickCount = 1;
         }else{
             clickCount+= 1;
-            console.log('else');
         }
     })
 } catch(err){

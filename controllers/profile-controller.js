@@ -537,10 +537,13 @@ module.exports = {
 
     //Implement updating of read status for notification.
     notificationRead: async (req, res) =>{
-        console.log(`notification read ${req.body.idString}`);
         let notificationId = req.body.idString;
         let userId = req.user._id;
         let result = await usersModel.markRead(notificationId, userId);
+
+        if (result == true){
+            console.log(`${new Date()} - ${req.user.username} read notification ${notificationId}`);
+        }
         res.status(200).json({message: 'Notification marked as read.'});
     }
 }
