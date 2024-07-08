@@ -14,8 +14,12 @@
     <% } %>
 </button>
 <div class="notifications-drop-down">
-    <h3>Notifications</h3>
-    
+    <div class="notifications-top">
+        <h3>Notifications</h3>
+        <button class="close-notifications-btn">
+            <img src="/imgs/icons/cross-icon.svg">
+        </button>
+    </div>
         <% if (notifications != undefined && count > 0) { %>
             <ul class="notifications-list"></ul>
             <% for (let index = 0; index < notifications.length; index++){ %>

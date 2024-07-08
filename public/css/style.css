@@ -186,6 +186,24 @@ nav img, .standard-logo{
     text-align: center;
 }
 
+.notifications-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-notifications-btn{
+    all: unset;
+}
+
+.close-notifications-btn:hover{
+    cursor: pointer;
+}
+
+.close-notifications-btn img{
+    width: 35px;
+    height: 35px;
+}
+
 /* mobile nav styling */
 
 @media screen and (max-width: 600px){
@@ -312,6 +330,7 @@ main {
     all: unset;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 .notification-btn img{
