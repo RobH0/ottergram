@@ -3,10 +3,6 @@ const notificationsDropDown = document.querySelectorAll('.notifications-drop-dow
 const notificationContainers = document.querySelectorAll('.notification-container');
 const closeNotifBtn = document.querySelectorAll('.close-notifications-btn');
 
-/*notificationBtns.addEventListener('click', (event) => {
-    manageDropDown(event.target);
-})*/
-
 notificationBtns.forEach((element) => element.addEventListener('click', (event) => { manageDropDown(event.target) }));
 
 console.log(closeNotifBtn);
@@ -63,7 +59,6 @@ async function markRead(notificationIdStr){
 }
 
 function manageDropDown(){
-    console.log('manageDropDown');
     notificationsDropDown.forEach((element) => {
         if (element.style.display == '' || element.style.display == 'none'){
             element.style.display = 'block';   
