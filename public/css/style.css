@@ -181,8 +181,9 @@ nav img, .standard-logo{
     color: rgb(139, 139, 139);
 }
 
-@media screen and (max-width: 600px) {
-    
+.no-notif-p{
+    margin-top: 38%;
+    text-align: center;
 }
 
 /* mobile nav styling */

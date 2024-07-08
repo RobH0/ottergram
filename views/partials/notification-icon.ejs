@@ -1,8 +1,10 @@
 <button class="notification-btn">
     <% let unread = false %>
+    <% let count = 0 %>
     <% for (let index = 0; index < notifications.length; index++){ %>
         <% if(notifications[index].read == false) { %>
             <% unread = true; %>
+            <% count += 1 %>
         <% } %>
     <% } %>
     <% if (notifications != undefined && notifications.length > 0 && unread) { %>
@@ -13,8 +15,9 @@
 </button>
 <div class="notifications-drop-down">
     <h3>Notifications</h3>
-    <ul class="notifications-list">
-        <% if (notifications != undefined) { %>
+    
+        <% if (notifications != undefined && count > 0) { %>
+            <ul class="notifications-list"></ul>
             <% for (let index = 0; index < notifications.length; index++){ %>
                 <% if (notifications[index].read == false){ %>
                     <li>
@@ -36,6 +39,8 @@
                     </li>
                 <% } %>
             <% } %>
+        <% } else { %>
+            <p class="no-notif-p">You have no new notifications</p>
         <% } %>
     </ul>
 </div>
