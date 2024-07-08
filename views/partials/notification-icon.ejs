@@ -1,0 +1,50 @@
+<button class="notification-btn">
+    <% let unread = false %>
+    <% let count = 0 %>
+    <% for (let index = 0; index < notifications.length; index++){ %>
+        <% if(notifications[index].read == false) { %>
+            <% unread = true; %>
+            <% count += 1 %>
+        <% } %>
+    <% } %>
+    <% if (notifications != undefined && notifications.length > 0 && unread) { %>
+        <img src="/imgs/icons/notification-icon-alert.svg" class="notification-icon">
+    <% } else { %>
+        <img src="/imgs/icons/notification-icon-empty.svg" class="notification-icon">
+    <% } %>
+</button>
+<div class="notifications-drop-down">
+    <div class="notifications-top">
+        <h3>Notifications</h3>
+        <button class="close-notifications-btn">
+            <img src="/imgs/icons/cross-icon.svg">
+        </button>
+    </div>
+        <% if (notifications != undefined && count > 0) { %>
+            <ul class="notifications-list"></ul>
+            <% for (let index = 0; index < notifications.length; index++){ %>
+                <% if (notifications[index].read == false){ %>
+                    <li>
+                        <div class="notification-container <%=notifications[index].id%>">
+                            <a href="<%=notifications[index].relatedURL%>">
+                                <% if (notifications[index].type == 'like'){ %>
+                                    <img src="/imgs/icons/like-red-black-outline.svg">
+                                <% } else if (notifications[index].type == 'comment') { %>
+                                    <img src="/imgs/icons/comment-black-outline.svg">
+                                <% } else if (notifications[index].type == 'follow') { %>
+                                    <img src="/imgs/icons/people-icon.svg">
+                                <% } %>
+                                <div class="notification-info">
+                                    <p><%=notifications[index].message%></p>
+                                    <span><%=notifications[index].date%></span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                <% } %>
+            <% } %>
+        <% } else { %>
+            <p class="no-notif-p">You have no new notifications</p>
+        <% } %>
+    </ul>
+</div>

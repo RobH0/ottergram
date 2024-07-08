@@ -40,6 +40,20 @@ body {
     padding: 0;
 }
 
+li {
+    all: unset;
+}
+
+ul {
+    all: unset;
+    margin: 0;
+    padding: 5px;
+    height: auto;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+}
+
 
 
 h1 {
@@ -126,6 +140,70 @@ nav img, .standard-logo{
     display: none;
 }
 
+.notifications-drop-down{
+    display: none;
+    position: absolute;
+    width: 400px;
+    height: 450px;
+    background-color: white;
+    border: thin solid black;
+    border-radius: 10px;
+    overflow-y: auto;
+    top: 90px;
+    right: 10px;
+    z-index: 4;
+    padding: 0 10px;
+    opacity: 1;
+}
+
+.notification-container{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px dotted black;
+}
+
+.notification-container a{
+    display: flex;
+    align-items: center;
+}
+
+.notification-info{
+    margin-left: 10px;
+}
+
+.notification-container p{
+    margin-block-start: 0;
+    margin-block-end: 0.1em;
+}
+
+.notification-container span{
+    font-size: 0.8em;
+    color: rgb(139, 139, 139);
+}
+
+.no-notif-p{
+    margin-top: 30%;
+    text-align: center;
+}
+
+.notifications-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-notifications-btn{
+    all: unset;
+}
+
+.close-notifications-btn:hover{
+    cursor: pointer;
+}
+
+.close-notifications-btn img{
+    width: 35px;
+    height: 35px;
+}
+
 /* mobile nav styling */
 
 @media screen and (max-width: 600px){
@@ -142,6 +220,10 @@ nav img, .standard-logo{
     .open-mobile-menu-btn img, .close-mobile-menu-btn img{
         width: 40px;
         height: 50px;
+    }
+    
+    .close-mobile-menu-btn{
+        margin: 5px;
     }
 
     .right-nav.desktop-right-nav{
@@ -160,21 +242,24 @@ nav img, .standard-logo{
         width: 80vw;
         height: 100vh;
         background-color: white;
-        opacity: 0.9;
+        /*opacity: 0.9;*/
     }
 
     .mobile-nav-container{
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
-    .mobile-nav-container *{
+    .mobile-nav-container > *, .mobile-nav-container .notification-btn{
         margin: 0;
         margin: 5px;
-        margin-left: 20px;
+        /*margin-left: 20px;*/
         height: 60px;
         width: auto;
         font-size: 1.1em;
+        justify-self: center;
+        align-self: center;
     }
 
     .mobile-nav-container img{
@@ -212,6 +297,23 @@ nav img, .standard-logo{
         justify-content: center;
         height: auto;
     }
+
+    .mobile-nav-container .notifications-drop-down{
+        min-height: 50vh;
+        width: 90vw;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-32%, -50%);
+    }
+
+    .mobile-nav-container .notification-container{
+        height: auto;
+    }
+
+    .mobile-nav-container .notifications-drop-down p{
+        font-size: 0.8em;
+    }
 }
 
 /* main feed styling */
@@ -222,6 +324,18 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.notification-btn{
+    all: unset;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.notification-btn img{
+    width: 40px;
+    height: 40px;
 }
 
 .filter-section{
@@ -542,15 +656,15 @@ nav .user-profile-pic{
     margin-right: 0;
 }
 
-.right-nav.four-items{
+.right-nav{
     width: auto;
 }
 
-.right-nav.four-items a{
+.right-nav a{
     margin: 0 5px 0 5px;
 }
 
-.right-nav.four-items form{
+.right-nav form{
     margin-left: 5px;
 }
 
@@ -751,6 +865,10 @@ nav .user-profile-pic{
     .profile-info-right{
         flex-direction: column;
         width: 100%;
+    }
+
+    .profile-info-right .profile-upper{
+        justify-content: center;
     }
 
     .profile-upper.otherUserProfile{
@@ -1006,9 +1124,9 @@ nav .user-profile-pic{
     width: 150px;
 }
 
-.nav-3 .right-nav{
+/*.nav-3 .right-nav{
     width: 300px;
-}
+}*/
 
 .settings-options-sec .bio-input{
     width: 300px;
@@ -1143,8 +1261,11 @@ main {
 
 .profile-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: auto;
+    width: auto;
 }
 
 .comments-section{

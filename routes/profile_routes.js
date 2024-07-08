@@ -23,7 +23,7 @@ router.post('/settings', ensureAuth, multer.single('changeProfilePic'),profileCo
 
 router.get('/user/:userId', ensureAuth, profileController.getUserProfile);
 router.patch('/user/follow', ensureAuth, profileController.followUser);
-router.patch('/user/unfollow', ensureAuth, profileController.unFollowerUser);
+router.patch('/user/unfollow', ensureAuth, profileController.unfollowUser);
 router.get('/user/:userId/followers', ensureAuth, profileController.getFollowers);
 router.get('/user/:userId/following', ensureAuth, profileController.getFollowing)
 
@@ -33,5 +33,7 @@ router.patch('/post/:postId/like', ensureAuth, profileController.likePost);
 router.get('/post/:postId', ensureAuth, profileController.getPostPage);
 router.post('/post/:postId/post-comment', ensureAuth, profileController.postComment);
 router.delete('/post/:postId/delete-comment', ensureAuth, profileController.deleteComment);
+
+router.patch('/notification-read', ensureAuth, profileController.notificationRead);
 
 module.exports = router;

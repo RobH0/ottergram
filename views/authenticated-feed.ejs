@@ -12,6 +12,8 @@
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav desktop-right-nav">
                 <a class="post-link" href="/new-post">New post <img src="/imgs/icons/plus.svg" alt="plus symbol"></a>
+                
+                <%- include('partials/notification-icon.ejs') %>
                 <% if (profilePic != "") { %>
                     <a href="/profile"><img class="user-profile-pic" src="<%= profilePic %>" alt="user's post"></a>
                 <% } else { %>
@@ -98,5 +100,6 @@
     <script src="/js/likeUnlike.js"></script>
     <script src="/js/feed-filter.js"></script>
     <script src="/js/manageMobileNav.js"></script>
+    <script src="/js/manageNotifications.js"></script>
 </body>
 </html>

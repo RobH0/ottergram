@@ -8,7 +8,6 @@ followBtn.forEach((element) => {
     
 
 async function followBtnClicked(event){
-    console.log(`event.target.innerhtml: ${event.target.innerHTML}`);
     let btnText = event.target.innerHTML;
 
     if( btnText == 'Follow'){
@@ -25,15 +24,12 @@ async function followBtnClicked(event){
 
 async function followUser(target){
     console.log('following user');
-    console.log(window.location.href.split('/')[4]);
     const endpoint = '/user/follow'
-    console.log(endpoint);
     let userToFollowVal;
     if (window.location.href.includes('/profile/following')){
         let anchorElem = target.parentNode.querySelector('.left-list-item a');
         userToFollowVal = anchorElem.getAttribute("href");
         userToFollowVal = JSON.stringify({ userToFollow: userToFollowVal.split('/')[2]});
-        console.log(`userToFollow ${userToFollowVal}`);
     } else {
         userToFollowVal = JSON.stringify({ userToFollow: window.location.href.split('/')[4]});
     }
@@ -58,12 +54,9 @@ async function unfollowUser(target){
     if (window.location.href.includes('/profile/following')){
         let anchorElem = target.parentNode.querySelector('.left-list-item a');
         userToUnfollowVal = anchorElem.getAttribute("href");
-        userToUnfollowVal = JSON.stringify({ userToUnfollow: userToUnfollowVal.split('/')[2]});
-        console.log(`userToFollow ${userToUnfollowVal}`);
+        userToUnfollowVal = JSON.stringify({ userToUnfollow: userToUnfollowVal.split('/')[2]}); 
     } else {
-        console.log(`current window: ${window.location.href}`);
         userToUnfollowVal = JSON.stringify({ userToUnfollow: window.location.href.split('/')[4]});
-        console.log(`else userToUnfollowVal: ${userToUnfollowVal}`)
     }
 
 

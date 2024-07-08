@@ -12,6 +12,7 @@
             <a href="/"><img class="standard-logo" src="/imgs/icons/otter-logo.svg" alt="Ottergram logo"></a>
             <div class="right-nav desktop-right-nav">
                 <a href="/">Feed</a>
+                <%- include('partials/notification-icon.ejs') %>
                 <% if (userInfo.profilePic != "") { %>
                     <a href="/profile"><img class="user-profile-pic" src="<%= userInfo.profilePic %>" alt="user's post"></a>
                 <% } else { %>
@@ -81,5 +82,6 @@
     </main>
     <script src="/js/main.js"></script>
     <script src="/js/manageMobileNav.js"></script>
+    <script src="/js/manageNotifications.js"></script>
 </body>
 </html>
