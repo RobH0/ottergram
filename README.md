@@ -24,7 +24,7 @@ MongoDB stores data relating to user profiles, posts, likes, comments, and sessi
 
 Given more time, I would like to make the following improvements:
 - Implement a direct messaging feature that allows users to text chat with one another.
-- Provide authenticated users with the ability to search for other users' profiles via a search bar.
+- Provide authenticated users the ability to search for other users' profiles via a search bar.
 - Alter profile settings to include an option allowing the authenticated user to delete their account.
 - Add ability for a user to directly reply to another user's comment.
 - Design a landing page.
