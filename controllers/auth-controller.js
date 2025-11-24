@@ -9,6 +9,8 @@ module.exports = {
             let loginUsername = req.body.username;
             let loginPassword = req.body.password;
             let invalidCredsMsg = ["Incorrect credentials entered.", "Please try again or <a href='/register'>create a new account</a>."]
+
+            console.log(`${new Date()} - ${req.ip} - Attempting to login to ${loginUsername} account`);
             
             if(loginUsername != undefined && loginUsername != "" && loginPassword != undefined && loginPassword != ""){
                 // Utilizes the passport local strategy configured in ../config/passport-config.js to authenticate the user to allow for additional authentication stratgies to be used in future.
@@ -25,7 +27,7 @@ module.exports = {
                             console.log('login err') 
                             return next(err.toString())
                         }
-                        console.log(`'${loginUsername.username}' successfully logged in.`);
+                        console.log(`${new Date()} - ${req.ip} - ${loginUsername.username} successfully logged in`);
                         res.redirect('/feed');
                     });
                 })(req, res, next);
@@ -47,6 +49,8 @@ module.exports = {
             let invalidCredsMsg = ["Please ensure that both the Username and Password fields are filled out."]
             let existingUsernamesLowerCase = await UsersModel.getAllUsernames();
             let newUsernameLowerCase = newUsername.toLowerCase();
+
+            console.log(`${new Date()} - ${req.ip} attempting to register user: ${newUsername}`);
             
             if (newUsername == "" || newPassword == ""){
                 req.flash('error', invalidCredsMsg)
@@ -68,7 +72,7 @@ module.exports = {
                 let result = await UsersModel.addNewUser(hashedPassword, newUsername);
                 
                 if (result === true){
-                    console.log(`Created new user account: ${newUsername}.`);
+                    console.log(`${req.ip} created new user account: ${newUsername}.`);
                     res.redirect('/login');
                 } else if ( result === false){
                     req.flash('error', ['Username has already been taken.']);
@@ -88,7 +92,7 @@ module.exports = {
         let username = req.user.username;
         try{
             req.logout(() => {
-                console.log(`Logged out ${username}.`);
+                console.log(`${new Date()} - ${req.ip} Logged out ${username}.`);
                 res.redirect('/');
             });
         }catch (err){
