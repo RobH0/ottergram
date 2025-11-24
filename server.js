@@ -21,6 +21,7 @@ class NodeMain{
         
         await this.mongo.init();
 
+        this.app.set('trust proxy', '127.0.0.1')
         this.app.set('view engine', 'ejs');
         this.app.use(this.express.static('public'));
 
